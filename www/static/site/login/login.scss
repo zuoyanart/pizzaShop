@@ -1,0 +1,29 @@
+@import "../../sass/variables.scss";
+body{
+  background-color:#2E363F;
+}
+.#{$namespace}login{
+  width: 360px;
+  height: 342px;
+  margin: 7% auto;
+  padding:40px 0;
+  border-top:1px solid #3f4954;
+  border-bottom:1px solid #3f4954;
+  & > h2 {
+    font-weight: 700;
+    color:#fff;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  & > .#{$namespace}login-content{
+    width: 100%;
+    height: 343px;
+    padding: 20px;
+    & > div{
+      padding-bottom: 40px;
+      & > button{
+        float: right;
+      }
+    }
+  }
+}

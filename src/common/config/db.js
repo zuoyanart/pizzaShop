@@ -11,7 +11,7 @@ export default {
     mysql: {
       host: "192.168.1.117",
       port: "",
-      database: "pizzaCms", //数据库名称
+      database: "pizzaShop", //数据库名称
       user: "root", //数据库帐号
       password: "huabinglan@@227", //数据库密码
       prefix: "pz_",

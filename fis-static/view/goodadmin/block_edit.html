@@ -1,0 +1,31 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 文章管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list" id="list">
+<div class="form"  style="width:800px;">
+  <div><label for="">标题</label><input type="text" id="title" name="title"></div>
+  <div><label for="">正文</label><textarea name="name" rows="20" cols="40" id="content" name="content"></textarea></div>
+  <div><input type="submit" class="btn btn-primary" value="更新"></div>
+</div>
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+<script type="text/javascript">
+  var modules = require('home/module');
+  KindEditor.ready(function(K) {
+
+    window.editor = K.create('#content', {
+      uploadJson: '/upfile/local',
+      allowFileManager: false
+    });
+
+    modules.get();
+    modules.edit();
+  });
+</script>
+{% endblock %}

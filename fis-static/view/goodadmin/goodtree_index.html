@@ -1,0 +1,25 @@
+{% extends  "../master/index.html"  %}
+
+{% block css %}
+<link rel="stylesheet" href="/site/home/tree/tree.css">
+{% endblock%}
+
+{% block title %}
+ 节点管理
+ {% endblock %}
+ <!---->
+{% block content %}
+<div class="menu">
+
+</div>
+<ul class="treelist" id="treelist">
+  <li id="1" path="path,1,"><b class="icon-home"></b>&nbsp;&nbsp;<em>首页</em><span><a href="/home/tree/edit?pid=1">添加子节点</a></span></li>
+</ul>
+ {% endblock %}
+ <!---->
+ {% block js %}
+ <script type="text/javascript">
+  var tree = require('home/tree/tree');
+  tree.init();
+ </script>
+ {% endblock %}

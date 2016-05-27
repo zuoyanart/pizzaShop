@@ -1,0 +1,52 @@
+@import "../../../sass/variables.scss";
+
+#main {
+    & > ul.treelist{
+      background-color: #fff;
+      min-height: 1000px;
+      padding-top: 1px;
+      border-radius: 5px;
+      & > li{
+        border-bottom:1px solid #ddd;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 10px;
+        cursor: pointer;
+        &:hover{
+          background-color: #f9f9f9;
+          & > span{
+            display: inline;
+          }
+        }
+        &.display{
+          display: none;
+        }
+        & > .indent{
+          display: inline-block;
+          width: 10px;
+          height: 37px;
+          vertical-align: middle;
+          margin-left: 10px;
+          border-left:1px dotted #8f8a8a;
+          margin-top: -3px;
+        }
+        & > .icon-add, .icon-sub{
+          font-size: 20px;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
+        & > em {
+          color:#1b8ac2;
+        }
+        & > span{
+          display: none;
+          margin-left: 10px;
+          color:#666;
+          & > i,a{
+            margin-right: 10px;
+            color:#666;
+          }
+        }
+      }
+    }
+}
