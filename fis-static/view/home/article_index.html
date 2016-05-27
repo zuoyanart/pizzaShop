@@ -1,0 +1,19 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 文章管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <label class="checkgroup">
+    <input type="checkbox" id="checkall" name="checkall"><label for="checkall" class="check-all"></label>全选
+  </label>|<a href="/article/edit">添加</a>|<em class="pass">审核</em>|<em class="remove">删除</em>|<select style="width:200px;" id="node" name="node" val="1"></select>
+</div>
+<ul class="list" id="list">
+
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script type="text/javascript">
+  var article = require('home/article');
+  article.init();
+</script>
+{% endblock %}

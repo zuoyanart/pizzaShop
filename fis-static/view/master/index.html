@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/common/common.css">
+    <link rel="stylesheet" href="/site/home/base.css" >
+    {% block css %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<div id="header">
+		<h1><i class="icon-pizza"></i>Pizza Admin</h1>
+	</div>
+	<div id="user-nav">
+		<ul>
+			<li><i class="icon-person"></i><span id="userinfo"></span></li>
+			<li><a href="javascript:void(0);" id="loginout"><i class="icon-loginout"></i>退出</a></li>
+		</ul>
+	</div>
+	<div id="search">
+		<input type="search" id="searchkw">
+	</div>
+	<div id="sidebar">
+		<ul>
+			<li><a href="/" class=""><i class="icon-home"></i>主页</a></li>
+			<li>
+				<a href="#" class="submenu"><i class="icon-article"></i>信息管理</a>
+				<ul>
+					<li><a href="/tree">节点管理</a></li>
+					<li><a href="/article">文章管理</a></li>
+					<li><a href="/block">模块管理</a></li>
+				</ul>
+			</li>
+			<li>
+        <a href="#" class="submenu"><i class="icon-setting"></i>系统管理</a>
+        <ul>
+					<li><a href="/user">管理员管理</a></li>
+					<li><a href="/usergroup">用户组管理</a></li>
+					<li><a href="/power">权限分配</a></li>
+					<!-- <li><a href="/article">系统设置</a></li>
+					<li><a href="/module"></a></li> -->
+				</ul>
+      </li>
+		</ul>
+	</div>
+	<div id="main">
+		{% block content %}{%endblock%}
+	</div>
+	<div class="row-fluid"></div>
+	<script type="text/javascript">
+  var globleConfig = require('globle/globle');
+  globleConfig.init();
+	var common = require('common/common');
+	common.init();
+	</script>
+    {% block js %}{%endblock%}
+</body>
+
+</html>

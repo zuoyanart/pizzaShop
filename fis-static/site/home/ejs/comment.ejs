@@ -1,0 +1,8 @@
+<ul class="list commentlist">
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li id="comment_<%= data[i].id%>">
+    <a href="javascript:void(0);"><%= data[i].content%></a>
+    <span><i class="commentRemove">删除</i></span>
+  </li>
+<%}%>
+</ul>

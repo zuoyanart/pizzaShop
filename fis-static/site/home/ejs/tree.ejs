@@ -1,0 +1,11 @@
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+    <li class="pid<%= data[i].pid%>" path="<%= data[i].nodepath%>" id="<%= data[i].id%>">
+      <%var deep = data[i].nodepath.split(',').length - 3 %>
+      <%for(var j=0;j<deep;j++) {%>
+        <b class="indent"></b>
+      <%}%>
+      <i class="icon-add"></i>
+      <em><%= data[i].name%></em>
+      <span><a href="/home/tree/edit?id=<%= data[i].id%>">编辑</a><a href="/home/tree/edit?pid=<%= data[i].id%>">添加子节点</a></span>
+    </li>
+<%}%>

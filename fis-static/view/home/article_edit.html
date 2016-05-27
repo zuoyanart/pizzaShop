@@ -1,0 +1,60 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 文章管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list" id="list">
+<div class="form"  style="width:800px;">
+  <div><label for="">标题</label><input type="text" id="title" name="title"></div>
+  <div><label for="">节点</label><select  id="nodeid" name="nodeid" ></select></div>
+  <div><label for="">标题图片</label><input type="text" style="width:610px;margin-right:7px;" id="timg" name="timg"><input type="button" id="timgup" value="选择图片" /></div>
+  <div><label for="">文章连接</label><input type="text" id="link" name="link"></div>
+  <div><label for="">文章来源</label><input type="text" id="source" name="source"></div>
+  <div><label for="">描述</label><textarea rows="5" cols="40" id="brief" name="brief"></textarea></div>
+  <div><label for="">正文</label><textarea rows="20" cols="40" id="content" name="content"></textarea></div>
+  <div><label for="">标签</label><input type="text" id="tags" name="tags"></div>
+  <div><label for=""></label><select name="pass" id="pass" class="select" style="width:150px;">
+    <option value="1" selected="selected">审核</option>
+    <option value="0">未审核</option>
+  </select>
+  &nbsp;&nbsp;<select name="reco" id="reco" class="select" style="width:150px;">
+    <option value="0" selected="selected">不推荐</option>
+    <option value="1">1级推荐</option>
+  </select>
+</div>
+  <div><input type="submit" class="btn btn-primary" value="更新"></div>
+</div>
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+<script type="text/javascript">
+  var article = require('home/article');
+
+  //article.init();
+  KindEditor.ready(function(K) {
+
+    window.editor = K.create('#content', {
+      uploadJson: '/upfile/local',
+      allowFileManager: false
+    });
+
+    K('#timgup').click(function() {
+      editor.loadPlugin('image', function() {
+        editor.plugin.imageDialog({
+          imageUrl: K('#timg').val(),
+          clickFn: function(url, title, width, height, border, align) {
+            K('#timg').val(url);
+            editor.hideDialog();
+          }
+        });
+      });
+    });
+
+     article.get();
+    //  article.edit();
+  });
+</script>
+{% endblock %}

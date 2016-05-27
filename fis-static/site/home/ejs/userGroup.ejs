@@ -1,0 +1,17 @@
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li>
+    <label class="checkgroup">
+      <input type="checkbox" id="group_<%= data[i].id%>" name="checkall">
+      <label for="<%= data[i].id%>" class="check-all"></label>
+    </label>
+    <a href="">
+      <%= data[i].name%>
+    </a>
+    <span><a href="/usergroup/edit?id=<%= data[i].id%>">编辑</a><i class="actionRole">查看角色</i><a href="/role/edit?groupid=<%= data[i].id%>">添加角色</a>
+      <% if(data[i].state == -1){%>
+        <i class="pass">取消冻结</i>
+        <%} else {%>
+          <i class="pass">冻结</i>
+          <%}%>
+  </li>
+  <%}%>

@@ -1,0 +1,34 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 编辑添加节点 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list" id="list">
+<div class="form"  style="width:800px;">
+  <div><label for="">标题</label><input type="text" id="name" name="name"></div>
+  <div><label for="">连接地址</label><input type="text" id="link" name="link"></div>
+  <div><label for="">描述</label><textarea name="name" rows="20" cols="40" id="brief" name="brief"></textarea></div>
+  <div><label for="">权重</label><input type="number" value="0" id="weight" name="weight"/></div>
+  <div><input type="submit" class="btn btn-primary" value="更新"></div>
+</div>
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+<script type="text/javascript">
+  var tree = require('home/tree/tree');
+  //article.init();
+  KindEditor.ready(function(K) {
+
+    window.editor = K.create('#brief', {
+      uploadJson: '/upfile/local',
+      allowFileManager: false
+    });
+
+    tree.get();
+    tree.edit();
+  });
+</script>
+{% endblock %}
