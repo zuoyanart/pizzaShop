@@ -24,7 +24,7 @@
       .replace(/'/g, '&#39;')
       .replace(/"/g, '&quot;');
   };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\r\n<%}%>\r\n", filename: "site/home/ejs/tree.ejs" };
+  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\n<%}%>\r\n", filename: "site/home/ejs/tree.ejs" };
   function rethrow(err, str, filename, lineno){
     var lines = str.split('\n')
       , start = Math.max(lineno - 3, 0)

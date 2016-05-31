@@ -29,7 +29,7 @@ define('home/usergroup/usergroup', function(require, exports, module) {
       .replace(/'/g, '&#39;')
       .replace(/"/g, '&quot;');
   };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li>\r\n    <label class=\"checkgroup\">\r\n      <input type=\"checkbox\" id=\"group_<%= data[i].id%>\" name=\"checkall\">\r\n      <label for=\"<%= data[i].id%>\" class=\"check-all\"></label>\r\n    </label>\r\n    <a href=\"\">\r\n      <%= data[i].name%>\r\n    </a>\r\n    <span><a href=\"/usergroup/edit?id=<%= data[i].id%>\">编辑</a><i class=\"actionRole\">查看角色</i><a href=\"/role/edit?groupid=<%= data[i].id%>\">添加角色</a>\r\n      <% if(data[i].state == -1){%>\r\n        <i class=\"pass\">取消冻结</i>\r\n        <%} else {%>\r\n          <i class=\"pass\">冻结</i>\r\n          <%}%>\r\n  </li>\r\n  <%}%>\r\n", filename: "site/home/ejs/userGroup.ejs" };
+  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\n  <li>\n    <label class=\"checkgroup\">\n      <input type=\"checkbox\" id=\"group_<%= data[i].id%>\" name=\"checkall\">\r\n      <label for=\"<%= data[i].id%>\" class=\"check-all\"></label>\n    </label>\n    <a href=\"\">\n      <%= data[i].name%>\n    </a>\n    <span><a href=\"/usergroup/edit?id=<%= data[i].id%>\">编辑</a><i class=\"actionRole\">查看角色</i><a href=\"/role/edit?groupid=<%= data[i].id%>\">添加角色</a>\r\n      <% if(data[i].state == -1){%>\n        <i class=\"pass\">取消冻结</i>\n        <%} else {%>\n          <i class=\"pass\">冻结</i>\n          <%}%>\n  </li>\n  <%}%>\r\n", filename: "site/home/ejs/userGroup.ejs" };
   function rethrow(err, str, filename, lineno){
     var lines = str.split('\n')
       , start = Math.max(lineno - 3, 0)
