@@ -52,7 +52,7 @@ fis.match("**/*", {
         id: '$2',
         url: '${url}/$&'
     })
-    .match(/^\/widget\/kindeditor-4.1.10\/(.*)\.(js)$/i, {
+    .match("/widget/kindeditor-4.1.10/**.js", {
         isMod: false,
         url: '${url}/$&'
     })
@@ -80,7 +80,10 @@ fis.match('::packager', {
     postpackager: fis.plugin('loader', {
         resourceType: 'mod',
         obtainScript: true,
-        allInOne: true,
+        allInOne: {
+          ignore: ["/widget/kindeditor-4.1.10/kindeditor.js", "/widget/kindeditor-4.1.10/lang/zh_CN.js"],
+          includeAsyncs: false//不包含异步依赖
+        },
         useInlineMap: true, // 资源映射表内嵌
     }),
     packager: fis.plugin('map', {

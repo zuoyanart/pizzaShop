@@ -21,16 +21,6 @@ export default class extends Base {
             let docs = await this.model("pinpai").page(param.kw, param.cp, param.mp);
             return this.json(docs);
         }
-        /**
-         *  返回所有的节点列表
-         * @method pageallAction
-         * @return {[type]}      [description]
-         */
-    async pageallAction() {
-            // let node = await tools.httpAgent(this.config("api") + 'node/pageall', "get");
-            let node = await this.model("tree").pageall();
-            return this.json(node);
-        }
         //编辑节点
     editAction() {
         return this.display();
@@ -42,9 +32,9 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
     async getAction() {
-        // let node = await tools.httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
-        let node = await this.model("tree").get(this.post("id"));
-        return this.json(node);
+        // let pinpai = await tools.httpAgent(this.config("api") + 'pinpai/' + this.post("id"), "get");
+        let pinpai = await this.model("pinpai").get(this.post("id"));
+        return this.json(pinpai);
     }
 
     /**
@@ -56,9 +46,9 @@ export default class extends Base {
         let p = this.post();
         p.id = parseInt(p.id);
         p.weight = parseInt(p.weight);
-        // let node = await tools.httpAgent(this.config("api") + 'node', "put", p);
-        let node = await this.model("tree").nodeUpdate(p);
-        if (node.state == true) {
+        // let pinpai = await tools.httpAgent(this.config("api") + 'pinpai', "put", p);
+        let pinpai = await this.model("pinpai").edit(p);
+        if (pinpai.state == true) {
             return this.json({
                 "state": true
             });
@@ -75,19 +65,31 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async createAction() {
-        let p = tools.xss(this.post());
-        p.weight = parseInt(p.weight);
-        console.log(p);
-        let node = await this.model("pinpai").create(p);
-        if (node.state == true) {
-            return this.json({
-                "state": true
-            });
-        } else {
-            return this.json({
-                "state": false
-            });
+            let p = tools.xss(this.post());
+            p.weight = parseInt(p.weight);
+            let pinpai = await this.model("pinpai").create(p);
+            if (pinpai.state == true) {
+                return this.json({
+                    "state": true
+                });
+            } else {
+                return this.json({
+                    "state": false
+                });
+            }
         }
+        /**
+         * 删除品牌
+         * @method removeAction
+         * @return {[type]}     [description]
+         */
+    async removeAction() {
+        let p = tools.xss(this.post());
+        let pinpai = await this.model("pinpai").remove(p.id);
+        return this.json({
+            "state": true
+        });
+
     }
 
 

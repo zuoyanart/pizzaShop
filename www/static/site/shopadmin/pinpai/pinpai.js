@@ -95,7 +95,6 @@ define('shopadmin/pinpai/pinpai', function(require, exports, module) {
               for (var key in msg.msg) {
                 $('#' + key).val(msg.msg[key]);
               }
-              editor.html(msg.msg.content);
             }
           }
         });
@@ -158,7 +157,7 @@ define('shopadmin/pinpai/pinpai', function(require, exports, module) {
               data: data,
               success: function(msg) {
                 if (msg.state == true) {
-                  // history.back();
+                  history.back();
                 }
               }
             });

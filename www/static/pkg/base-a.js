@@ -1802,7 +1802,7 @@
   	my.getCheckId = function(obj) {
   		var id = '';
   		if (obj.is('i')) {
-  			id = obj.parent().parent().find('input[type=checkbox]').attr('id') + ',';
+  			id = obj.parent().parent().find('input[type=checkbox]').attr('id').split('_')[1] + ',';
   		} else {
   			$('#list').find('input:checked').each(function(key, value) {
   				id += $(value).attr('id').split('_')[1] + ',';
@@ -1861,10 +1861,11 @@
   	 * @return {[type]} [description]
   	 */
   	function sidebarBind() {
-  		var url = document.location.href.split('/')[3].split('#')[0];
+  		var url = document.location.href.replace('http://' + location.host,'').split('#')[0];
+  		console.log(url);
   		var sidebar = $('#sidebar');
   		sidebar.find('.active').removeClass('active');
-  		var a = sidebar.find('a[href="/'+url+'"]');
+  		var a = sidebar.find('a[href="'+url+'"]');
   		a.addClass('active');
   		if(a.parent().parent().parent().attr("id") != 'sidebar') {
   			//a.parent().parent().addClass('display').fadeIn();

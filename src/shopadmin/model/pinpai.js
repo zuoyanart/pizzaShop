@@ -42,8 +42,8 @@ export default class extends think.model.base {
          * @param  {[type]} node [description]
          * @return {[type]}      [description]
          */
-    async nodeUpdate(node) {
-            let row = await this.update(node);
+    async edit(pinpai) {
+            let row = await this.update(pinpai);
             return {
                 state: true
             }
@@ -66,12 +66,13 @@ export default class extends think.model.base {
          * @method pageall
          * @return {[type]} [description]
          */
-    async pageall() {
-        let rows = await this.where("1=1").order(["pid asc", "weight desc", "id asc"]).select();
+    async remove(id) {
+        let row = await this.where({
+            id: ["IN", id.split(',')]
+        }).delete();
         return {
-            state: true,
-            msg: rows
-        };
+            state: true
+        }
     }
 
 }

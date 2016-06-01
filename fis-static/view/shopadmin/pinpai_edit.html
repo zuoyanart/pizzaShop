@@ -19,17 +19,19 @@
 <!---->
 {% block js %}
 <script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
-<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
 <script type="text/javascript">
-  var pinpai = require('shopadmin/pinpai/pinpai');
+var pinpai = require('shopadmin/pinpai/pinpai');
+pinpai.get();
+pinpai.edit();
   KindEditor.ready(function(K) {
 				var editor = K.editor({
-          uploadJson: '/upfile/local',
-					allowFileManager : true
+          uploadJson: '/upfile/local'
 				});
 				K('#timgup').click(function() {
 					editor.loadPlugin('image', function() {
 						editor.plugin.imageDialog({
+              showRemote : false,
 							imageUrl : K('#logo').val(),
 							clickFn : function(url, title, width, height, border, align) {
 								K('#logo').val(url);
@@ -38,8 +40,6 @@
 						});
 					});
 				});
-        pinpai.get();
-        pinpai.edit();
   });
 </script>
 {% endblock %}

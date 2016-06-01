@@ -50,7 +50,6 @@ var pinpai = (function() {
             for (var key in msg.msg) {
               $('#' + key).val(msg.msg[key]);
             }
-            editor.html(msg.msg.content);
           }
         }
       });
@@ -113,7 +112,7 @@ var pinpai = (function() {
             data: data,
             success: function(msg) {
               if (msg.state == true) {
-                // history.back();
+                history.back();
               }
             }
           });
