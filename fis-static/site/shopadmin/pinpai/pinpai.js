@@ -132,9 +132,7 @@ var pinpai = (function() {
       url: options.url + 'page',
       data: 'cp=' + options.cp + '&mp=' + options.mp + '&kw=' + $.trim($('#searchkw').val()),
       success: function(msg) {
-        var s = options.tpl({
-          data: msg.msg
-        });
+        let s = new EJS({text: options.tpl}).render({data: msg.msg});
         if (cp == 1) {
           $('#list').html(s);
         } else {

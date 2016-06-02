@@ -229,100 +229,14 @@
     var my = {};
     var options = {
       url: '/home/usergroup/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\n  <li>\n    <label class=\"checkgroup\">\n      <input type=\"checkbox\" id=\"group_<%= data[i].id%>\" name=\"checkall\">\r\n      <label for=\"<%= data[i].id%>\" class=\"check-all\"></label>\n    </label>\n    <a href=\"\">\n      <%= data[i].name%>\n    </a>\n    <span><a href=\"/usergroup/edit?id=<%= data[i].id%>\">编辑</a><i class=\"actionRole\">查看角色</i><a href=\"/role/edit?groupid=<%= data[i].id%>\">添加角色</a>\r\n      <% if(data[i].state == -1){%>\n        <i class=\"pass\">取消冻结</i>\n        <%} else {%>\n          <i class=\"pass\">冻结</i>\n          <%}%>\n  </li>\n  <%}%>\r\n", filename: "site/home/ejs/userGroup.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li>\n    <label class="checkgroup">\n      <input type="checkbox" id="group_', escape((__stack.lineno=4,  data[i].id)), '" name="checkall">\n      <label for="', escape((__stack.lineno=5,  data[i].id)), '" class="check-all"></label>\n    </label>\n    <a href="">\n      ', escape((__stack.lineno=8,  data[i].name)), '\n    </a>\n    <span><a href="/usergroup/edit?id=', escape((__stack.lineno=10,  data[i].id)), '">编辑</a><i class="actionRole">查看角色</i><a href="/role/edit?groupid=', escape((__stack.lineno=10,  data[i].id)), '">添加角色</a>\n      ');__stack.lineno=11; if(data[i].state == -1){; buf.push('\n        <i class="pass">取消冻结</i>\n        ');__stack.lineno=13;} else {; buf.push('\n          <i class="pass">冻结</i>\n          ');__stack.lineno=15;}; buf.push('\n  </li>\n  ');__stack.lineno=17;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\n  <li>\n    <label class=\"checkgroup\">\n      <input type=\"checkbox\" id=\"group_<%= data[i].id%>\" name=\"checkall\">\r\n      <label for=\"<%= data[i].id%>\" class=\"check-all\"></label>\n    </label>\n    <a href=\"\">\n      <%= data[i].name%>\n    </a>\n    <span><a href=\"/usergroup/edit?id=<%= data[i].id%>\">编辑</a><i class=\"actionRole\">查看角色</i><a href=\"/role/edit?groupid=<%= data[i].id%>\">添加角色</a>\r\n      <% if(data[i].state == -1){%>\n        <i class=\"pass\">取消冻结</i>\n        <%} else {%>\n          <i class=\"pass\">冻结</i>\n          <%}%>\n  </li>\n  <%}%>\r\n",
       cp: 1,
       mp: 20
     };
   
     var roleOptions = { //评论相关操作
       url: '/home/role/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<ul class=\"list rolelist\">\r\n<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li id=\"role_<%= data[i].id%>\">\r\n    <a href=\"javascript:void(0);\"><%= data[i].name%></a>\r\n    <span><i class=\"roleRemove\">冻结</i></span>\r\n  </li>\r\n<%}%>\r\n</ul>\r\n", filename: "site/home/ejs/role.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('<ul class="list rolelist">\n');__stack.lineno=2;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li id="role_', escape((__stack.lineno=3,  data[i].id)), '">\n    <a href="javascript:void(0);">', escape((__stack.lineno=4,  data[i].name)), '</a>\n    <span><i class="roleRemove">冻结</i></span>\n  </li>\n');__stack.lineno=7;}; buf.push('\n</ul>\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
+      tpl: "<ul class=\"list rolelist\">\r\n<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li id=\"role_<%= data[i].id%>\">\r\n    <a href=\"javascript:void(0);\"><%= data[i].name%></a>\r\n    <span><i class=\"roleRemove\">冻结</i></span>\r\n  </li>\r\n<%}%>\r\n</ul>\r\n",
       cp: 1,
       mp: 20
     }

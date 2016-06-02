@@ -15,18 +15,22 @@ fis.hook('commonjs', {
 fis.match("**/*", {
         release: '${statics}/$&'
     })
-    .match("**/*.ejs", {
-        parser: fis.plugin('ejs'),
-        isJsLike: true,
+    .match(/^\/site\/(common|home|login)\/(.*)\.(ejs)$/i, {
+        isHtmlLike: true,
         release: false
-    }).match('**/**.es', {
+    })
+    .match(/^\/site\/(shopadmin)\/(.*)\.(ejs)$/i, {
+        isHtmlLike: true,
+        release: false
+    })
+    .match(/^\/(widget|site)\/(.*)\.(es)$/i, {
         parser: fis.plugin('babel-5.x', {
-             sourceMaps: true,//启用调试
+            sourceMaps: true, //启用调试
             // blacklist: ['regenerator'],
             stage: 3 //ES7不同阶段语法提案的转码规则（共有4个阶段）
         }),
         isMod: true,
-        id: "$0",
+        id: "$2",
         rExt: 'js'
     })
     //modules下面都是模块化资源
@@ -35,7 +39,7 @@ fis.match("**/*", {
         id: '$1', //id支持简写，去掉modules和.js后缀中间的部分
         release: '${statics}/$&',
         url: '${url}/$&',
-        //optimizer: fis.plugin('uglify-js')
+        optimizer: fis.plugin('uglify-js')
     })
     //page下面的页面发布时去掉page文件夹
     .match(/^\/view\/(common|home|login|master|shopadmin)\/(.*)\.(html)$/i, {
@@ -81,8 +85,8 @@ fis.match('::packager', {
         resourceType: 'mod',
         obtainScript: true,
         allInOne: {
-          ignore: ["/widget/kindeditor-4.1.10/kindeditor.js", "/widget/kindeditor-4.1.10/lang/zh_CN.js"],
-          includeAsyncs: false//不包含异步依赖
+            ignore: ["/widget/kindeditor-4.1.10/kindeditor.js", "/widget/kindeditor-4.1.10/lang/zh_CN.js",'/lib/ejs.js'],
+            includeAsyncs: false //不包含异步依赖
         },
         useInlineMap: true, // 资源映射表内嵌
     }),

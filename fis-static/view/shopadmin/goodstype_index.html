@@ -1,0 +1,19 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 商品类型管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <label class="checkgroup">
+    <input type="checkbox" id="checkall" name="checkall"><label for="checkall" class="check-all"></label>全选
+  </label>|<a href="/shopadmin/goodstype/edit">添加</a>|<em class="remove">删除</em>
+</div>
+<ul class="list" id="list">
+
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script type="text/javascript">
+  var goodstype = require('shopadmin/goodstype/goodstype');
+  goodstype.init();
+</script>
+{% endblock %}

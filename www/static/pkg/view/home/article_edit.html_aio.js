@@ -14,50 +14,7 @@
     var my = {};
     var options = {
       url: '/home/tree/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\n<%}%>\r\n", filename: "site/home/ejs/tree.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n    <li class="pid', escape((__stack.lineno=2,  data[i].pid)), '" path="', escape((__stack.lineno=2,  data[i].nodepath)), '" id="', escape((__stack.lineno=2,  data[i].id)), '">\n      ');__stack.lineno=3;var deep = data[i].nodepath.split(',').length - 3 ; buf.push('\n      ');__stack.lineno=4;for(var j=0;j<deep;j++) {; buf.push('\n        <b class="indent"></b>\n      ');__stack.lineno=6;}; buf.push('\n      <i class="icon-add"></i>\n      <em>', escape((__stack.lineno=8,  data[i].name)), '</em>\n      <span><a href="/home/tree/edit?id=', escape((__stack.lineno=9,  data[i].id)), '">编辑</a><a href="/home/tree/edit?pid=', escape((__stack.lineno=9,  data[i].id)), '">添加子节点</a></span>\n    </li>\n');__stack.lineno=11;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0]
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\n<%}%>\r\n"
     };
   
     /**
@@ -511,100 +468,14 @@
     var my = {};
     var options = {
       url: '/home/article/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li>\r\n    <label class=\"checkgroup\">\r\n      <input type=\"checkbox\" id=\"article_<%= data[i].id%>\" name=\"checkall\"><label for=\"article_<%= data[i].id%>\" class=\"check-all\"></label>\r\n    </label>\r\n    <a href=\"\">[<%= data[i].nodename%>] <%= data[i].title%></a>\r\n    <% if(data[i].pass == 0){%>\r\n    <b>[未审核]</b>\r\n    <%}%>\r\n    <span><a href=\"/article/edit?id=<%= data[i].id%>\">编辑</a><i class=\"comment\">评论</i>\r\n      <% if(data[i].pass == 1){%>\r\n      <i class=\"pass\">取消审核</i>\r\n      <%} else {%>\r\n        <i class=\"pass\">审核</i>\r\n      <%}%>\r\n        <i class=\"remove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n", filename: "site/home/ejs/article.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li>\n    <label class="checkgroup">\n      <input type="checkbox" id="article_', escape((__stack.lineno=4,  data[i].id)), '" name="checkall"><label for="article_', escape((__stack.lineno=4,  data[i].id)), '" class="check-all"></label>\n    </label>\n    <a href="">[', escape((__stack.lineno=6,  data[i].nodename)), '] ', escape((__stack.lineno=6,  data[i].title)), '</a>\n    ');__stack.lineno=7; if(data[i].pass == 0){; buf.push('\n    <b>[未审核]</b>\n    ');__stack.lineno=9;}; buf.push('\n    <span><a href="/article/edit?id=', escape((__stack.lineno=10,  data[i].id)), '">编辑</a><i class="comment">评论</i>\n      ');__stack.lineno=11; if(data[i].pass == 1){; buf.push('\n      <i class="pass">取消审核</i>\n      ');__stack.lineno=13;} else {; buf.push('\n        <i class="pass">审核</i>\n      ');__stack.lineno=15;}; buf.push('\n        <i class="remove">删除</i></span>\n  </li>\n');__stack.lineno=18;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li>\r\n    <label class=\"checkgroup\">\r\n      <input type=\"checkbox\" id=\"article_<%= data[i].id%>\" name=\"checkall\"><label for=\"article_<%= data[i].id%>\" class=\"check-all\"></label>\r\n    </label>\r\n    <a href=\"\">[<%= data[i].nodename%>] <%= data[i].title%></a>\r\n    <% if(data[i].pass == 0){%>\r\n    <b>[未审核]</b>\r\n    <%}%>\r\n    <span><a href=\"/article/edit?id=<%= data[i].id%>\">编辑</a><i class=\"comment\">评论</i>\r\n      <% if(data[i].pass == 1){%>\r\n      <i class=\"pass\">取消审核</i>\r\n      <%} else {%>\r\n        <i class=\"pass\">审核</i>\r\n      <%}%>\r\n        <i class=\"remove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n",
       cp: 1,
       mp: 20
     };
   
     var cmtOption = { //评论相关操作
       url: '/home/comment/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<ul class=\"list commentlist\">\r\n<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li id=\"comment_<%= data[i].id%>\">\r\n    <a href=\"javascript:void(0);\"><%= data[i].content%></a>\r\n    <span><i class=\"commentRemove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n</ul>\r\n", filename: "site/home/ejs/comment.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('<ul class="list commentlist">\n');__stack.lineno=2;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li id="comment_', escape((__stack.lineno=3,  data[i].id)), '">\n    <a href="javascript:void(0);">', escape((__stack.lineno=4,  data[i].content)), '</a>\n    <span><i class="commentRemove">删除</i></span>\n  </li>\n');__stack.lineno=7;}; buf.push('\n</ul>\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
+      tpl: "<ul class=\"list commentlist\">\r\n<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li id=\"comment_<%= data[i].id%>\">\r\n    <a href=\"javascript:void(0);\"><%= data[i].content%></a>\r\n    <span><i class=\"commentRemove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n</ul>\r\n",
       cp: 1,
       mp: 10
     }

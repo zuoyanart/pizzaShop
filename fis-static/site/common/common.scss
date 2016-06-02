@@ -16,3 +16,7 @@
     margin:20px 0;
   }
 }
+
+input[disabled],textarea[disabled] {
+  background-color: #ebebe4;
+}

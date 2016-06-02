@@ -163,9 +163,7 @@ var tree = (function() {
       url: options.url + 'page',
       data: 'pid=' + pid,
       success: function(msg) {
-        var s = options.tpl({
-          "data": msg.msg
-        });
+        let s = new EJS({text: options.tpl}).render({data: msg.msg});
         o.after(s);
       }
     });

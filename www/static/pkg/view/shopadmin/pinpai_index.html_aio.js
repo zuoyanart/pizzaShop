@@ -1,5 +1,5 @@
-/*!home/tree/tree*/
-;define('home/tree/tree', function(require, exports, module) {
+/*!shopadmin/pinpai/pinpai*/
+;define('shopadmin/pinpai/pinpai', function(require, exports, module) {
 
   /**
    * 模块相关操作
@@ -7,58 +7,18 @@
    * @param  {[type]} function( [description]
    * @return {[type]}           [description]
    */
-  var tree = (function() {
+  var pinpai = (function() {
     var $ = require('jquery');
     var tools = require('pizzatools');
     var common = require('common/common');
     var my = {};
     var options = {
-      url: '/home/tree/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\n<%}%>\r\n", filename: "site/home/ejs/tree.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n    <li class="pid', escape((__stack.lineno=2,  data[i].pid)), '" path="', escape((__stack.lineno=2,  data[i].nodepath)), '" id="', escape((__stack.lineno=2,  data[i].id)), '">\n      ');__stack.lineno=3;var deep = data[i].nodepath.split(',').length - 3 ; buf.push('\n      ');__stack.lineno=4;for(var j=0;j<deep;j++) {; buf.push('\n        <b class="indent"></b>\n      ');__stack.lineno=6;}; buf.push('\n      <i class="icon-add"></i>\n      <em>', escape((__stack.lineno=8,  data[i].name)), '</em>\n      <span><a href="/home/tree/edit?id=', escape((__stack.lineno=9,  data[i].id)), '">编辑</a><a href="/home/tree/edit?pid=', escape((__stack.lineno=9,  data[i].id)), '">添加子节点</a></span>\n    </li>\n');__stack.lineno=11;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0]
+      url: '/shopadmin/pinpai/',
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li>\r\n    <label class=\"checkgroup\">\r\n      <input type=\"checkbox\" id=\"pinpai_<%= data[i].id%>\" name=\"checkall\"><label for=\"pinpai_<%= data[i].id%>\" class=\"check-all\"></label>\r\n    </label>\r\n    <a href=\"<%= data[i].link%>\" target=\"_blank\"><%= data[i].title%></a>\r\n    <span><a href=\"./pinpai/edit?id=<%= data[i].id%>\">编辑</a><i class=\"remove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n",
+      cp: 1,
+      mp: 20
     };
+    var isScroll = true;
   
     /**
      * 初始化执行函数
@@ -67,7 +27,12 @@
      */
     my.init = function() {
         eventBind(); //绑定所有交互操作
-        page(1);
+        page(1); //
+        scrollEvent(); //绑定滚动条事件
+        common.checkAll('#checkall'); //checkall
+        common.kwSearch('#searchkw', function() {
+          page(1);
+        });
       }
       /**
        * 编辑模块
@@ -84,12 +49,10 @@
           url: options.url + 'get',
           data: 'id=' + id,
           success: function(msg) {
-            console.log(msg.state == true);
             if (msg.state == true) {
               for (var key in msg.msg) {
                 $('#' + key).val(msg.msg[key]);
               }
-              editor.html(msg.msg.brief);
             }
           }
         });
@@ -101,666 +64,52 @@
        * @return {[type]}     [description]
        */
     my.edit = function(obj) {
-      $(".form").pizzaValidate({
-        'fields': {
-          '#name': {
-            'must': true,
-            'minLength': 2,
-            'maxLength': 48,
-            focusMsg: "请输入标题",
-            errMsg: '标题不能为空或标题必须在2-48个字符之间'
-          },
-          '#link': {
-            'must': false,
-            'minLength': 5,
-            'maxLength': 150,
-            focusMsg: "请输入自定义链接(非必填)",
-            errMsg: '自定义链接须在5-150个字符之间'
-          },
-          '#weight': {
-            'must': true,
-            'minLength': 1,
-            'maxLength': 3,
-            focusMsg: "请输入节点权重",
-            errMsg: '请输入节点权重，只能是小于4位的数字'
-          }
-  
-        },
-        ajaxFun: function(data) {
-          var id = tools.getPara("id");
-          var pid = tools.getPara('pid');
-          var op = "create";
-          if (id != "") {
-            op = "update";
-            data += '&id=' + id;
-          } else {
-            data += '&pid=' + pid;
-          }
-          data += '&brief=' + editor.html()
-          $.ajax({
-            url: options.url + op,
-            data: data,
-            success: function(msg) {
-              if (msg.state == true) {
-                history.back();
-              }
-            }
-          });
-        }
-      });
-    }
-  
-    my.pageall = function(callback) {
-        $.ajax({
-          url: options.url + 'pageall',
-          success: function(msg) {
-            if (msg.state == true) {
-              var s = '<option value="1">首页</option>';
-              var data = msg.msg;
-              s += fomatNodeList(1, data);
-              callback(s);
-            }
-          }
-        })
-      }
-      /**
-       * 递归格式化nodelist
-       * @method fomatNodeList
-       * @param  {[type]}      pid  [description]
-       * @param  {[type]}      data [description]
-       * @return {[type]}           [description]
-       */
-    function fomatNodeList(pid, data) {
-      var s = '';
-      for (var i = 0, len = data.length; i < len; i++) {
-        if (data[i].pid == pid + "") {
-          s += '<option value="' + data[i].id + '">' + setNodeListGap(data[i].nodepath) + data[i].name + '</option>';
-          s += fomatNodeList(data[i].id, data);
-        }
-      }
-      return s;
-    }
-    /**
-     * fomat nodelist 添加制表符
-     * @method setNodeListGap
-     * @param  {[type]}       nodepath [description]
-     */
-    function setNodeListGap(nodepath) {
-      var l = nodepath.split(',').length - 3;
-      var s = '';
-      if (l == 0) {
-        return s;
-      } else {
-        s += '├'
-        for (var i = 0; i < l; i++) {
-          s += '─ ';
-        }
-        return s;
-      }
-    }
-    /**
-     * 获取模块列表
-     * @method page
-     * @return {[type]} [description]
-     */
-    function page(pid) {
-      var o = $('#' + pid);
-      $.ajax({
-        url: options.url + 'page',
-        data: 'pid=' + pid,
-        success: function(msg) {
-          var s = options.tpl({
-            "data": msg.msg
-          });
-          o.after(s);
-        }
-      });
-    }
-    /**
-     * 操作事件绑定
-     * @method eventBind
-     * @return {[type]}  [description]
-     */
-    function eventBind() {
-      $('#treelist').on('click', 'li > i', function() {
-        var o = $(this);
-        var cl = o.attr('class');
-        var oparent = o.parent();
-        var id = oparent.attr('id');
-        var subli = $('.pid' + id);
-  
-        if (cl.indexOf('icon-add') > -1) { //展开子集
-          o.removeClass('icon-add').addClass('icon-sub');
-          if (subli.length > 0) {
-            subli.removeClass('display');
-          } else {
-            page(id);
-          }
-        } else { //缩回子集
-          o.removeClass('icon-sub').addClass('icon-add');
-          displaySubNode(oparent, 'hide');
-        }
-      });
-    }
-    /**
-     * 显示或者隐藏所有子节点
-     * @method displaySubNode
-     * @param  {[type]}       pidObj [description]
-     * @return {[type]}              [description]
-     */
-    function displaySubNode(pidObj, isdisplay) {
-      var node = pidObj.nextAll();
-      var nodepath = pidObj.attr('path');
-      var subnode;
-      var action = {};
-      action.show = function(obj) {
-        console.log(obj);
-        obj.removeClass('display');
-      }
-      action.hide = function(obj) {
-        obj.addClass('display');
-        obj.children('i').removeClass('icon-sub').addClass('icon-add');
-      }
-  
-      node.each(function() {
-        subnode = $(this);
-        if ($(this).attr('path').indexOf(nodepath) > -1) {
-          action[isdisplay].call(this, subnode);
-        }
-      });
-    }
-  
-  
-    return my;
-  }());
-  
-  module.exports = tree;
-  
-
-});
-
-/*!trunpage/trunpage*/
-;define('trunpage/trunpage', function(require, exports, module) {
-
-  /**
-   * 整站翻页样式
-   * @authors lingirl (success99@126.com)
-   * @date    2015-09-08 16:06:29
-   */
-  
-  var $ = require('jquery');
-  
-  var turnpage = function(options) {
-  	var _self = this;
-  	_self.isLink = false;
-  	_self.last = 0; //翻页算法中的last，非整数页的条数
-  
-  	var defaults = {
-  		name: '', // 函数执行体，<函数名.方法>的形式
-  		sum: 0, // 总的数据条数
-  		pageTotal: 0, //总页数
-  		mp: 10, // 默认每页显示多少条
-  		docs: null //数据记录
-  	};
-  
-  	options = $.extend(defaults, options);
-  
-  	if (options.name.indexOf('/') > -1) {
-  		_self.isLink = true;
-  	}
-  
-  	// 首页、上一页、下一页，翻页模式
-  	_self.hud = function(cp, mp) {
-  		var str = ''; // 用于拼接 html 字符串
-  		var clk = {
-  			// home 、up、down -- 分别对应首页、上一页、下一页的点击事件
-  			h: ' onclick="' + options.name + '(1);"',
-  			u: ' onclick="' + options.name + '(' + (cp - 1) + ');"',
-  			d: ' onclick="' + options.name + '(' + (cp + 1) + ');"'
-  		};
-  
-  		var a = '<div class="clearfix turnpage turnpage-hud"><a class="btn btn-primary"',
-  			b = '>首页</a><a class="btn btn-primary"',
-  			c = '>上一页</a><a class="btn btn-primary"',
-  			d = '>下一页</a></div>';
-  
-  		if (cp <= 1) {
-  			if (mp == options.mp) {
-  				str = a + b + c + clk.d + d;
-  			}
-  			if (mp < options.mp) {
-  				str = a + b + c + d;
-  			}
-  		}
-  
-  		if (cp > 1) {
-  			if (mp == options.mp) {
-  				str = a + clk.h + b + clk.u + c + clk.d + d;
-  			}
-  			if (mp < options.mp) {
-  				str = a + clk.h + b + clk.u + c + d;
-  			}
-  		}
-  
-  		return str;
-  	};
-  
-  	// 标准翻页模式，包含首页、上下页、末页、及数字分页
-  	_self.hunde = function(cp) {
-      console.log(options);
-  		var btnClass = 'btn btn-primary',
-  			gap = '<em>...</em>';
-  		var numberClass = 'number';
-  
-  		if (cp == 1 && options.pageTotal == 0) { //当是第一页并且总页数未知时执行
-  			options.pageTotal = Math.ceil(options.sum / options.mp);
-  			var m = options.sum % options.mp;
-  			if (m != 0) {
-  				_self.last = m;
-  			}
-  		}
-  
-  		if (options.pageTotal <= 1) {
-  			return '';
-  		}
-  		var str = '<div class="turnpage">';
-  		if (cp == 1) {
-  			str += '<a href="javascript:void(0);" class="' + btnClass + ' disabled">首页</a><a href="javascript:void(0);" class="' + btnClass + ' disabled">上页</a>';
-  		} else {
-  			str += '<a href="' + clickEvent(1, 0) + '" class="' + btnClass + '">首页</a><a href="' + clickEvent((cp - 1), cp) + '" class="' + btnClass + '">上页</a>';
-  		}
-  		var len = 0;
-  		if (cp < 6 || (cp < 9 && options.pageTotal < 9)) {
-  			if (options.pageTotal > 8) {
-  				len = 8;
-  			} else {
-  				len = options.pageTotal + 1;
-  			}
-  			for (var i = 1; i < len; i++) {
-  				if (i == cp) {
-  					str += '<a href="javascript:void(0);" class="' + numberClass + ' choose">' + i + '</a>';
-  				} else {
-  					str += '<a href="' + clickEvent(i, cp) + '" class="' + numberClass + '">' + i + '</a>';
-  				}
-  			}
-  			if (options.pageTotal > 8) {
-  				str += gap + '<a href="' + clickEvent(options.pageTotal, 0) + '" class="' + numberClass + '">' + options.pageTotal + '</a>';
-  			}
-  		} else if (cp > 5 && (options.pageTotal - 5) >= cp && cp != options.pageTotal) {
-  			str += '<a href="' + clickEvent(1, 0) + '" class="' + numberClass + '">1</a>' + gap;
-  			var leng = cp - 2;
-  			for (var i = leng; i <= (cp + 2); i++) {
-  				if (i == cp) {
-  					str += '<a href="javascript:void(0);" class="' + numberClass + ' choose">' + i + '</a>';
-  				} else {
-  					str += '<a href="' + clickEvent(i, cp) + '" class="' + numberClass + '">' + i + '</a>';
-  				}
-  			}
-  			str += gap + '<a href="' + clickEvent(options.pageTotal, 0) + '" class="' + numberClass + '">' + options.pageTotal + '</a>';
-  		} else {
-  			str += '<a href="' + clickEvent(1, 0) + '" class="' + numberClass + '">1</a>' + gap;
-  			for (var i = (options.pageTotal - 6); i <= options.pageTotal; i++) {
-  				if (i == cp) {
-  					str += '<a href="javascript:void(0);" class="' + numberClass + ' choose">' + i + '</a>';
-  				} else {
-  					str += '<a href="' + clickEvent(i, cp) + '" class="' + numberClass + '">' + i + '</a>';
-  				}
-  			}
-  		}
-  		if (options.pageTotal == cp) {
-  			str += '<a href="javascript:void(0)" class="' + btnClass + ' disabled">下页</a><a class="' + btnClass + ' disabled" href="javascript:void(0);">末页</a>';
-  		} else {
-  			str += '<a href="' + clickEvent((cp + 1), cp) + '" class="' + btnClass + '">下一页</a><a href="' + clickEvent(options.pageTotal, 0) + '"  class="' + btnClass + '">末页</a>';
-  		}
-  		str += '</div>';
-  		return str;
-  	};
-  	/**
-  	 * 组装href属性
-  	 * @param  {[type]} page 改连接对应的cp
-  	 * @param  {[type]} oldpage 当前cp
-  	 * @return {[type]}      [description]
-  	 */
-  	function clickEvent(page, oldpage) {
-  		var s = '';
-  		if (_self.isLink) { //传值是一个连接
-  			s = options.name + '?cp=' + page;
-  		} else { //传值是一个函数
-  			s = 'javascript:' + options.name + '(' + page + ', ' + oldpage + ')';
-  		}
-  		return s;
-  	}
-  	/**
-  	 * 获取翻页算法中的参数
-  	 * @param  {[type]} page    [description]
-  	 * @param  {[type]} oldpage [description]
-  	 * @return {[type]}         [description]
-  	 */
-  	_self.getPageAjaxData = function(page, oldpage) {
-  			var pageAjaxData = 'last=0&step=0&v=1';
-  			var v = 1; //1向下翻，2向上翻
-  			var step = 1; //翻几页
-  			if (page == 1) {
-  				step = 0;
-  				v = 1;
-  			} else if (page == options.pageTotal) {
-  				step = 0;
-  				v = 2;
-  			} else {
-  				if (page < oldpage) {
-  					v = 2;
-  				}
-  				step = Math.abs(page - oldpage);
-  			}
-  			pageAjaxData = 'last=' + _self.last + '&step=' + step + '&v=' + v;
-  			var array = [];
-  			array.push(pageAjaxData);
-  			array.push(v);
-  			return array;
-  		}
-  		/**
-  		 * 获取参数id
-  		 * @param  {[type]} docs [description]
-  		 * @return {[type]}      [description]
-  		 */
-  	_self.getPageAjaxDataId = function(docs, v) {
-  		var id = 0;
-  		if (docs) {
-  			var length = docs.length;
-  			if (v == 2) {
-  				if (length > 0) {
-  					id = docs[0]._id; //给最后一个id赋值给内部全局遍历id
-  				}
-  			} else {
-  				if (length > 0) {
-  					id = docs[length - 1]._id; //给最后一个id赋值给内部全局遍历id
-  				}
-  			}
-  		} else {
-  			id = 0;
-  		}
-  		return id;
-  	}
-  };
-  
-  module.exports = turnpage;
-  
-
-});
-
-/*!home/article*/
-;define('home/article', function(require, exports, module) {
-
-  /**
-   * 文章相关操作
-   * @method
-   * @param  {[type]} function( [description]
-   * @return {[type]}           [description]
-   */
-  var article = (function() {
-    var $ = require('jquery');
-    var tools = require('pizzatools');
-    var common = require('common/common');
-    var node = require('home/tree/tree');
-    var trunpage = require("trunpage/trunpage"); //获取翻页
-    var pizzalayer = require("pizzalayer"); //获取翻页
-    var tppage = null; //翻页的实例化
-    var commentObj = null;
-  
-    require('pizzaui');
-    var my = {};
-    var options = {
-      url: '/home/article/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li>\r\n    <label class=\"checkgroup\">\r\n      <input type=\"checkbox\" id=\"article_<%= data[i].id%>\" name=\"checkall\"><label for=\"article_<%= data[i].id%>\" class=\"check-all\"></label>\r\n    </label>\r\n    <a href=\"\">[<%= data[i].nodename%>] <%= data[i].title%></a>\r\n    <% if(data[i].pass == 0){%>\r\n    <b>[未审核]</b>\r\n    <%}%>\r\n    <span><a href=\"/article/edit?id=<%= data[i].id%>\">编辑</a><i class=\"comment\">评论</i>\r\n      <% if(data[i].pass == 1){%>\r\n      <i class=\"pass\">取消审核</i>\r\n      <%} else {%>\r\n        <i class=\"pass\">审核</i>\r\n      <%}%>\r\n        <i class=\"remove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n", filename: "site/home/ejs/article.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li>\n    <label class="checkgroup">\n      <input type="checkbox" id="article_', escape((__stack.lineno=4,  data[i].id)), '" name="checkall"><label for="article_', escape((__stack.lineno=4,  data[i].id)), '" class="check-all"></label>\n    </label>\n    <a href="">[', escape((__stack.lineno=6,  data[i].nodename)), '] ', escape((__stack.lineno=6,  data[i].title)), '</a>\n    ');__stack.lineno=7; if(data[i].pass == 0){; buf.push('\n    <b>[未审核]</b>\n    ');__stack.lineno=9;}; buf.push('\n    <span><a href="/article/edit?id=', escape((__stack.lineno=10,  data[i].id)), '">编辑</a><i class="comment">评论</i>\n      ');__stack.lineno=11; if(data[i].pass == 1){; buf.push('\n      <i class="pass">取消审核</i>\n      ');__stack.lineno=13;} else {; buf.push('\n        <i class="pass">审核</i>\n      ');__stack.lineno=15;}; buf.push('\n        <i class="remove">删除</i></span>\n  </li>\n');__stack.lineno=18;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
-      cp: 1,
-      mp: 20
-    };
-  
-    var cmtOption = { //评论相关操作
-      url: '/home/comment/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<ul class=\"list commentlist\">\r\n<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n  <li id=\"comment_<%= data[i].id%>\">\r\n    <a href=\"javascript:void(0);\"><%= data[i].content%></a>\r\n    <span><i class=\"commentRemove\">删除</i></span>\r\n  </li>\r\n<%}%>\r\n</ul>\r\n", filename: "site/home/ejs/comment.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('<ul class="list commentlist">\n');__stack.lineno=2;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n  <li id="comment_', escape((__stack.lineno=3,  data[i].id)), '">\n    <a href="javascript:void(0);">', escape((__stack.lineno=4,  data[i].content)), '</a>\n    <span><i class="commentRemove">删除</i></span>\n  </li>\n');__stack.lineno=7;}; buf.push('\n</ul>\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0],
-      cp: 1,
-      mp: 10
-    }
-  
-    var isScroll = true;
-  
-    /**
-     * 初始化执行函数
-     * @method function
-     * @return {[type]} [description]
-     */
-    my.init = function() {
-        eventBind(); //绑定所有交互操作
-        scrollEvent(); //绑定滚动条事件
-        common.checkAll('#checkall'); //checkall
-        //绑定节点切换事件
-  
-        node.pageall(function(data) {
-          var no = $('#node')
-          no.html(data);
-          no.pizzaSelect({
-            onChange: function(obj) {
-              page(1);
-            }
-          });
-          page(1); //
-        });
-  
-        common.kwSearch('#searchkw', function() {
-          page(1);
-        });
-  
-  
-      }
-      /**
-       * 编辑文章
-       * @method function
-       * @param  {[type]} obj [description]
-       * @return {[type]}     [description]
-       */
-    my.get = function() {
-        var id = tools.getPara("id");
-        if (id == "") {
-          node.pageall(function(data) {
-            var no = $('#nodeid');
-            no.html(data);
-            no.pizzaSelect({});
-            my.edit();
-          });
-          return;
-        }
-        $.ajax({
-          url: options.url + 'get',
-          data: 'id=' + id,
-          success: function(msg) {
-            if (msg.state == true) {
-              for (var key in msg.msg) {
-                $('#' + key).val(msg.msg[key]);
-              }
-              $('#pass').attr("val", msg.msg.pass);
-              $('#reco').attr("val", msg.msg.reco);
-              $('.select').pizzaSelect();
-  
-              node.pageall(function(data) {
-                var no = $('#nodeid');
-                no.attr('val', msg.msg.nodeid);
-                no.html(data);
-                no.pizzaSelect({});
-                my.edit();
-              });
-              editor.html(msg.msg.content);
-            }
-          }
-        });
-      }
-      /**
-       * 编辑文章
-       * @method function
-       * @param  {[type]} obj [description]
-       * @return {[type]}     [description]
-       */
-    my.edit = function() {
         $(".form").pizzaValidate({
           'fields': {
             '#title': {
               'must': true,
-              'minLength': 5,
+              'minLength': 2,
               'maxLength': 48,
               focusMsg: "请输入标题",
-              errMsg: '标题不能为空或标题必须在5-48个字符之间'
+              errMsg: '标题不能为空或标题必须在2-48个字符之间'
             },
-            '#nodeid': {
-              'must': true,
-              'minLength': 1,
-              'maxLength': 12,
-              focusMsg: "请选择节点",
-              errMsg: '请选择节点'
-            },
-            '#timg': {
+            '#logo': {
               'must': false,
-              'minLength': 1,
+              'minLength': 2,
               'maxLength': 100,
-              focusMsg: "请上传标题图片(非必填)",
-              errMsg: '标题图须在1-100个字符之间'
+              focusMsg: "请上传logo。非必填",
+              errMsg: 'logo必须在2-100个字符之间'
             },
             '#link': {
               'must': false,
-              'minLength': 8,
-              'maxLength': 150,
-              focusMsg: "请输入自定义链接(非必填)",
-              errMsg: '自定义链接须在8-150个字符之间'
-            },
-            '#source': {
-              'must': false,
               'minLength': 2,
-              'maxLength': 30,
-              focusMsg: "请输入文章来源(非必填)",
-              errMsg: '文章来源须在2-30个字符之间'
+              'maxLength': 100,
+              focusMsg: "请输入品牌网址",
+              errMsg: '网址必须在2-100个字符之间'
             },
             '#brief': {
               'must': false,
               'minLength': 2,
-              'maxLength': 300,
-              focusMsg: "请输入文章描述(非必填)",
-              errMsg: '文章描述须在2-300个字符之间'
+              'maxLength': 1000,
+              focusMsg: "请输入描述",
+              errMsg: '描述必须在2-1000个字符之间'
             },
-            '#tags': {
-              'must': false,
-              'minLength': 2,
-              'maxLength': 30,
-              focusMsg: "请输入文章标签，空格隔开(非必填)",
-              errMsg: '文章标签须在2-30个字符之间'
-            },
-            '#pass': {
+            '#weight': {
               'must': true,
               'minLength': 1,
-              'maxLength': 3,
-              focusMsg: " ",
-              errMsg: ' '
-            },
-            '#reco': {
-              'must': false,
-              'minLength': 1,
-              'maxLength': 3,
-              focusMsg: " ",
-              errMsg: ' '
-            },
+              'maxLength': 4,
+              "reg":"int",
+              focusMsg: "请输入标题",
+              errMsg: '权重不能为空且必须在1-4位自然数'
+            }
           },
           ajaxFun: function(data) {
             var id = tools.getPara("id");
             var op = "create";
             if (id != "") {
               op = "update";
-              data += '&id=' + id;
+              data += "&id=" + id;
             }
-            data += '&content=' + editor.html();
             $.ajax({
               url: options.url + op,
               data: data,
@@ -774,7 +123,7 @@
         });
       }
       /**
-       * 获取文章列表
+       * 获取模块列表
        * @method page
        * @return {[type]} [description]
        */
@@ -784,10 +133,10 @@
       }
       $.ajax({
         url: options.url + 'page',
-        data: 'cp=' + options.cp + '&mp=' + options.mp + '&kw=' + $.trim($('#searchkw').val()) + '&nodeid=' + $('#node').val(),
+        data: 'cp=' + options.cp + '&mp=' + options.mp + '&kw=' + $.trim($('#searchkw').val()),
         success: function(msg) {
           var s = options.tpl({
-            "data": msg.msg
+            data: msg.msg
           });
           if (cp == 1) {
             $('#list').html(s);
@@ -807,6 +156,7 @@
     function eventBind() {
       $('#list').on('click', 'li > span > i', function() {
         var cl = $(this).attr('class');
+        console.log(cl);
         if (cl) {
           action[cl].call(this, $(this));
         }
@@ -849,158 +199,33 @@
      * @return {[type]} [description]
      */
     action.remove = function(obj) {
-        var id = common.getCheckId(obj);
-        console.log(id);
-        if (id == '0') {
-          return;
-        }
-        $.ajax({
-          url: options.url + 'remove',
-          data: 'id=' + id,
-          success: function(msg) {
-            if (msg.state == true) {
-              var ids = id.split(',');
-              for (var i = 0, ll = ids.length; i < ll; i++) {
-                $('#article_' + ids[i]).parent().parent().remove();
-              }
-            }
-          }
-        });
+      var id = common.getCheckId(obj);
+      console.log(id);
+      if (id == '0') {
+        return;
       }
-      /**
-       * 审核文章
-       * @method function
-       * @return {[type]} [description]
-       */
-    action.pass = function(obj) {
-        var id = common.getCheckId(obj);
-        if (id == '0') {
-          return;
-        }
-        var ispass = "false";
-        if (obj.html() == '审核') {
-          ispass = "true";
-        }
-        $.ajax({
-          url: options.url + 'pass',
-          data: 'id=' + id + '&ispass=' + ispass,
-          success: function(msg) {
-            if (msg.state == true) {
-              console.log('asdasd');
-              var ids = id.split(',');
-              if (ispass == "true") { //审核
-                for (var i = 0, ll = ids.length; i < ll; i++) {
-                  console.log(ids[i]);
-                  var oo = $('#' + ids[i]).parent().parent();
-                  oo.find('b').remove();
-                  oo.find('i.pass').html('取消审核');
-                }
-              } else { //取消审核
-                for (var i = 0, ll = ids.length; i < ll; i++) {
-                  var oo = $('#' + ids[i]).parent().parent();
-                  oo.children('a').after('<b>[未审核]</b>');
-                  oo.find('i.pass').html('审核');
-                }
-              }
-            }
-          }
-        });
-      }
-      /**
-       * 显示评论
-       * @method function
-       * @param  {[type]} * [description]
-       * @return {[type]}   [description]
-       */
-    action.comment = function(obj) {
-        commentObj = obj;
-        var ocomment = $(".commentlist");
-        if(ocomment.length == 1) {
-          ocomment.next("div").remove();
-          ocomment.remove();
-        } else {
-          commentPage(1, 0);
-        }
-      }
-      /**
-       * 删除评论
-       * @method function
-       * @param  {[type]} obj [description]
-       * @return {[type]}     [description]
-       */
-    action.commentRemove = function(obj) {
-        layer.confirm("您确定要删除该评论吗？", {title:"提示"},function(index) {
-          var id = obj.parent().parent().attr("id").split("_")[1];
-          $.ajax({
-            url: cmtOption.url + "del",
-            data: "id=" + id,
-            success: function(msg) {
-              if(msg.state == true) {
-                $("#comment_" + id).remove();
-              }
-            }
-          })
-          layer.close(index);
-        });
-      }
-      /**
-       * 获取文章评论列表
-       * @method commentPage
-       * @param  {[type]}    obj [description]
-       * @param  {[type]}    cp  [description]
-       * @return {[type]}        [description]
-       */
-    function commentPage(cp, oldcp) {
-      cp = cp ? cp : 1;
-      oldcp = oldcp ? oldcp : 0;
-      var id = common.getId(commentObj);
-      var opli = commentObj.parent().parent();
       $.ajax({
-        url: cmtOption.url + 'page',
-        data: 'id=' + id + "&cp=" + cp + "&mp=" + cmtOption.mp,
+        url: options.url + 'remove',
+        data: 'id=' + id,
         success: function(msg) {
-          if(msg.state == false) {
-              pizzalayer.msg({msg: '获取列表失败，请稍后重试'});
-              return;
+          if (msg.state == true) {
+            var ids = id.split(',');
+            for (var i = 0, ll = ids.length; i < ll; i++) {
+              $('#pinpai_' + ids[i]).parent().parent().remove();
+            }
           }
-          if(msg.count == 0) {
-              pizzalayer.msg({ msg: '暂无评论'});
-            return;
-          }
-          if (cp == 1) {//实例化翻页对象
-            tpage = new trunpage({
-              name: "article.commentPage",
-              sum: msg.count,
-              mp: cmtOption.mp
-            });
-          }
-          var s = cmtOption.tpl({
-            "data": msg.msg
-          });
-          opli.next("ul").remove();
-          opli.next("div").remove();
-          opli.after(s + tpage.hunde(cp));
-          cmtOption.cp += 1;
         }
       });
-    }
-    /**
-     * 获取文章评论对外接口
-     * @method function
-     * @param  {[type]} obj [description]
-     * @param  {[type]} cp  [description]
-     * @return {[type]}     [description]
-     */
-    my.commentPage = function(cp, oldcp) {
-      commentPage(cp, oldcp);
     }
   
   
     return my;
   }());
   
-  module.exports = article;
+  module.exports = pinpai;
   
 
 });
 
+/*!lib/ejs.js*/
+;(function(){var rsplit=function(string,regex){var result=regex.exec(string),retArr=new Array(),first_idx,last_idx,first_bit;while(result!=null){first_idx=result.index;last_idx=regex.lastIndex;if((first_idx)!=0){first_bit=string.substring(0,first_idx);retArr.push(string.substring(0,first_idx));string=string.slice(first_idx)}retArr.push(result[0]);string=string.slice(result[0].length);result=regex.exec(string)}if(!string==""){retArr.push(string)}return retArr},chop=function(string){return string.substr(0,string.length-1)},extend=function(d,s){for(var n in s){if(s.hasOwnProperty(n)){d[n]=s[n]}}};EJS=function(options){options=typeof options=="string"?{view:options}:options;this.set_options(options);if(options.precompiled){this.template={};this.template.process=options.precompiled;EJS.update(this.name,this);return }if(options.element){if(typeof options.element=="string"){var name=options.element;options.element=document.getElementById(options.element);if(options.element==null){throw name+"does not exist!"}}if(options.element.value){this.text=options.element.value}else{this.text=options.element.innerHTML}this.name=options.element.id;this.type="["}else{if(options.url){options.url=EJS.endExt(options.url,this.extMatch);this.name=this.name?this.name:options.url;var url=options.url;var template=EJS.get(this.name,this.cache);if(template){return template}if(template==EJS.INVALID_PATH){return null}try{this.text=EJS.request(url+(this.cache?"":"?"+Math.random()))}catch(e){}if(this.text==null){throw ({type:"EJS",message:"There is no template at "+url})}}}var template=new EJS.Compiler(this.text,this.type);template.compile(options,this.name);EJS.update(this.name,this);this.template=template};EJS.prototype={render:function(object,extra_helpers){object=object||{};this._extra_helpers=extra_helpers;var v=new EJS.Helpers(object,extra_helpers||{});return this.template.process.call(object,object,v)},update:function(element,options){if(typeof element=="string"){element=document.getElementById(element)}if(options==null){_template=this;return function(object){EJS.prototype.update.call(_template,element,object)}}if(typeof options=="string"){params={};params.url=options;_template=this;params.onComplete=function(request){var object=eval(request.responseText);EJS.prototype.update.call(_template,element,object)};EJS.ajax_request(params)}else{element.innerHTML=this.render(options)}},out:function(){return this.template.out},set_options:function(options){this.type=options.type||EJS.type;this.cache=options.cache!=null?options.cache:EJS.cache;this.text=options.text||null;this.name=options.name||null;this.ext=options.ext||EJS.ext;this.extMatch=new RegExp(this.ext.replace(/\./,"."))}};EJS.endExt=function(path,match){if(!path){return null}match.lastIndex=0;return path+(match.test(path)?"":this.ext)};EJS.Scanner=function(source,left,right){extend(this,{left_delimiter:left+"%",right_delimiter:"%"+right,double_left:left+"%%",double_right:"%%"+right,left_equal:left+"%=",left_comment:left+"%#"});this.SplitRegexp=left=="["?/(\[%%)|(%%\])|(\[%=)|(\[%#)|(\[%)|(%\]\n)|(%\])|(\n)/:new RegExp("("+this.double_left+")|(%%"+this.double_right+")|("+this.left_equal+")|("+this.left_comment+")|("+this.left_delimiter+")|("+this.right_delimiter+"\n)|("+this.right_delimiter+")|(\n)");this.source=source;this.stag=null;this.lines=0};EJS.Scanner.to_text=function(input){if(input==null||input===undefined){return""}if(input instanceof Date){return input.toDateString()}if(input.toString){return input.toString()}return""};EJS.Scanner.prototype={scan:function(block){scanline=this.scanline;regex=this.SplitRegexp;if(!this.source==""){var source_split=rsplit(this.source,/\n/);for(var i=0;i<source_split.length;i++){var item=source_split[i];this.scanline(item,regex,block)}}},scanline:function(line,regex,block){this.lines++;var line_split=rsplit(line,regex);for(var i=0;i<line_split.length;i++){var token=line_split[i];if(token!=null){try{block(token,this)}catch(e){throw {type:"EJS.Scanner",line:this.lines}}}}}};EJS.Buffer=function(pre_cmd,post_cmd){this.line=new Array();this.script="";this.pre_cmd=pre_cmd;this.post_cmd=post_cmd;for(var i=0;i<this.pre_cmd.length;i++){this.push(pre_cmd[i])}};EJS.Buffer.prototype={push:function(cmd){this.line.push(cmd)},cr:function(){this.script=this.script+this.line.join("; ");this.line=new Array();this.script=this.script+"\n"},close:function(){if(this.line.length>0){for(var i=0;i<this.post_cmd.length;i++){this.push(pre_cmd[i])}this.script=this.script+this.line.join("; ");line=null}}};EJS.Compiler=function(source,left){this.pre_cmd=["var ___ViewO = [];"];this.post_cmd=new Array();this.source=" ";if(source!=null){if(typeof source=="string"){source=source.replace(/\r\n/g,"\n");source=source.replace(/\r/g,"\n");this.source=source}else{if(source.innerHTML){this.source=source.innerHTML}}if(typeof this.source!="string"){this.source=""}}left=left||"<";var right=">";switch(left){case"[":right="]";break;case"<":break;default:throw left+" is not a supported deliminator";break}this.scanner=new EJS.Scanner(this.source,left,right);this.out=""};EJS.Compiler.prototype={compile:function(options,name){options=options||{};this.out="";var put_cmd="___ViewO.push(";var insert_cmd=put_cmd;var buff=new EJS.Buffer(this.pre_cmd,this.post_cmd);var content="";var clean=function(content){content=content.replace(/\\/g,"\\\\");content=content.replace(/\n/g,"\\n");content=content.replace(/"/g,'\\"');return content};this.scanner.scan(function(token,scanner){if(scanner.stag==null){switch(token){case"\n":content=content+"\n";buff.push(put_cmd+'"'+clean(content)+'");');buff.cr();content="";break;case scanner.left_delimiter:case scanner.left_equal:case scanner.left_comment:scanner.stag=token;if(content.length>0){buff.push(put_cmd+'"'+clean(content)+'")')}content="";break;case scanner.double_left:content=content+scanner.left_delimiter;break;default:content=content+token;break}}else{switch(token){case scanner.right_delimiter:switch(scanner.stag){case scanner.left_delimiter:if(content[content.length-1]=="\n"){content=chop(content);buff.push(content);buff.cr()}else{buff.push(content)}break;case scanner.left_equal:buff.push(insert_cmd+"(EJS.Scanner.to_text("+content+")))");break}scanner.stag=null;content="";break;case scanner.double_right:content=content+scanner.right_delimiter;break;default:content=content+token;break}}});if(content.length>0){buff.push(put_cmd+'"'+clean(content)+'")')}buff.close();this.out=buff.script+";";var to_be_evaled="/*"+name+"*/this.process = function(_CONTEXT,_VIEW) { try { with(_VIEW) { with (_CONTEXT) {"+this.out+" return ___ViewO.join('');}}}catch(e){e.lineNumber=null;throw e;}};";try{eval(to_be_evaled)}catch(e){if(typeof JSLINT!="undefined"){JSLINT(this.out);for(var i=0;i<JSLINT.errors.length;i++){var error=JSLINT.errors[i];if(error.reason!="Unnecessary semicolon."){error.line++;var e=new Error();e.lineNumber=error.line;e.message=error.reason;if(options.view){e.fileName=options.view}throw e}}}else{throw e}}}};EJS.config=function(options){EJS.cache=options.cache!=null?options.cache:EJS.cache;EJS.type=options.type!=null?options.type:EJS.type;EJS.ext=options.ext!=null?options.ext:EJS.ext;var templates_directory=EJS.templates_directory||{};EJS.templates_directory=templates_directory;EJS.get=function(path,cache){if(cache==false){return null}if(templates_directory[path]){return templates_directory[path]}return null};EJS.update=function(path,template){if(path==null){return }templates_directory[path]=template};EJS.INVALID_PATH=-1};EJS.config({cache:true,type:"<",ext:".ejs"});EJS.Helpers=function(data,extras){this._data=data;this._extras=extras;extend(this,extras)};EJS.Helpers.prototype={view:function(options,data,helpers){if(!helpers){helpers=this._extras}if(!data){data=this._data}return new EJS(options).render(data,helpers)},to_text:function(input,null_text){if(input==null||input===undefined){return null_text||""}if(input instanceof Date){return input.toDateString()}if(input.toString){return input.toString().replace(/\n/g,"<br />").replace(/''/g,"'")}return""}};EJS.newRequest=function(){var factories=[function(){return new ActiveXObject("Msxml2.XMLHTTP")},function(){return new XMLHttpRequest()},function(){return new ActiveXObject("Microsoft.XMLHTTP")}];for(var i=0;i<factories.length;i++){try{var request=factories[i]();if(request!=null){return request}}catch(e){continue}}};EJS.request=function(path){var request=new EJS.newRequest();request.open("GET",path,false);try{request.send(null)}catch(e){return null}if(request.status==404||request.status==2||(request.status==0&&request.responseText=="")){return null}return request.responseText};EJS.ajax_request=function(params){params.method=(params.method?params.method:"GET");var request=new EJS.newRequest();request.onreadystatechange=function(){if(request.readyState==4){if(request.status==200){params.onComplete(request)}else{params.onComplete(request)}}};request.open(params.method,params.url);request.send(null)}})();EJS.Helpers.prototype.date_tag=function(C,O,A){if(!(O instanceof Date)){O=new Date()}var B=["January","February","March","April","May","June","July","August","September","October","November","December"];var G=[],D=[],P=[];var J=O.getFullYear();var H=O.getMonth();var N=O.getDate();for(var M=J-15;M<J+15;M++){G.push({value:M,text:M})}for(var E=0;E<12;E++){D.push({value:(E),text:B[E]})}for(var I=0;I<31;I++){P.push({value:(I+1),text:(I+1)})}var L=this.select_tag(C+"[year]",J,G,{id:C+"[year]"});var F=this.select_tag(C+"[month]",H,D,{id:C+"[month]"});var K=this.select_tag(C+"[day]",N,P,{id:C+"[day]"});return L+F+K};EJS.Helpers.prototype.form_tag=function(B,A){A=A||{};A.action=B;if(A.multipart==true){A.method="post";A.enctype="multipart/form-data"}return this.start_tag_for("form",A)};EJS.Helpers.prototype.form_tag_end=function(){return this.tag_end("form")};EJS.Helpers.prototype.hidden_field_tag=function(A,C,B){return this.input_field_tag(A,C,"hidden",B)};EJS.Helpers.prototype.input_field_tag=function(A,D,C,B){B=B||{};B.id=B.id||A;B.value=D||"";B.type=C||"text";B.name=A;return this.single_tag_for("input",B)};EJS.Helpers.prototype.is_current_page=function(A){return(window.location.href==A||window.location.pathname==A?true:false)};EJS.Helpers.prototype.link_to=function(B,A,C){if(!B){var B="null"}if(!C){var C={}}if(C.confirm){C.onclick=' var ret_confirm = confirm("'+C.confirm+'"); if(!ret_confirm){ return false;} ';C.confirm=null}C.href=A;return this.start_tag_for("a",C)+B+this.tag_end("a")};EJS.Helpers.prototype.submit_link_to=function(B,A,C){if(!B){var B="null"}if(!C){var C={}}C.onclick=C.onclick||"";if(C.confirm){C.onclick=' var ret_confirm = confirm("'+C.confirm+'"); if(!ret_confirm){ return false;} ';C.confirm=null}C.value=B;C.type="submit";C.onclick=C.onclick+(A?this.url_for(A):"")+"return false;";return this.start_tag_for("input",C)};EJS.Helpers.prototype.link_to_if=function(F,B,A,D,C,E){return this.link_to_unless((F==false),B,A,D,C,E)};EJS.Helpers.prototype.link_to_unless=function(E,B,A,C,D){C=C||{};if(E){if(D&&typeof D=="function"){return D(B,A,C,D)}else{return B}}else{return this.link_to(B,A,C)}};EJS.Helpers.prototype.link_to_unless_current=function(B,A,C,D){C=C||{};return this.link_to_unless(this.is_current_page(A),B,A,C,D)};EJS.Helpers.prototype.password_field_tag=function(A,C,B){return this.input_field_tag(A,C,"password",B)};EJS.Helpers.prototype.select_tag=function(D,G,H,F){F=F||{};F.id=F.id||D;F.value=G;F.name=D;var B="";B+=this.start_tag_for("select",F);for(var E=0;E<H.length;E++){var C=H[E];var A={value:C.value};if(C.value==G){A.selected="selected"}B+=this.start_tag_for("option",A)+C.text+this.tag_end("option")}B+=this.tag_end("select");return B};EJS.Helpers.prototype.single_tag_for=function(A,B){return this.tag(A,B,"/>")};EJS.Helpers.prototype.start_tag_for=function(A,B){return this.tag(A,B)};EJS.Helpers.prototype.submit_tag=function(A,B){B=B||{};B.type=B.type||"submit";B.value=A||"Submit";return this.single_tag_for("input",B)};EJS.Helpers.prototype.tag=function(C,E,D){if(!D){var D=">"}var B=" ";for(var A in E){if(E[A]!=null){var F=E[A].toString()}else{var F=""}if(A=="Class"){A="class"}if(F.indexOf("'")!=-1){B+=A+'="'+F+'" '}else{B+=A+"='"+F+"' "}}return"<"+C+B+D};EJS.Helpers.prototype.tag_end=function(A){return"</"+A+">"};EJS.Helpers.prototype.text_area_tag=function(A,C,B){B=B||{};B.id=B.id||A;B.name=B.name||A;C=C||"";if(B.size){B.cols=B.size.split("x")[0];B.rows=B.size.split("x")[1];delete B.size}B.cols=B.cols||50;B.rows=B.rows||4;return this.start_tag_for("textarea",B)+C+this.tag_end("textarea")};EJS.Helpers.prototype.text_tag=EJS.Helpers.prototype.text_area_tag;EJS.Helpers.prototype.text_field_tag=function(A,C,B){return this.input_field_tag(A,C,"text",B)};EJS.Helpers.prototype.url_for=function(A){return'window.location="'+A+'";'};EJS.Helpers.prototype.img_tag=function(B,C,A){A=A||{};A.src=B;A.alt=C;return this.single_tag_for("img",A)}

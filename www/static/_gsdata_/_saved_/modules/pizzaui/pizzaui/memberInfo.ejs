@@ -1,0 +1,33 @@
+<ul>
+  <li class="style-1">
+    <span><%= data.nickName %></span>
+    <% if(data.duty != undefined) { %>
+      <em class="mcicon-circle"></em>
+      <%= data.duty %>
+    <% } %>
+      <br>
+      <% if(data.company != undefined) { %>
+        <%= data.company %>
+      <% } %>
+      <br>河南-郑州
+      <% if(data.company != undefined) { %>
+        <em class="mcicon-circle"></em>
+        <%= tools.siteData.data.know[data.know] %>
+      <% } %>
+      <% if(data.company != undefined) { %>
+        <em class="mcicon-circle"></em>
+        <%= data.phone %>
+      <% } %>
+  </li>
+  <li class="style-2"><i class="icon-tags"></i>
+    <% data.tag.replace(/,/g, '，') %>
+  </li>
+</ul>
+<div class="pingjia">
+  <p>
+    <span>个人资料</span><i class="star-huang icon-star"></i><i class="star-huang icon-star"></i><i class="star-huang icon-star"></i></p>
+  <p>
+    <span>人脉质量</span><i class="star-hong icon-star"></i><i class="star-hong icon-star-half"></i></p>
+  <p>
+    <span>综合能力</span><i class="star-gray icon-star"></i></p>
+</div>

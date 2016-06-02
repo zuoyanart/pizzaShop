@@ -13,50 +13,7 @@ define('shopadmin/tree/tree', function(require, exports, module) {
     var my = {};
     var options = {
       url: '/home/tree/',
-      tpl: [function(locals, filters, escape, rethrow
-  /**/) {
-  escape = escape || function (html){
-    return String(html)
-      .replace(/&(?!#?[a-zA-Z0-9]+;)/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;');
-  };
-  var __stack = { lineno: 1, input: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <i>display:1</i>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\r\n<%}%>\r\n", filename: "site/shopadmin/ejs/tree.ejs" };
-  function rethrow(err, str, filename, lineno){
-    var lines = str.split('\n')
-      , start = Math.max(lineno - 3, 0)
-      , end = Math.min(lines.length, lineno + 3);
-  
-    // Error context
-    var context = lines.slice(start, end).map(function(line, i){
-      var curr = i + start + 1;
-      return (curr == lineno ? ' >> ' : '    ')
-        + curr
-        + '| '
-        + line;
-    }).join('\n');
-  
-    // Alter exception message
-    err.path = filename;
-    err.message = (filename || 'ejs') + ':'
-      + lineno + '\n'
-      + context + '\n\n'
-      + err.message;
-    
-    throw err;
-  }
-  try {
-  var buf = [];
-  with (locals || {}) { (function(){ 
-   buf.push('');__stack.lineno=1;for(var i=0,ll=data.length; i<ll; i++) { ; buf.push('\n    <li class="pid', escape((__stack.lineno=2,  data[i].pid)), '" path="', escape((__stack.lineno=2,  data[i].nodepath)), '" id="', escape((__stack.lineno=2,  data[i].id)), '">\n      ');__stack.lineno=3;var deep = data[i].nodepath.split(',').length - 3 ; buf.push('\n      ');__stack.lineno=4;for(var j=0;j<deep;j++) {; buf.push('\n        <b class="indent"></b>\n      ');__stack.lineno=6;}; buf.push('\n      <i class="icon-add"></i>\n      <em>', escape((__stack.lineno=8,  data[i].name)), '</em>\n      <i>display:1</i>\n      <span><a href="/home/tree/edit?id=', escape((__stack.lineno=10,  data[i].id)), '">编辑</a><a href="/home/tree/edit?pid=', escape((__stack.lineno=10,  data[i].id)), '">添加子节点</a></span>\n    </li>\n');__stack.lineno=12;}; buf.push('\n'); })();
-  } 
-  return buf.join('');
-  } catch (err) {
-    rethrow(err, __stack.input, __stack.filename, __stack.lineno);
-  }
-  }][0]
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <i>display:1</i>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\r\n<%}%>\r\n"
     };
   
     /**
@@ -208,9 +165,7 @@ define('shopadmin/tree/tree', function(require, exports, module) {
         url: options.url + 'page',
         data: 'pid=' + pid,
         success: function(msg) {
-          var s = options.tpl({
-            "data": msg.msg
-          });
+          let s = new EJS({text: options.tpl}).render({data: msg.msg});
           o.after(s);
         }
       });

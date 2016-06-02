@@ -1,0 +1,9 @@
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li>
+    <label class="checkgroup">
+      <input type="checkbox" id="goodstype_<%= data[i].id%>" name="checkall"><label for="goodstype_<%= data[i].id%>" class="check-all"></label>
+    </label>
+    <a target="_blank"><%= data[i].catname%></a>
+    <span><a href="/shopadmin/goodstypeattr/?catid=<%= data[i].id%>&catname=<%= escape(data[i].catname)%>">属性列表</a><a href="./goodstype/edit?id=<%= data[i].id%>">编辑</a><i class="remove">删除</i></span>
+  </li>
+<%}%>
