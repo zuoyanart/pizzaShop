@@ -1,0 +1,62 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 品牌管理 {% endblock %}
+<!---->
+{% block content %}
+<link rel="stylesheet" href="/widget/kindeditor-4.1.10/themes/default/default.css" />
+<div class="menu">
+    <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list tab" id="list">
+    <ul>
+      <li class="active" param="tab=common">通用信息</li>
+      <li param="tab=info">详细描述</li>
+      <li param="">其他信息</li>
+      <li>商品属性</li>
+      <li>商品相册</li>
+      <li>关联商品</li>
+      <li>配件</li>
+      <li>关联文章</li>
+    </ul>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript">
+    $("#list").pizzaTab({
+      activeCla: "active", //默认标题选中样式
+      itemCla: 'item', //默认正文区样式
+      url: '/shopadmin/goods/tab'//ajax 获取数据的url地址
+    });
+    var goods = require('shopadmin/goods/goods');
+    goods.get();
+    goods.edit();
+    KindEditor.ready(function(K) {
+        var editor = K.editor({
+            uploadJson: '/upfile/local'
+        });
+        K('#timgup').click(function() {
+            editor.loadPlugin('image', function() {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: K('#logo').val(),
+                    clickFn: function(url, title, width, height, border, align) {
+                        K('#logo').val(url);
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

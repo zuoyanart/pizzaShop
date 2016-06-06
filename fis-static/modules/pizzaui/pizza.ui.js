@@ -1602,13 +1602,14 @@ var tools = require('pizzatools');
     var options = $.extend(defaults, options);
     //私有函数，ajax执行函数
     function _ajaxData(li, divCon) {
-      if ($.trim(divCon.html()) == '') {
+      if (divCon.attr("isajax") !== 'ajax') {
         $.ajax({ //请求数据
           type: "POST",
           url: options.url,
           data: li.attr('param'),
           success: function(msg) {
-            divCon.html(msg);
+            divCon.html(msg.msg);
+            divCon.attr("isajax", "ajax");
           }
         });
       }
@@ -1627,8 +1628,8 @@ var tools = require('pizzatools');
           var divs = li.parent().parent().children("." + options.itemCla);
           $(divs[activeliIndex]).removeAttr("style");
           $(divs[index]).css("display", "block");
-          if (options.ajaxUrl) {
-            _ajaxData(lic, div);
+          if (options.url) {
+            _ajaxData(li, $(divs[index]));
           }
         }
     });

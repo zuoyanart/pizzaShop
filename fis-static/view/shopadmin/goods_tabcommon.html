@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/common/common.css">
+    <link rel="stylesheet" href="/site/home/base.css" >
+</head>
+<body style="background-color:#fff;">
+<ul class="list" id="list">
+    <div class="form" style="width:800px;">
+        <div>
+            <label for="">商品名称</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="">商品货号</label>
+            <input type="text" id="goodsn" name="goodsn">
+        </div>
+        <div>
+            <label for="">商品分类</label>
+            <select name="catid" id="catid"></select>
+        </div>
+        <div>
+            <label for="">商品品牌</label>
+            <input type="text" id="pinpai" name="pinpai">
+        </div>
+        <div>
+            <label for="">本店售价</label>
+            <input type="text" id="shopprice" name="shopprice" value="0">
+        </div>
+        <div>
+            <label for="">会员价格</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">市场价</label>
+            <input type="text" id="marketprice" name="marketprice" value="0">
+        </div>
+        <div>
+            <label for="">虚拟销量</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">赠送消费积分数</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">赠送等级积分数</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">积分购买金额</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">促销价</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">促销日期</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">上传商品图片</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <label for="">上传商品缩略图</label>
+            <input type="text" id="weight" name="weight" value="0">
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="更新">
+        </div>
+    </div>
+</ul>
+<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var goods = require('shopadmin/goods/goods');
+    goods.get("common");
+    function edit(obj) {
+        $(".form").pizzaValidate({
+          'fields': {
+            '#catname': {
+              'must': true,
+              'minLength': 1,
+              'maxLength': 20,
+              focusMsg: "请输入商品类型名称",
+              errMsg: '标题不能为空或标题必须在1-20个字符之间'
+            },
+          },
+          ajaxFun: function(data) {
+            let id = tools.getPara("id");
+            let op = "create";
+            if (id != "") {
+              op = "update";
+              data += "&id=" + id;
+            }
+            $.ajax({
+              url: options.url + op,
+              data: data,
+              success: function(msg) {
+                if (msg.state == true) {
+                  history.back();
+                }
+              }
+            });
+          }
+        });
+      }
+</script>
+</body>
+</html>
