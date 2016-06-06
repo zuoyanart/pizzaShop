@@ -82,15 +82,10 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(article) {
-            if (think.config("openApi")) {
-                let article = await tools.httpAgent(this.config("api") + 'article', "put", article);
-                return article;
-            } else {
-                let id = await this.add(article);
-                return {
-                    state: true,
-                    msg: id
-                }
+            let id = await this.add(article);
+            return {
+                state: true,
+                msg: id
             }
         }
         /**

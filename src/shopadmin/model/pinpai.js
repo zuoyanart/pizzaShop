@@ -22,6 +22,21 @@ export default class extends think.model.base {
             }
         }
         /**
+         *  根据父节点获取所有子节点
+         * @method checkUserLogin
+         * @param  {[type]}       username [description]
+         * @param  {[type]}       password [description]
+         * @return {[type]}                [description]
+         */
+        async pageAll() {
+                let data = await this.where("1=1")
+                    .select();
+                return {
+                    state: true,
+                    msg: data
+                }
+            }
+        /**
          * 获取节点by id
          * @method get
          * @param  {[type]} nodeid [description]

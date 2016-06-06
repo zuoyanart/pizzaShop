@@ -1,1 +1,1554 @@
-define("xss",function(t,e,r){!function i(e,r,n){function o(s,l){if(!r[s]){if(!e[s]){var c="function"==typeof t&&t;if(!l&&c)return c(s,!0);if(a)return a(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var f=r[s]={exports:{}};e[s][0].call(f.exports,function(t){var r=e[s][1][t];return o(r?r:t)},f,f.exports,i,e,r,n)}return r[s].exports}for(var a="function"==typeof t&&t,s=0;s<n.length;s++)o(n[s]);return o}({1:[function(t,e,r){function i(t,e,r){}function n(t,e,r){}function o(t,e,r){}function a(t,e,r){}function s(t){return t.replace(T,"&lt;").replace(I,"&gt;")}function l(t,e,r,i){if(i=i||A,r=d(r),"href"===e||"src"===e){if(r=y.trim(r),"#"===r)return"#";if("http://"!==r.substr(0,7)&&"https://"!==r.substr(0,8)&&"mailto:"!==r.substr(0,7)&&"/"!==r[0])return""}else if("background"===e){if(E.lastIndex=0,E.test(r))return""}else if("style"===e){if(j.lastIndex=0,j.test(r))return"";if(F.lastIndex=0,F.test(r)&&(E.lastIndex=0,E.test(r)))return"";r=i.process(r)}return r=m(r)}function c(t){return t.replace(S,"&quot;")}function u(t){return t.replace(C,'"')}function f(t){return t.replace(O,function(t,e){return"x"===e[0]||"X"===e[0]?String.fromCharCode(parseInt(e.substr(1),16)):String.fromCharCode(parseInt(e,10))})}function g(t){return t.replace(z,":").replace(L," ")}function p(t){for(var e="",r=0,i=t.length;i>r;r++)e+=t.charCodeAt(r)<32?" ":t.charAt(r);return y.trim(e)}function d(t){return t=u(t),t=f(t),t=g(t),t=p(t)}function m(t){return t=c(t),t=s(t)}function h(){return""}function b(t,e){function r(e){return i?!0:-1!==y.indexOf(t,e)}"function"!=typeof e&&(e=function(){});var i=!Array.isArray(t),n=[],o=!1;return{onIgnoreTag:function(t,i,a){if(r(t)){if(a.isClosing){var s="[/removed]",l=a.position+s.length;return n.push([o!==!1?o:a.position,l]),o=!1,s}return o||(o=a.position),"[removed]"}return e(t,i,a)},remove:function(t){var e="",r=0;return y.forEach(n,function(i){e+=t.slice(r,i[0]),r=i[1]}),e+=t.slice(r)}}}function v(t){return t.replace(B,"")}function x(t){var e=t.split("");return e=e.filter(function(t){var e=t.charCodeAt(0);return 127===e?!1:31>=e?10===e||13===e:!0}),e.join("")}var w=t("cssfilter").FilterCSS,y=t("./util"),k={a:["target","href","title"],abbr:["title"],address:[],area:["shape","coords","href","alt"],article:[],aside:[],audio:["autoplay","controls","loop","preload","src"],b:[],bdi:["dir"],bdo:["dir"],big:[],blockquote:["cite"],br:[],caption:[],center:[],cite:[],code:[],col:["align","valign","span","width"],colgroup:["align","valign","span","width"],dd:[],del:["datetime"],details:["open"],div:[],dl:[],dt:[],em:[],font:["color","size","face"],footer:[],h1:[],h2:[],h3:[],h4:[],h5:[],h6:[],header:[],hr:[],i:[],img:["src","alt","title","width","height"],ins:["datetime"],li:[],mark:[],nav:[],ol:[],p:[],pre:[],s:[],section:[],small:[],span:[],sub:[],sup:[],strong:[],table:["width","border","align","valign"],tbody:["align","valign"],td:["width","colspan","align","valign"],tfoot:["align","valign"],th:["width","colspan","align","valign"],thead:["align","valign"],tr:["rowspan","align","valign"],tt:[],u:[],ul:[],video:["autoplay","controls","loop","preload","src","height","width"]},A=new w,T=/</g,I=/>/g,S=/"/g,C=/&quot;/g,O=/&#([a-zA-Z0-9]*);?/gim,z=/&colon;?/gim,L=/&newline;?/gim,E=/((j\s*a\s*v\s*a|v\s*b|l\s*i\s*v\s*e)\s*s\s*c\s*r\s*i\s*p\s*t\s*|m\s*o\s*c\s*h\s*a)\:/gi,j=/e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n\s*\(.*/gi,F=/u\s*r\s*l\s*\(.*/gi,B=/<!--[\s\S]*?-->/g;r.whiteList=k,r.onTag=i,r.onIgnoreTag=n,r.onTagAttr=o,r.onIgnoreTagAttr=a,r.safeAttrValue=l,r.escapeHtml=s,r.escapeQuote=c,r.unescapeQuote=u,r.escapeHtmlEntities=f,r.escapeDangerHtml5Entities=g,r.clearNonPrintableCharacter=p,r.friendlyAttrValue=d,r.escapeAttrValue=m,r.onIgnoreTagStripAll=h,r.StripTagBody=b,r.stripCommentTag=v,r.stripBlankChar=x,r.cssFilter=A},{"./util":4,cssfilter:8}],2:[function(t,e,r){function i(t,e){var r=new a(e);return r.process(t)}var n=t("./default"),o=t("./parser"),a=t("xss");r=e.exports=i,r.FilterXSS=a;for(var s in n)r[s]=n[s];for(var s in o)r[s]=o[s];"function"==typeof define&&define.amd&&define(function(){return e.exports}),"undefined"!=typeof window&&(window.filterXSS=e.exports)},{"./default":1,"./parser":3,"./xss":5}],3:[function(t,e,r){function i(t){var e=t.indexOf(" ");if(-1===e)var r=t.slice(1,-1);else var r=t.slice(1,e+1);return r=f.trim(r).toLowerCase(),"/"===r.slice(0,1)&&(r=r.slice(1)),"/"===r.slice(-1)&&(r=r.slice(0,-1)),r}function n(t){return"</"===t.slice(0,2)}function o(t,e,r){"user strict";var o="",a=0,s=!1,l=!1,c=0,u=t.length,f="",g="";for(c=0;u>c;c++){var p=t.charAt(c);if(s===!1){if("<"===p){s=c;continue}}else if(l===!1){if("<"===p){o+=r(t.slice(a,c)),s=c,a=c;continue}if(">"===p){o+=r(t.slice(a,s)),f=t.slice(s,c+1),g=i(f),o+=e(s,o.length,g,f,n(f)),a=c+1,s=!1;continue}if(('"'===p||"'"===p)&&"="===t.charAt(c-1)){l=p;continue}}else if(p===l){l=!1;continue}}return a<t.length&&(o+=r(t.substr(a))),o}function a(t,e){"user strict";function r(t,r){if(t=f.trim(t),t=t.replace(g,"").toLowerCase(),!(t.length<1)){var i=e(t,r||"");i&&n.push(i)}}for(var i=0,n=[],o=!1,a=t.length,c=0;a>c;c++){var p,d,m=t.charAt(c);if(o!==!1||"="!==m)if(o===!1||c!==i||'"'!==m&&"'"!==m||"="!==t.charAt(c-1))if(" "!==m);else{if(o===!1){if(d=s(t,c),-1===d){p=f.trim(t.slice(i,c)),r(p),o=!1,i=c+1;continue}c=d-1;continue}if(d=l(t,c-1),-1===d){p=f.trim(t.slice(i,c)),p=u(p),r(o,p),o=!1,i=c+1;continue}}else{if(d=t.indexOf(m,c+1),-1===d)break;p=f.trim(t.slice(i+1,d)),r(o,p),o=!1,c=d,i=c+1}else o=t.slice(i,c),i=c+1}return i<t.length&&(o===!1?r(t.slice(i)):r(o,u(f.trim(t.slice(i))))),f.trim(n.join(" "))}function s(t,e){for(;e<t.length;e++){var r=t[e];if(" "!==r)return"="===r?e:-1}}function l(t,e){for(;e>0;e--){var r=t[e];if(" "!==r)return"="===r?e:-1}}function c(t){return'"'===t[0]&&'"'===t[t.length-1]||"'"===t[0]&&"'"===t[t.length-1]}function u(t){return c(t)?t.substr(1,t.length-2):t}var f=t("./util"),g=/[^a-zA-Z0-9_:\.\-]/gim;r.parseTag=o,r.parseAttr=a},{"./util":4}],4:[function(t,e,r){e.exports={indexOf:function(t,e){var r,i;if(Array.prototype.indexOf)return t.indexOf(e);for(r=0,i=t.length;i>r;r++)if(t[r]===e)return r;return-1},forEach:function(t,e,r){var i,n;if(Array.prototype.forEach)return t.forEach(e,r);for(i=0,n=t.length;n>i;i++)e.call(r,t[i],i,t)},trim:function(t){return String.prototype.trim?t.trim():t.replace(/(^\s*)|(\s*$)/g,"")}}},{}],5:[function(t,e,r){function i(t){return void 0===t||null===t}function n(t){var e=t.indexOf(" ");if(-1===e)return{html:"",closing:"/"===t[t.length-2]};t=f.trim(t.slice(e+1,-1));var r="/"===t[t.length-1];return r&&(t=f.trim(t.slice(0,-1))),{html:t,closing:r}}function o(t){t=t||{},t.stripIgnoreTag&&(t.onIgnoreTag&&console.error('Notes: cannot use these two options "stripIgnoreTag" and "onIgnoreTag" at the same time'),t.onIgnoreTag=s.onIgnoreTagStripAll),t.whiteList=t.whiteList||s.whiteList,t.onTag=t.onTag||s.onTag,t.onTagAttr=t.onTagAttr||s.onTagAttr,t.onIgnoreTag=t.onIgnoreTag||s.onIgnoreTag,t.onIgnoreTagAttr=t.onIgnoreTagAttr||s.onIgnoreTagAttr,t.safeAttrValue=t.safeAttrValue||s.safeAttrValue,t.escapeHtml=t.escapeHtml||s.escapeHtml,t.css=t.css||{},this.options=t,this.cssFilter=new a(t.css)}var a=t("cssfilter").FilterCSS,s=t("./default"),l=t("./parser"),c=l.parseTag,u=l.parseAttr,f=t("./util");o.prototype.process=function(t){if(t=t||"",t=t.toString(),!t)return"";var e=this,r=e.options,o=r.whiteList,a=r.onTag,l=r.onIgnoreTag,g=r.onTagAttr,p=r.onIgnoreTagAttr,d=r.safeAttrValue,m=r.escapeHtml,h=e.cssFilter;if(r.stripBlankChar&&(t=s.stripBlankChar(t)),r.allowCommentTag||(t=s.stripCommentTag(t)),r.stripIgnoreTagBody){var b=s.StripTagBody(r.stripIgnoreTagBody,l);l=b.onIgnoreTag}else b=!1;var v=c(t,function(t,e,r,s,c){var b={sourcePosition:t,position:e,isClosing:c,isWhite:r in o},v=a(r,s,b);if(!i(v))return v;if(b.isWhite){if(b.isClosing)return"</"+r+">";var x=n(s),w=o[r],y=u(x.html,function(t,e){var n=-1!==f.indexOf(w,t),o=g(r,t,e,n);if(!i(o))return o;if(n)return e=d(r,t,e,h),e?t+'="'+e+'"':t;var o=p(r,t,e,n);return i(o)?void 0:o}),s="<"+r;return y&&(s+=" "+y),x.closing&&(s+=" /"),s+=">"}var v=l(r,s,b);return i(v)?m(s):v},m);return b&&(v=b.remove(v)),v},e.exports=o},{"./default":1,"./parser":3,"./util":4,cssfilter:8}],6:[function(t,e,r){function i(t){return void 0===t||null===t}function n(t){t=t||{},t.whiteList=t.whiteList||o.whiteList,t.onAttr=t.onAttr||o.onAttr,t.onIgnoreAttr=t.onIgnoreAttr||o.onIgnoreAttr,this.options=t}var o=t("./default"),a=t("./parser");t("./util");n.prototype.process=function(t){if(t=t||"",t=t.toString(),!t)return"";var e=this,r=e.options,n=r.whiteList,o=r.onAttr,s=r.onIgnoreAttr,l=a(t,function(t,e,r,a,l){var c=n[r],u=!1;c===!0?u=c:"function"==typeof c?u=c(a):c instanceof RegExp&&(u=c.test(a)),u!==!0&&(u=!1);var f={position:e,sourcePosition:t,source:l,isWhite:u};if(u){var g=o(r,a,f);return i(g)?r+":"+a:g}var g=s(r,a,f);return i(g)?void 0:g});return l},e.exports=n},{"./default":7,"./parser":9,"./util":10}],7:[function(t,e,r){function i(t,e,r){}function n(t,e,r){}var o={};o["align-content"]=!1,o["align-items"]=!1,o["align-self"]=!1,o["alignment-adjust"]=!1,o["alignment-baseline"]=!1,o.all=!1,o["anchor-point"]=!1,o.animation=!1,o["animation-delay"]=!1,o["animation-direction"]=!1,o["animation-duration"]=!1,o["animation-fill-mode"]=!1,o["animation-iteration-count"]=!1,o["animation-name"]=!1,o["animation-play-state"]=!1,o["animation-timing-function"]=!1,o.azimuth=!1,o["backface-visibility"]=!1,o.background=!0,o["background-attachment"]=!0,o["background-clip"]=!0,o["background-color"]=!0,o["background-image"]=!0,o["background-origin"]=!0,o["background-position"]=!0,o["background-repeat"]=!0,o["background-size"]=!0,o["baseline-shift"]=!1,o.binding=!1,o.bleed=!1,o["bookmark-label"]=!1,o["bookmark-level"]=!1,o["bookmark-state"]=!1,o.border=!0,o["border-bottom"]=!0,o["border-bottom-color"]=!0,o["border-bottom-left-radius"]=!0,o["border-bottom-right-radius"]=!0,o["border-bottom-style"]=!0,o["border-bottom-width"]=!0,o["border-collapse"]=!0,o["border-color"]=!0,o["border-image"]=!0,o["border-image-outset"]=!0,o["border-image-repeat"]=!0,o["border-image-slice"]=!0,o["border-image-source"]=!0,o["border-image-width"]=!0,o["border-left"]=!0,o["border-left-color"]=!0,o["border-left-style"]=!0,o["border-left-width"]=!0,o["border-radius"]=!0,o["border-right"]=!0,o["border-right-color"]=!0,o["border-right-style"]=!0,o["border-right-width"]=!0,o["border-spacing"]=!0,o["border-style"]=!0,o["border-top"]=!0,o["border-top-color"]=!0,o["border-top-left-radius"]=!0,o["border-top-right-radius"]=!0,o["border-top-style"]=!0,o["border-top-width"]=!0,o["border-width"]=!0,o.bottom=!1,o["box-decoration-break"]=!0,o["box-shadow"]=!0,o["box-sizing"]=!0,o["box-snap"]=!0,o["box-suppress"]=!0,o["break-after"]=!0,o["break-before"]=!0,o["break-inside"]=!0,o["caption-side"]=!1,o.chains=!1,o.clear=!0,o.clip=!1,o["clip-path"]=!1,o["clip-rule"]=!1,o.color=!0,o["color-interpolation-filters"]=!0,o["column-count"]=!1,o["column-fill"]=!1,o["column-gap"]=!1,o["column-rule"]=!1,o["column-rule-color"]=!1,o["column-rule-style"]=!1,o["column-rule-width"]=!1,o["column-span"]=!1,o["column-width"]=!1,o.columns=!1,o.contain=!1,o.content=!1,o["counter-increment"]=!1,o["counter-reset"]=!1,o["counter-set"]=!1,o.crop=!1,o.cue=!1,o["cue-after"]=!1,o["cue-before"]=!1,o.cursor=!1,o.direction=!1,o.display=!0,o["display-inside"]=!0,o["display-list"]=!0,o["display-outside"]=!0,o["dominant-baseline"]=!1,o.elevation=!1,o["empty-cells"]=!1,o.filter=!1,o.flex=!1,o["flex-basis"]=!1,o["flex-direction"]=!1,o["flex-flow"]=!1,o["flex-grow"]=!1,o["flex-shrink"]=!1,o["flex-wrap"]=!1,o["float"]=!1,o["float-offset"]=!1,o["flood-color"]=!1,o["flood-opacity"]=!1,o["flow-from"]=!1,o["flow-into"]=!1,o.font=!0,o["font-family"]=!0,o["font-feature-settings"]=!0,o["font-kerning"]=!0,o["font-language-override"]=!0,o["font-size"]=!0,o["font-size-adjust"]=!0,o["font-stretch"]=!0,o["font-style"]=!0,o["font-synthesis"]=!0,o["font-variant"]=!0,o["font-variant-alternates"]=!0,o["font-variant-caps"]=!0,o["font-variant-east-asian"]=!0,o["font-variant-ligatures"]=!0,o["font-variant-numeric"]=!0,o["font-variant-position"]=!0,o["font-weight"]=!0,o.grid=!1,o["grid-area"]=!1,o["grid-auto-columns"]=!1,o["grid-auto-flow"]=!1,o["grid-auto-rows"]=!1,o["grid-column"]=!1,o["grid-column-end"]=!1,o["grid-column-start"]=!1,o["grid-row"]=!1,o["grid-row-end"]=!1,o["grid-row-start"]=!1,o["grid-template"]=!1,o["grid-template-areas"]=!1,o["grid-template-columns"]=!1,o["grid-template-rows"]=!1,o["hanging-punctuation"]=!1,o.height=!0,o.hyphens=!1,o.icon=!1,o["image-orientation"]=!1,o["image-resolution"]=!1,o["ime-mode"]=!1,o["initial-letters"]=!1,o["inline-box-align"]=!1,o["justify-content"]=!1,o["justify-items"]=!1,o["justify-self"]=!1,o.left=!1,o["letter-spacing"]=!0,o["lighting-color"]=!0,o["line-box-contain"]=!1,o["line-break"]=!1,o["line-grid"]=!1,o["line-height"]=!1,o["line-snap"]=!1,o["line-stacking"]=!1,o["line-stacking-ruby"]=!1,o["line-stacking-shift"]=!1,o["line-stacking-strategy"]=!1,o["list-style"]=!0,o["list-style-image"]=!0,o["list-style-position"]=!0,o["list-style-type"]=!0,o.margin=!0,o["margin-bottom"]=!0,o["margin-left"]=!0,o["margin-right"]=!0,o["margin-top"]=!0,o["marker-offset"]=!1,o["marker-side"]=!1,o.marks=!1,o.mask=!1,o["mask-box"]=!1,o["mask-box-outset"]=!1,o["mask-box-repeat"]=!1,o["mask-box-slice"]=!1,o["mask-box-source"]=!1,o["mask-box-width"]=!1,o["mask-clip"]=!1,o["mask-image"]=!1,o["mask-origin"]=!1,o["mask-position"]=!1,o["mask-repeat"]=!1,o["mask-size"]=!1,o["mask-source-type"]=!1,o["mask-type"]=!1,o["max-height"]=!0,o["max-lines"]=!1,o["max-width"]=!0,o["min-height"]=!0,o["min-width"]=!0,o["move-to"]=!1,o["nav-down"]=!1,o["nav-index"]=!1,o["nav-left"]=!1,o["nav-right"]=!1,o["nav-up"]=!1,o["object-fit"]=!1,o["object-position"]=!1,o.opacity=!1,o.order=!1,o.orphans=!1,o.outline=!1,o["outline-color"]=!1,o["outline-offset"]=!1,o["outline-style"]=!1,o["outline-width"]=!1,o.overflow=!1,o["overflow-wrap"]=!1,o["overflow-x"]=!1,o["overflow-y"]=!1,o.padding=!0,o["padding-bottom"]=!0,o["padding-left"]=!0,o["padding-right"]=!0,o["padding-top"]=!0,o.page=!1,o["page-break-after"]=!1,o["page-break-before"]=!1,o["page-break-inside"]=!1,o["page-policy"]=!1,o.pause=!1,o["pause-after"]=!1,o["pause-before"]=!1,o.perspective=!1,o["perspective-origin"]=!1,o.pitch=!1,o["pitch-range"]=!1,o["play-during"]=!1,o.position=!1,o["presentation-level"]=!1,o.quotes=!1,o["region-fragment"]=!1,o.resize=!1,o.rest=!1,o["rest-after"]=!1,o["rest-before"]=!1,o.richness=!1,o.right=!1,o.rotation=!1,o["rotation-point"]=!1,o["ruby-align"]=!1,o["ruby-merge"]=!1,o["ruby-position"]=!1,o["shape-image-threshold"]=!1,o["shape-outside"]=!1,o["shape-margin"]=!1,o.size=!1,o.speak=!1,o["speak-as"]=!1,o["speak-header"]=!1,o["speak-numeral"]=!1,o["speak-punctuation"]=!1,o["speech-rate"]=!1,o.stress=!1,o["string-set"]=!1,o["tab-size"]=!1,o["table-layout"]=!1,o["text-align"]=!0,o["text-align-last"]=!0,o["text-combine-upright"]=!0,o["text-decoration"]=!0,o["text-decoration-color"]=!0,o["text-decoration-line"]=!0,o["text-decoration-skip"]=!0,o["text-decoration-style"]=!0,o["text-emphasis"]=!0,o["text-emphasis-color"]=!0,o["text-emphasis-position"]=!0,o["text-emphasis-style"]=!0,o["text-height"]=!0,o["text-indent"]=!0,o["text-justify"]=!0,o["text-orientation"]=!0,o["text-overflow"]=!0,o["text-shadow"]=!0,o["text-space-collapse"]=!0,o["text-transform"]=!0,o["text-underline-position"]=!0,o["text-wrap"]=!0,o.top=!1,o.transform=!1,o["transform-origin"]=!1,o["transform-style"]=!1,o.transition=!1,o["transition-delay"]=!1,o["transition-duration"]=!1,o["transition-property"]=!1,o["transition-timing-function"]=!1,o["unicode-bidi"]=!1,o["vertical-align"]=!1,o.visibility=!1,o["voice-balance"]=!1,o["voice-duration"]=!1,o["voice-family"]=!1,o["voice-pitch"]=!1,o["voice-range"]=!1,o["voice-rate"]=!1,o["voice-stress"]=!1,o["voice-volume"]=!1,o.volume=!1,o["white-space"]=!1,o.widows=!1,o.width=!0,o["will-change"]=!1,o["word-break"]=!0,o["word-spacing"]=!0,o["word-wrap"]=!0,o["wrap-flow"]=!1,o["wrap-through"]=!1,o["writing-mode"]=!1,o["z-index"]=!1,r.whiteList=o,r.onAttr=i,r.onIgnoreAttr=n},{}],8:[function(t,e,r){function i(t,e){var r=new o(e);return r.process(t)}var n=t("./default"),o=t("./css");r=e.exports=i,r.FilterCSS=o;for(var a in n)r[a]=n[a];"function"==typeof define&&define.amd&&define(function(){return e.exports}),"undefined"!=typeof window&&(window.filterCSS=e.exports)},{"./css":6,"./default":7}],9:[function(t,e,r){function i(t,e){function r(){if(!o){var r=n.trim(t.slice(a,s)),i=r.indexOf(":");if(-1!==i){var c=n.trim(r.slice(0,i)),u=n.trim(r.slice(i+1));if(c){var f=e(a,l.length,c,u,r);f&&(l+=f+"; ")}}}a=s+1}t=n.trimRight(t),";"!==t[t.length-1]&&(t+=";");for(var i=t.length,o=!1,a=0,s=0,l="";i>s;s++){var c=t[s];if("/"===c&&"*"===t[s+1]){var u=t.indexOf("*/",s+2);if(-1===u)break;s=u+1,a=s+1,o=!1}else"("===c?o=!0:")"===c?o=!1:";"===c?o||r():"\n"===c&&r()}return n.trim(l)}var n=t("./util");e.exports=i},{"./util":10}],10:[function(t,e,r){e.exports={indexOf:function(t,e){var r,i;if(Array.prototype.indexOf)return t.indexOf(e);for(r=0,i=t.length;i>r;r++)if(t[r]===e)return r;return-1},forEach:function(t,e,r){var i,n;if(Array.prototype.forEach)return t.forEach(e,r);for(i=0,n=t.length;n>i;i++)e.call(r,t[i],i,t)},trim:function(t){return String.prototype.trim?t.trim():t.replace(/(^\s*)|(\s*$)/g,"")},trimRight:function(t){return String.prototype.trimRight?t.trimRight():t.replace(/(\s*$)/g,"")}}},{}]},{},[2])});
+define('xss', function(require, exports, module) {
+
+  (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+  /**
+   * 默认配置
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var FilterCSS = require('cssfilter').FilterCSS;
+  var _ = require('./util');
+  
+  // 默认白名单
+  var whiteList = {
+    a:      ['target', 'href', 'title'],
+    abbr:   ['title'],
+    address: [],
+    area:   ['shape', 'coords', 'href', 'alt'],
+    article: [],
+    aside:  [],
+    audio:  ['autoplay', 'controls', 'loop', 'preload', 'src'],
+    b:      [],
+    bdi:    ['dir'],
+    bdo:    ['dir'],
+    big:    [],
+    blockquote: ['cite'],
+    br:     [],
+    caption: [],
+    center: [],
+    cite:   [],
+    code:   [],
+    col:    ['align', 'valign', 'span', 'width'],
+    colgroup: ['align', 'valign', 'span', 'width'],
+    dd:     [],
+    del:    ['datetime'],
+    details: ['open'],
+    div:    [],
+    dl:     [],
+    dt:     [],
+    em:     [],
+    font:   ['color', 'size', 'face'],
+    footer: [],
+    h1:     [],
+    h2:     [],
+    h3:     [],
+    h4:     [],
+    h5:     [],
+    h6:     [],
+    header: [],
+    hr:     [],
+    i:      [],
+    img:    ['src', 'alt', 'title', 'width', 'height'],
+    ins:    ['datetime'],
+    li:     [],
+    mark:   [],
+    nav:    [],
+    ol:     [],
+    p:      [],
+    pre:    [],
+    s:      [],
+    section:[],
+    small:  [],
+    span:   [],
+    sub:    [],
+    sup:    [],
+    strong: [],
+    table:  ['width', 'border', 'align', 'valign'],
+    tbody:  ['align', 'valign'],
+    td:     ['width', 'colspan', 'align', 'valign'],
+    tfoot:  ['align', 'valign'],
+    th:     ['width', 'colspan', 'align', 'valign'],
+    thead:  ['align', 'valign'],
+    tr:     ['rowspan', 'align', 'valign'],
+    tt:     [],
+    u:      [],
+    ul:     [],
+    video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width']
+  };
+  
+  // 默认CSS Filter
+  var defaultCSSFilter = new FilterCSS();
+  
+  /**
+   * 匹配到标签时的处理方法
+   *
+   * @param {String} tag
+   * @param {String} html
+   * @param {Object} options
+   * @return {String}
+   */
+  function onTag (tag, html, options) {
+    // do nothing
+  }
+  
+  /**
+   * 匹配到不在白名单上的标签时的处理方法
+   *
+   * @param {String} tag
+   * @param {String} html
+   * @param {Object} options
+   * @return {String}
+   */
+  function onIgnoreTag (tag, html, options) {
+    // do nothing
+  }
+  
+  /**
+   * 匹配到标签属性时的处理方法
+   *
+   * @param {String} tag
+   * @param {String} name
+   * @param {String} value
+   * @return {String}
+   */
+  function onTagAttr (tag, name, value) {
+    // do nothing
+  }
+  
+  /**
+   * 匹配到不在白名单上的标签属性时的处理方法
+   *
+   * @param {String} tag
+   * @param {String} name
+   * @param {String} value
+   * @return {String}
+   */
+  function onIgnoreTagAttr (tag, name, value) {
+    // do nothing
+  }
+  
+  /**
+   * HTML转义
+   *
+   * @param {String} html
+   */
+  function escapeHtml (html) {
+    return html.replace(REGEXP_LT, '&lt;').replace(REGEXP_GT, '&gt;');
+  }
+  
+  /**
+   * 安全的标签属性值
+   *
+   * @param {String} tag
+   * @param {String} name
+   * @param {String} value
+   * @param {Object} cssFilter
+   * @return {String}
+   */
+  function safeAttrValue (tag, name, value, cssFilter) {
+    cssFilter = cssFilter || defaultCSSFilter;
+    // 转换为友好的属性值，再做判断
+    value = friendlyAttrValue(value);
+  
+    if (name === 'href' || name === 'src') {
+      // 过滤 href 和 src 属性
+      // 仅允许 http:// | https:// | mailto: | / 开头的地址
+      value = _.trim(value);
+      if (value === '#') return '#';
+      if (!(value.substr(0, 7) === 'http://' ||
+           value.substr(0, 8) === 'https://' ||
+           value.substr(0, 7) === 'mailto:' ||
+           value[0] === '/')) {
+        return '';
+      }
+    } else if (name === 'background') {
+      // 过滤 background 属性 （这个xss漏洞较老了，可能已经不适用）
+      // javascript:
+      REGEXP_DEFAULT_ON_TAG_ATTR_4.lastIndex = 0;
+      if (REGEXP_DEFAULT_ON_TAG_ATTR_4.test(value)) {
+        return '';
+      }
+    } else if (name === 'style') {
+      // /*注释*/
+      /*REGEXP_DEFAULT_ON_TAG_ATTR_3.lastIndex = 0;
+      if (REGEXP_DEFAULT_ON_TAG_ATTR_3.test(value)) {
+        return '';
+      }*/
+      // expression()
+      REGEXP_DEFAULT_ON_TAG_ATTR_7.lastIndex = 0;
+      if (REGEXP_DEFAULT_ON_TAG_ATTR_7.test(value)) {
+        return '';
+      }
+      // url()
+      REGEXP_DEFAULT_ON_TAG_ATTR_8.lastIndex = 0;
+      if (REGEXP_DEFAULT_ON_TAG_ATTR_8.test(value)) {
+        REGEXP_DEFAULT_ON_TAG_ATTR_4.lastIndex = 0;
+        if (REGEXP_DEFAULT_ON_TAG_ATTR_4.test(value)) {
+          return '';
+        }
+      }
+      value = cssFilter.process(value);
+    }
+  
+    // 输出时需要转义<>"
+    value = escapeAttrValue(value);
+    return value;
+  }
+  
+  // 正则表达式
+  var REGEXP_LT = /</g;
+  var REGEXP_GT = />/g;
+  var REGEXP_QUOTE = /"/g;
+  var REGEXP_QUOTE_2 = /&quot;/g;
+  var REGEXP_ATTR_VALUE_1 = /&#([a-zA-Z0-9]*);?/img;
+  var REGEXP_ATTR_VALUE_COLON = /&colon;?/img;
+  var REGEXP_ATTR_VALUE_NEWLINE = /&newline;?/img;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_3 = /\/\*|\*\//mg;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_4 = /((j\s*a\s*v\s*a|v\s*b|l\s*i\s*v\s*e)\s*s\s*c\s*r\s*i\s*p\s*t\s*|m\s*o\s*c\s*h\s*a)\:/ig;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_5 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:/ig;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_6 = /^[\s"'`]*(d\s*a\s*t\s*a\s*)\:\s*image\//ig;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_7 = /e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n\s*\(.*/ig;
+  var REGEXP_DEFAULT_ON_TAG_ATTR_8 = /u\s*r\s*l\s*\(.*/ig;
+  
+  /**
+   * 对双引号进行转义
+   *
+   * @param {String} str
+   * @return {String} str
+   */
+  function escapeQuote (str) {
+    return str.replace(REGEXP_QUOTE, '&quot;');
+  }
+  
+  /**
+   * 对双引号进行转义
+   *
+   * @param {String} str
+   * @return {String} str
+   */
+  function unescapeQuote (str) {
+    return str.replace(REGEXP_QUOTE_2, '"');
+  }
+  
+  /**
+   * 对html实体编码进行转义
+   *
+   * @param {String} str
+   * @return {String}
+   */
+  function escapeHtmlEntities (str) {
+    return str.replace(REGEXP_ATTR_VALUE_1, function replaceUnicode (str, code) {
+      return (code[0] === 'x' || code[0] === 'X')
+              ? String.fromCharCode(parseInt(code.substr(1), 16))
+              : String.fromCharCode(parseInt(code, 10));
+    });
+  }
+  
+  /**
+   * 对html5新增的危险实体编码进行转义
+   *
+   * @param {String} str
+   * @return {String}
+   */
+  function escapeDangerHtml5Entities (str) {
+    return str.replace(REGEXP_ATTR_VALUE_COLON, ':')
+              .replace(REGEXP_ATTR_VALUE_NEWLINE, ' ');
+  }
+  
+  /**
+   * 清除不可见字符
+   *
+   * @param {String} str
+   * @return {String}
+   */
+  function clearNonPrintableCharacter (str) {
+    var str2 = '';
+    for (var i = 0, len = str.length; i < len; i++) {
+      str2 += str.charCodeAt(i) < 32 ? ' ' : str.charAt(i);
+    }
+    return _.trim(str2);
+  }
+  
+  /**
+   * 将标签的属性值转换成一般字符，便于分析
+   *
+   * @param {String} str
+   * @return {String}
+   */
+  function friendlyAttrValue (str) {
+    str = unescapeQuote(str);             // 双引号
+    str = escapeHtmlEntities(str);         // 转换HTML实体编码
+    str = escapeDangerHtml5Entities(str);  // 转换危险的HTML5新增实体编码
+    str = clearNonPrintableCharacter(str); // 清除不可见字符
+    return str;
+  }
+  
+  /**
+   * 转义用于输出的标签属性值
+   *
+   * @param {String} str
+   * @return {String}
+   */
+  function escapeAttrValue (str) {
+    str = escapeQuote(str);
+    str = escapeHtml(str);
+    return str;
+  }
+  
+  /**
+   * 去掉不在白名单中的标签onIgnoreTag处理方法
+   */
+  function onIgnoreTagStripAll () {
+    return '';
+  }
+  
+  /**
+   * 删除标签体
+   *
+   * @param {array} tags 要删除的标签列表
+   * @param {function} next 对不在列表中的标签的处理函数，可选
+   */
+  function StripTagBody (tags, next) {
+    if (typeof(next) !== 'function') {
+      next = function () {};
+    }
+  
+    var isRemoveAllTag = !Array.isArray(tags);
+    function isRemoveTag (tag) {
+      if (isRemoveAllTag) return true;
+      return (_.indexOf(tags, tag) !== -1);
+    }
+  
+    var removeList = [];   // 要删除的位置范围列表
+    var posStart = false;  // 当前标签开始位置
+  
+    return {
+      onIgnoreTag: function (tag, html, options) {
+        if (isRemoveTag(tag)) {
+          if (options.isClosing) {
+            var ret = '[/removed]';
+            var end = options.position + ret.length;
+            removeList.push([posStart !== false ? posStart : options.position, end]);
+            posStart = false;
+            return ret;
+          } else {
+            if (!posStart) {
+              posStart = options.position;
+            }
+            return '[removed]';
+          }
+        } else {
+          return next(tag, html, options);
+        }
+      },
+      remove: function (html) {
+        var rethtml = '';
+        var lastPos = 0;
+        _.forEach(removeList, function (pos) {
+          rethtml += html.slice(lastPos, pos[0]);
+          lastPos = pos[1];
+        });
+        rethtml += html.slice(lastPos);
+        return rethtml;
+      }
+    };
+  }
+  
+  /**
+   * 去除备注标签
+   *
+   * @param {String} html
+   * @return {String}
+   */
+  function stripCommentTag (html) {
+    return html.replace(STRIP_COMMENT_TAG_REGEXP, '');
+  }
+  var STRIP_COMMENT_TAG_REGEXP = /<!--[\s\S]*?-->/g;
+  
+  /**
+   * 去除不可见字符
+   *
+   * @param {String} html
+   * @return {String}
+   */
+  function stripBlankChar (html) {
+    var chars = html.split('');
+    chars = chars.filter(function (char) {
+      var c = char.charCodeAt(0);
+      if (c === 127) return false;
+      if (c <= 31) {
+        if (c === 10 || c === 13) return true;
+        return false;
+      }
+      return true;
+    });
+    return chars.join('');
+  }
+  
+  
+  exports.whiteList = whiteList;
+  exports.onTag = onTag;
+  exports.onIgnoreTag = onIgnoreTag;
+  exports.onTagAttr = onTagAttr;
+  exports.onIgnoreTagAttr = onIgnoreTagAttr;
+  exports.safeAttrValue = safeAttrValue;
+  exports.escapeHtml = escapeHtml;
+  exports.escapeQuote = escapeQuote;
+  exports.unescapeQuote = unescapeQuote;
+  exports.escapeHtmlEntities = escapeHtmlEntities;
+  exports.escapeDangerHtml5Entities = escapeDangerHtml5Entities;
+  exports.clearNonPrintableCharacter = clearNonPrintableCharacter;
+  exports.friendlyAttrValue = friendlyAttrValue;
+  exports.escapeAttrValue = escapeAttrValue;
+  exports.onIgnoreTagStripAll = onIgnoreTagStripAll;
+  exports.StripTagBody = StripTagBody;
+  exports.stripCommentTag = stripCommentTag;
+  exports.stripBlankChar = stripBlankChar;
+  exports.cssFilter = defaultCSSFilter;
+  
+  
+  },{"./util":4,"cssfilter":8}],2:[function(require,module,exports){
+  /**
+   * 模块入口
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var DEFAULT = require('./default');
+  var parser = require('./parser');
+  var FilterXSS = require('xss');
+  
+  
+  /**
+   * XSS过滤
+   *
+   * @param {String} html 要过滤的HTML代码
+   * @param {Object} options 选项：whiteList, onTag, onTagAttr, onIgnoreTag, onIgnoreTagAttr, safeAttrValue, escapeHtml
+   * @return {String}
+   */
+  function filterXSS (html, options) {
+    var xss = new FilterXSS(options);
+    return xss.process(html);
+  }
+  
+  
+  // 输出
+  exports = module.exports = filterXSS;
+  exports.FilterXSS = FilterXSS;
+  for (var i in DEFAULT) exports[i] = DEFAULT[i];
+  for (var i in parser) exports[i] = parser[i];
+  
+  
+  
+  // 在AMD下使用
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return module.exports;
+    });
+  }
+  
+  // 在浏览器端使用
+  if (typeof window !== 'undefined') {
+    window.filterXSS = module.exports;
+  }
+  
+  },{"./default":1,"./parser":3,"./xss":5}],3:[function(require,module,exports){
+  /**
+   * 简单 HTML Parser
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var _ = require('./util');
+  
+  /**
+   * 获取标签的名称
+   *
+   * @param {String} html 如：'<a hef="#">'
+   * @return {String}
+   */
+  function getTagName (html) {
+    var i = html.indexOf(' ');
+    if (i === -1) {
+      var tagName = html.slice(1, -1);
+    } else {
+      var tagName = html.slice(1, i + 1);
+    }
+    tagName = _.trim(tagName).toLowerCase();
+    if (tagName.slice(0, 1) === '/') tagName = tagName.slice(1);
+    if (tagName.slice(-1) === '/') tagName = tagName.slice(0, -1);
+    return tagName;
+  }
+  
+  /**
+   * 是否为闭合标签
+   *
+   * @param {String} html 如：'<a hef="#">'
+   * @return {Boolean}
+   */
+  function isClosing (html) {
+    return (html.slice(0, 2) === '</');
+  }
+  
+  /**
+   * 分析HTML代码，调用相应的函数处理，返回处理后的HTML
+   *
+   * @param {String} html
+   * @param {Function} onTag 处理标签的函数
+   *   参数格式： function (sourcePosition, position, tag, html, isClosing)
+   * @param {Function} escapeHtml 对HTML进行转义的函数
+   * @return {String}
+   */
+  function parseTag (html, onTag, escapeHtml) {
+    'user strict';
+  
+    var rethtml = '';        // 待返回的HTML
+    var lastPos = 0;         // 上一个标签结束位置
+    var tagStart = false;    // 当前标签开始位置
+    var quoteStart = false;  // 引号开始位置
+    var currentPos = 0;      // 当前位置
+    var len = html.length;   // HTML长度
+    var currentHtml = '';    // 当前标签的HTML代码
+    var currentTagName = ''; // 当前标签的名称
+  
+    // 逐个分析字符
+    for (currentPos = 0; currentPos < len; currentPos++) {
+      var c = html.charAt(currentPos);
+      if (tagStart === false) {
+        if (c === '<') {
+          tagStart = currentPos;
+          continue;
+        }
+      } else {
+        if (quoteStart === false) {
+          if (c === '<') {
+            rethtml += escapeHtml(html.slice(lastPos, currentPos));
+            tagStart = currentPos;
+            lastPos = currentPos;
+            continue;
+          }
+          if (c === '>') {
+            rethtml += escapeHtml(html.slice(lastPos, tagStart));
+            currentHtml = html.slice(tagStart, currentPos + 1);
+            currentTagName = getTagName(currentHtml);
+            rethtml += onTag(tagStart,
+                             rethtml.length,
+                             currentTagName,
+                             currentHtml,
+                             isClosing(currentHtml));
+            lastPos = currentPos + 1;
+            tagStart = false;
+            continue;
+          }
+          // HTML标签内的引号仅当前一个字符是等于号时才有效
+          if ((c === '"' || c === "'") && html.charAt(currentPos - 1) === '=') {
+            quoteStart = c;
+            continue;
+          }
+        } else {
+          if (c === quoteStart) {
+            quoteStart = false;
+            continue;
+          }
+        }
+      }
+    }
+    if (lastPos < html.length) {
+      rethtml += escapeHtml(html.substr(lastPos));
+    }
+  
+    return rethtml;
+  }
+  
+  // 不符合属性名称规则的正则表达式
+  var REGEXP_ATTR_NAME = /[^a-zA-Z0-9_:\.\-]/img;
+  
+  /**
+   * 分析标签HTML代码，调用相应的函数处理，返回HTML
+   *
+   * @param {String} html 如标签'<a href="#" target="_blank">' 则为 'href="#" target="_blank"'
+   * @param {Function} onAttr 处理属性值的函数
+   *   函数格式： function (name, value)
+   * @return {String}
+   */
+  function parseAttr (html, onAttr) {
+    'user strict';
+  
+    var lastPos = 0;        // 当前位置
+    var retAttrs = [];      // 待返回的属性列表
+    var tmpName = false;    // 临时属性名称
+    var len = html.length;  // HTML代码长度
+  
+    function addAttr (name, value) {
+      name = _.trim(name);
+      name = name.replace(REGEXP_ATTR_NAME, '').toLowerCase();
+      if (name.length < 1) return;
+      var ret = onAttr(name, value || '');
+      if (ret) retAttrs.push(ret);
+    };
+  
+    // 逐个分析字符
+    for (var i = 0; i < len; i++) {
+      var c = html.charAt(i);
+      var v, j;
+      if (tmpName === false && c === '=') {
+        tmpName = html.slice(lastPos, i);
+        lastPos = i + 1;
+        continue;
+      }
+      if (tmpName !== false) {
+        // HTML标签内的引号仅当前一个字符是等于号时才有效
+        if (i === lastPos && (c === '"' || c === "'") && html.charAt(i - 1) === '=') {
+          j = html.indexOf(c, i + 1);
+          if (j === -1) {
+            break;
+          } else {
+            v = _.trim(html.slice(lastPos + 1, j));
+            addAttr(tmpName, v);
+            tmpName = false;
+            i = j;
+            lastPos = i + 1;
+            continue;
+          }
+        }
+      }
+      if (c === ' ') {
+        if (tmpName === false) {
+          j = findNextEqual(html, i);
+          if (j === -1) {
+            v = _.trim(html.slice(lastPos, i));
+            addAttr(v);
+            tmpName = false;
+            lastPos = i + 1;
+            continue;
+          } else {
+            i = j - 1;
+            continue;
+          }
+        } else {
+          j = findBeforeEqual(html, i - 1);
+          if (j === -1) {
+            v = _.trim(html.slice(lastPos, i));
+            v = stripQuoteWrap(v);
+            addAttr(tmpName, v);
+            tmpName = false;
+            lastPos = i + 1;
+            continue;
+          } else {
+            continue;
+          }
+        }
+      }
+    }
+  
+    if (lastPos < html.length) {
+      if (tmpName === false) {
+        addAttr(html.slice(lastPos));
+      } else {
+        addAttr(tmpName, stripQuoteWrap(_.trim(html.slice(lastPos))));
+      }
+    }
+  
+    return _.trim(retAttrs.join(' '));
+  }
+  
+  function findNextEqual (str, i) {
+    for (; i < str.length; i++) {
+      var c = str[i];
+      if (c === ' ') continue;
+      if (c === '=') return i;
+      return -1;
+    }
+  }
+  
+  function findBeforeEqual (str, i) {
+    for (; i > 0; i--) {
+      var c = str[i];
+      if (c === ' ') continue;
+      if (c === '=') return i;
+      return -1;
+    }
+  }
+  
+  function isQuoteWrapString (text) {
+    if ((text[0] === '"' && text[text.length - 1] === '"') ||
+        (text[0] === '\'' && text[text.length - 1] === '\'')) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  
+  function stripQuoteWrap (text) {
+    if (isQuoteWrapString(text)) {
+      return text.substr(1, text.length - 2);
+    } else {
+      return text;
+    }
+  };
+  
+  
+  exports.parseTag = parseTag;
+  exports.parseAttr = parseAttr;
+  
+  },{"./util":4}],4:[function(require,module,exports){
+  module.exports = {
+    indexOf: function (arr, item) {
+      var i, j;
+      if (Array.prototype.indexOf) {
+        return arr.indexOf(item);
+      }
+      for (i = 0, j = arr.length; i < j; i++) {
+        if (arr[i] === item) {
+          return i;
+        }
+      }
+      return -1;
+    },
+    forEach: function (arr, fn, scope) {
+      var i, j;
+      if (Array.prototype.forEach) {
+        return arr.forEach(fn, scope);
+      }
+      for (i = 0, j = arr.length; i < j; i++) {
+        fn.call(scope, arr[i], i, arr);
+      }
+    },
+    trim: function (str) {
+      if (String.prototype.trim) {
+        return str.trim();
+      }
+      return str.replace(/(^\s*)|(\s*$)/g, '');
+    }
+  };
+  
+  },{}],5:[function(require,module,exports){
+  /**
+   * 过滤XSS
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var FilterCSS = require('cssfilter').FilterCSS;
+  var DEFAULT = require('./default');
+  var parser = require('./parser');
+  var parseTag = parser.parseTag;
+  var parseAttr = parser.parseAttr;
+  var _ = require('./util');
+  
+  
+  /**
+   * 返回值是否为空
+   *
+   * @param {Object} obj
+   * @return {Boolean}
+   */
+  function isNull (obj) {
+    return (obj === undefined || obj === null);
+  }
+  
+  /**
+   * 取标签内的属性列表字符串
+   *
+   * @param {String} html
+   * @return {Object}
+   *   - {String} html
+   *   - {Boolean} closing
+   */
+  function getAttrs (html) {
+    var i = html.indexOf(' ');
+    if (i === -1) {
+      return {
+        html:    '',
+        closing: (html[html.length - 2] === '/')
+      };
+    }
+    html = _.trim(html.slice(i + 1, -1));
+    var isClosing = (html[html.length - 1] === '/');
+    if (isClosing) html = _.trim(html.slice(0, -1));
+    return {
+      html:    html,
+      closing: isClosing
+    };
+  }
+  
+  /**
+   * XSS过滤对象
+   *
+   * @param {Object} options
+   *   选项：whiteList, onTag, onTagAttr, onIgnoreTag,
+   *        onIgnoreTagAttr, safeAttrValue, escapeHtml
+   *        stripIgnoreTagBody, allowCommentTag, stripBlankChar
+   *        css{whiteList, onAttr, onIgnoreAttr}
+   */
+  function FilterXSS (options) {
+    options = options || {};
+  
+    if (options.stripIgnoreTag) {
+      if (options.onIgnoreTag) {
+        console.error('Notes: cannot use these two options "stripIgnoreTag" and "onIgnoreTag" at the same time');
+      }
+      options.onIgnoreTag = DEFAULT.onIgnoreTagStripAll;
+    }
+  
+    options.whiteList = options.whiteList || DEFAULT.whiteList;
+    options.onTag = options.onTag || DEFAULT.onTag;
+    options.onTagAttr = options.onTagAttr || DEFAULT.onTagAttr;
+    options.onIgnoreTag = options.onIgnoreTag || DEFAULT.onIgnoreTag;
+    options.onIgnoreTagAttr = options.onIgnoreTagAttr || DEFAULT.onIgnoreTagAttr;
+    options.safeAttrValue = options.safeAttrValue || DEFAULT.safeAttrValue;
+    options.escapeHtml = options.escapeHtml || DEFAULT.escapeHtml;
+    options.css = options.css || {};
+    this.options = options;
+  
+    this.cssFilter = new FilterCSS(options.css);
+  }
+  
+  /**
+   * 开始处理
+   *
+   * @param {String} html
+   * @return {String}
+   */
+  FilterXSS.prototype.process = function (html) {
+    // 兼容各种奇葩输入
+    html = html || '';
+    html = html.toString();
+    if (!html) return '';
+  
+    var me = this;
+    var options = me.options;
+    var whiteList = options.whiteList;
+    var onTag = options.onTag;
+    var onIgnoreTag = options.onIgnoreTag;
+    var onTagAttr = options.onTagAttr;
+    var onIgnoreTagAttr = options.onIgnoreTagAttr;
+    var safeAttrValue = options.safeAttrValue;
+    var escapeHtml = options.escapeHtml;
+    var cssFilter = me.cssFilter;
+  
+    // 是否清除不可见字符
+    if (options.stripBlankChar) {
+      html = DEFAULT.stripBlankChar(html);
+    }
+  
+    // 是否禁止备注标签
+    if (!options.allowCommentTag) {
+      html = DEFAULT.stripCommentTag(html);
+    }
+  
+    // 如果开启了stripIgnoreTagBody
+    if (options.stripIgnoreTagBody) {
+      var stripIgnoreTagBody = DEFAULT.StripTagBody(options.stripIgnoreTagBody, onIgnoreTag);
+      onIgnoreTag = stripIgnoreTagBody.onIgnoreTag;
+    } else {
+      stripIgnoreTagBody = false;
+    }
+  
+    var retHtml = parseTag(html, function (sourcePosition, position, tag, html, isClosing) {
+      var info = {
+        sourcePosition: sourcePosition,
+        position:       position,
+        isClosing:      isClosing,
+        isWhite:        (tag in whiteList)
+      };
+  
+      // 调用onTag处理
+      var ret = onTag(tag, html, info);
+      if (!isNull(ret)) return ret;
+  
+      // 默认标签处理方法
+      if (info.isWhite) {
+        // 白名单标签，解析标签属性
+        // 如果是闭合标签，则不需要解析属性
+        if (info.isClosing) {
+          return '</' + tag + '>';
+        }
+  
+        var attrs = getAttrs(html);
+        var whiteAttrList = whiteList[tag];
+        var attrsHtml = parseAttr(attrs.html, function (name, value) {
+  
+          // 调用onTagAttr处理
+          var isWhiteAttr = (_.indexOf(whiteAttrList, name) !== -1);
+          var ret = onTagAttr(tag, name, value, isWhiteAttr);
+          if (!isNull(ret)) return ret;
+  
+          // 默认的属性处理方法
+          if (isWhiteAttr) {
+            // 白名单属性，调用safeAttrValue过滤属性值
+            value = safeAttrValue(tag, name, value, cssFilter);
+            if (value) {
+              return name + '="' + value + '"';
+            } else {
+              return name;
+            }
+          } else {
+            // 非白名单属性，调用onIgnoreTagAttr处理
+            var ret = onIgnoreTagAttr(tag, name, value, isWhiteAttr);
+            if (!isNull(ret)) return ret;
+            return;
+          }
+        });
+  
+        // 构造新的标签代码
+        var html = '<' + tag;
+        if (attrsHtml) html += ' ' + attrsHtml;
+        if (attrs.closing) html += ' /';
+        html += '>';
+        return html;
+  
+      } else {
+        // 非白名单标签，调用onIgnoreTag处理
+        var ret = onIgnoreTag(tag, html, info);
+        if (!isNull(ret)) return ret;
+        return escapeHtml(html);
+      }
+  
+    }, escapeHtml);
+  
+    // 如果开启了stripIgnoreTagBody，需要对结果再进行处理
+    if (stripIgnoreTagBody) {
+      retHtml = stripIgnoreTagBody.remove(retHtml);
+    }
+  
+    return retHtml;
+  };
+  
+  
+  module.exports = FilterXSS;
+  
+  },{"./default":1,"./parser":3,"./util":4,"cssfilter":8}],6:[function(require,module,exports){
+  /**
+   * cssfilter
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var DEFAULT = require('./default');
+  var parseStyle = require('./parser');
+  var _ = require('./util');
+  
+  
+  /**
+   * 返回值是否为空
+   *
+   * @param {Object} obj
+   * @return {Boolean}
+   */
+  function isNull (obj) {
+    return (obj === undefined || obj === null);
+  }
+  
+  
+  /**
+   * 创建CSS过滤器
+   *
+   * @param {Object} options
+   *   - {Object} whiteList
+   *   - {Object} onAttr
+   *   - {Object} onIgnoreAttr
+   */
+  function FilterCSS (options) {
+    options = options || {};
+    options.whiteList = options.whiteList || DEFAULT.whiteList;
+    options.onAttr = options.onAttr || DEFAULT.onAttr;
+    options.onIgnoreAttr = options.onIgnoreAttr || DEFAULT.onIgnoreAttr;
+    this.options = options;
+  }
+  
+  FilterCSS.prototype.process = function (css) {
+    // 兼容各种奇葩输入
+    css = css || '';
+    css = css.toString();
+    if (!css) return '';
+  
+    var me = this;
+    var options = me.options;
+    var whiteList = options.whiteList;
+    var onAttr = options.onAttr;
+    var onIgnoreAttr = options.onIgnoreAttr;
+  
+    var retCSS = parseStyle(css, function (sourcePosition, position, name, value, source) {
+  
+      var check = whiteList[name];
+      var isWhite = false;
+      if (check === true) isWhite = check;
+      else if (typeof check === 'function') isWhite = check(value);
+      else if (check instanceof RegExp) isWhite = check.test(value);
+      if (isWhite !== true) isWhite = false;
+  
+      var opts = {
+        position: position,
+        sourcePosition: sourcePosition,
+        source: source,
+        isWhite: isWhite
+      };
+  
+      if (isWhite) {
+  
+        var ret = onAttr(name, value, opts);
+        if (isNull(ret)) {
+          return name + ':' + value;
+        } else {
+          return ret;
+        }
+  
+      } else {
+  
+        var ret = onIgnoreAttr(name, value, opts);
+        if (!isNull(ret)) {
+          return ret;
+        }
+  
+      }
+    });
+  
+    return retCSS;
+  };
+  
+  
+  module.exports = FilterCSS;
+  
+  },{"./default":7,"./parser":9,"./util":10}],7:[function(require,module,exports){
+  /**
+   * cssfilter
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  
+  // 白名单值说明：
+  // true: 允许该属性
+  // Function: function (val) { } 返回true表示允许该属性，其他值均表示不允许
+  // RegExp: regexp.test(val) 返回true表示允许该属性，其他值均表示不允许
+  // 除上面列出的值外均表示不允许
+  var whiteList = {};
+  whiteList['align-content'] = false; // default: auto
+  whiteList['align-items'] = false; // default: auto
+  whiteList['align-self'] = false; // default: auto
+  whiteList['alignment-adjust'] = false; // default: auto
+  whiteList['alignment-baseline'] = false; // default: baseline
+  whiteList['all'] = false; // default: depending on individual properties
+  whiteList['anchor-point'] = false; // default: none
+  whiteList['animation'] = false; // default: depending on individual properties
+  whiteList['animation-delay'] = false; // default: 0
+  whiteList['animation-direction'] = false; // default: normal
+  whiteList['animation-duration'] = false; // default: 0
+  whiteList['animation-fill-mode'] = false; // default: none
+  whiteList['animation-iteration-count'] = false; // default: 1
+  whiteList['animation-name'] = false; // default: none
+  whiteList['animation-play-state'] = false; // default: running
+  whiteList['animation-timing-function'] = false; // default: ease
+  whiteList['azimuth'] = false; // default: center
+  whiteList['backface-visibility'] = false; // default: visible
+  whiteList['background'] = true; // default: depending on individual properties
+  whiteList['background-attachment'] = true; // default: scroll
+  whiteList['background-clip'] = true; // default: border-box
+  whiteList['background-color'] = true; // default: transparent
+  whiteList['background-image'] = true; // default: none
+  whiteList['background-origin'] = true; // default: padding-box
+  whiteList['background-position'] = true; // default: 0% 0%
+  whiteList['background-repeat'] = true; // default: repeat
+  whiteList['background-size'] = true; // default: auto
+  whiteList['baseline-shift'] = false; // default: baseline
+  whiteList['binding'] = false; // default: none
+  whiteList['bleed'] = false; // default: 6pt
+  whiteList['bookmark-label'] = false; // default: content()
+  whiteList['bookmark-level'] = false; // default: none
+  whiteList['bookmark-state'] = false; // default: open
+  whiteList['border'] = true; // default: depending on individual properties
+  whiteList['border-bottom'] = true; // default: depending on individual properties
+  whiteList['border-bottom-color'] = true; // default: current color
+  whiteList['border-bottom-left-radius'] = true; // default: 0
+  whiteList['border-bottom-right-radius'] = true; // default: 0
+  whiteList['border-bottom-style'] = true; // default: none
+  whiteList['border-bottom-width'] = true; // default: medium
+  whiteList['border-collapse'] = true; // default: separate
+  whiteList['border-color'] = true; // default: depending on individual properties
+  whiteList['border-image'] = true; // default: none
+  whiteList['border-image-outset'] = true; // default: 0
+  whiteList['border-image-repeat'] = true; // default: stretch
+  whiteList['border-image-slice'] = true; // default: 100%
+  whiteList['border-image-source'] = true; // default: none
+  whiteList['border-image-width'] = true; // default: 1
+  whiteList['border-left'] = true; // default: depending on individual properties
+  whiteList['border-left-color'] = true; // default: current color
+  whiteList['border-left-style'] = true; // default: none
+  whiteList['border-left-width'] = true; // default: medium
+  whiteList['border-radius'] = true; // default: 0
+  whiteList['border-right'] = true; // default: depending on individual properties
+  whiteList['border-right-color'] = true; // default: current color
+  whiteList['border-right-style'] = true; // default: none
+  whiteList['border-right-width'] = true; // default: medium
+  whiteList['border-spacing'] = true; // default: 0
+  whiteList['border-style'] = true; // default: depending on individual properties
+  whiteList['border-top'] = true; // default: depending on individual properties
+  whiteList['border-top-color'] = true; // default: current color
+  whiteList['border-top-left-radius'] = true; // default: 0
+  whiteList['border-top-right-radius'] = true; // default: 0
+  whiteList['border-top-style'] = true; // default: none
+  whiteList['border-top-width'] = true; // default: medium
+  whiteList['border-width'] = true; // default: depending on individual properties
+  whiteList['bottom'] = false; // default: auto
+  whiteList['box-decoration-break'] = true; // default: slice
+  whiteList['box-shadow'] = true; // default: none
+  whiteList['box-sizing'] = true; // default: content-box
+  whiteList['box-snap'] = true; // default: none
+  whiteList['box-suppress'] = true; // default: show
+  whiteList['break-after'] = true; // default: auto
+  whiteList['break-before'] = true; // default: auto
+  whiteList['break-inside'] = true; // default: auto
+  whiteList['caption-side'] = false; // default: top
+  whiteList['chains'] = false; // default: none
+  whiteList['clear'] = true; // default: none
+  whiteList['clip'] = false; // default: auto
+  whiteList['clip-path'] = false; // default: none
+  whiteList['clip-rule'] = false; // default: nonzero
+  whiteList['color'] = true; // default: implementation dependent
+  whiteList['color-interpolation-filters'] = true; // default: auto
+  whiteList['column-count'] = false; // default: auto
+  whiteList['column-fill'] = false; // default: balance
+  whiteList['column-gap'] = false; // default: normal
+  whiteList['column-rule'] = false; // default: depending on individual properties
+  whiteList['column-rule-color'] = false; // default: current color
+  whiteList['column-rule-style'] = false; // default: medium
+  whiteList['column-rule-width'] = false; // default: medium
+  whiteList['column-span'] = false; // default: none
+  whiteList['column-width'] = false; // default: auto
+  whiteList['columns'] = false; // default: depending on individual properties
+  whiteList['contain'] = false; // default: none
+  whiteList['content'] = false; // default: normal
+  whiteList['counter-increment'] = false; // default: none
+  whiteList['counter-reset'] = false; // default: none
+  whiteList['counter-set'] = false; // default: none
+  whiteList['crop'] = false; // default: auto
+  whiteList['cue'] = false; // default: depending on individual properties
+  whiteList['cue-after'] = false; // default: none
+  whiteList['cue-before'] = false; // default: none
+  whiteList['cursor'] = false; // default: auto
+  whiteList['direction'] = false; // default: ltr
+  whiteList['display'] = true; // default: depending on individual properties
+  whiteList['display-inside'] = true; // default: auto
+  whiteList['display-list'] = true; // default: none
+  whiteList['display-outside'] = true; // default: inline-level
+  whiteList['dominant-baseline'] = false; // default: auto
+  whiteList['elevation'] = false; // default: level
+  whiteList['empty-cells'] = false; // default: show
+  whiteList['filter'] = false; // default: none
+  whiteList['flex'] = false; // default: depending on individual properties
+  whiteList['flex-basis'] = false; // default: auto
+  whiteList['flex-direction'] = false; // default: row
+  whiteList['flex-flow'] = false; // default: depending on individual properties
+  whiteList['flex-grow'] = false; // default: 0
+  whiteList['flex-shrink'] = false; // default: 1
+  whiteList['flex-wrap'] = false; // default: nowrap
+  whiteList['float'] = false; // default: none
+  whiteList['float-offset'] = false; // default: 0 0
+  whiteList['flood-color'] = false; // default: black
+  whiteList['flood-opacity'] = false; // default: 1
+  whiteList['flow-from'] = false; // default: none
+  whiteList['flow-into'] = false; // default: none
+  whiteList['font'] = true; // default: depending on individual properties
+  whiteList['font-family'] = true; // default: implementation dependent
+  whiteList['font-feature-settings'] = true; // default: normal
+  whiteList['font-kerning'] = true; // default: auto
+  whiteList['font-language-override'] = true; // default: normal
+  whiteList['font-size'] = true; // default: medium
+  whiteList['font-size-adjust'] = true; // default: none
+  whiteList['font-stretch'] = true; // default: normal
+  whiteList['font-style'] = true; // default: normal
+  whiteList['font-synthesis'] = true; // default: weight style
+  whiteList['font-variant'] = true; // default: normal
+  whiteList['font-variant-alternates'] = true; // default: normal
+  whiteList['font-variant-caps'] = true; // default: normal
+  whiteList['font-variant-east-asian'] = true; // default: normal
+  whiteList['font-variant-ligatures'] = true; // default: normal
+  whiteList['font-variant-numeric'] = true; // default: normal
+  whiteList['font-variant-position'] = true; // default: normal
+  whiteList['font-weight'] = true; // default: normal
+  whiteList['grid'] = false; // default: depending on individual properties
+  whiteList['grid-area'] = false; // default: depending on individual properties
+  whiteList['grid-auto-columns'] = false; // default: auto
+  whiteList['grid-auto-flow'] = false; // default: none
+  whiteList['grid-auto-rows'] = false; // default: auto
+  whiteList['grid-column'] = false; // default: depending on individual properties
+  whiteList['grid-column-end'] = false; // default: auto
+  whiteList['grid-column-start'] = false; // default: auto
+  whiteList['grid-row'] = false; // default: depending on individual properties
+  whiteList['grid-row-end'] = false; // default: auto
+  whiteList['grid-row-start'] = false; // default: auto
+  whiteList['grid-template'] = false; // default: depending on individual properties
+  whiteList['grid-template-areas'] = false; // default: none
+  whiteList['grid-template-columns'] = false; // default: none
+  whiteList['grid-template-rows'] = false; // default: none
+  whiteList['hanging-punctuation'] = false; // default: none
+  whiteList['height'] = true; // default: auto
+  whiteList['hyphens'] = false; // default: manual
+  whiteList['icon'] = false; // default: auto
+  whiteList['image-orientation'] = false; // default: auto
+  whiteList['image-resolution'] = false; // default: normal
+  whiteList['ime-mode'] = false; // default: auto
+  whiteList['initial-letters'] = false; // default: normal
+  whiteList['inline-box-align'] = false; // default: last
+  whiteList['justify-content'] = false; // default: auto
+  whiteList['justify-items'] = false; // default: auto
+  whiteList['justify-self'] = false; // default: auto
+  whiteList['left'] = false; // default: auto
+  whiteList['letter-spacing'] = true; // default: normal
+  whiteList['lighting-color'] = true; // default: white
+  whiteList['line-box-contain'] = false; // default: block inline replaced
+  whiteList['line-break'] = false; // default: auto
+  whiteList['line-grid'] = false; // default: match-parent
+  whiteList['line-height'] = false; // default: normal
+  whiteList['line-snap'] = false; // default: none
+  whiteList['line-stacking'] = false; // default: depending on individual properties
+  whiteList['line-stacking-ruby'] = false; // default: exclude-ruby
+  whiteList['line-stacking-shift'] = false; // default: consider-shifts
+  whiteList['line-stacking-strategy'] = false; // default: inline-line-height
+  whiteList['list-style'] = true; // default: depending on individual properties
+  whiteList['list-style-image'] = true; // default: none
+  whiteList['list-style-position'] = true; // default: outside
+  whiteList['list-style-type'] = true; // default: disc
+  whiteList['margin'] = true; // default: depending on individual properties
+  whiteList['margin-bottom'] = true; // default: 0
+  whiteList['margin-left'] = true; // default: 0
+  whiteList['margin-right'] = true; // default: 0
+  whiteList['margin-top'] = true; // default: 0
+  whiteList['marker-offset'] = false; // default: auto
+  whiteList['marker-side'] = false; // default: list-item
+  whiteList['marks'] = false; // default: none
+  whiteList['mask'] = false; // default: border-box
+  whiteList['mask-box'] = false; // default: see individual properties
+  whiteList['mask-box-outset'] = false; // default: 0
+  whiteList['mask-box-repeat'] = false; // default: stretch
+  whiteList['mask-box-slice'] = false; // default: 0 fill
+  whiteList['mask-box-source'] = false; // default: none
+  whiteList['mask-box-width'] = false; // default: auto
+  whiteList['mask-clip'] = false; // default: border-box
+  whiteList['mask-image'] = false; // default: none
+  whiteList['mask-origin'] = false; // default: border-box
+  whiteList['mask-position'] = false; // default: center
+  whiteList['mask-repeat'] = false; // default: no-repeat
+  whiteList['mask-size'] = false; // default: border-box
+  whiteList['mask-source-type'] = false; // default: auto
+  whiteList['mask-type'] = false; // default: luminance
+  whiteList['max-height'] = true; // default: none
+  whiteList['max-lines'] = false; // default: none
+  whiteList['max-width'] = true; // default: none
+  whiteList['min-height'] = true; // default: 0
+  whiteList['min-width'] = true; // default: 0
+  whiteList['move-to'] = false; // default: normal
+  whiteList['nav-down'] = false; // default: auto
+  whiteList['nav-index'] = false; // default: auto
+  whiteList['nav-left'] = false; // default: auto
+  whiteList['nav-right'] = false; // default: auto
+  whiteList['nav-up'] = false; // default: auto
+  whiteList['object-fit'] = false; // default: fill
+  whiteList['object-position'] = false; // default: 50% 50%
+  whiteList['opacity'] = false; // default: 1
+  whiteList['order'] = false; // default: 0
+  whiteList['orphans'] = false; // default: 2
+  whiteList['outline'] = false; // default: depending on individual properties
+  whiteList['outline-color'] = false; // default: invert
+  whiteList['outline-offset'] = false; // default: 0
+  whiteList['outline-style'] = false; // default: none
+  whiteList['outline-width'] = false; // default: medium
+  whiteList['overflow'] = false; // default: depending on individual properties
+  whiteList['overflow-wrap'] = false; // default: normal
+  whiteList['overflow-x'] = false; // default: visible
+  whiteList['overflow-y'] = false; // default: visible
+  whiteList['padding'] = true; // default: depending on individual properties
+  whiteList['padding-bottom'] = true; // default: 0
+  whiteList['padding-left'] = true; // default: 0
+  whiteList['padding-right'] = true; // default: 0
+  whiteList['padding-top'] = true; // default: 0
+  whiteList['page'] = false; // default: auto
+  whiteList['page-break-after'] = false; // default: auto
+  whiteList['page-break-before'] = false; // default: auto
+  whiteList['page-break-inside'] = false; // default: auto
+  whiteList['page-policy'] = false; // default: start
+  whiteList['pause'] = false; // default: implementation dependent
+  whiteList['pause-after'] = false; // default: implementation dependent
+  whiteList['pause-before'] = false; // default: implementation dependent
+  whiteList['perspective'] = false; // default: none
+  whiteList['perspective-origin'] = false; // default: 50% 50%
+  whiteList['pitch'] = false; // default: medium
+  whiteList['pitch-range'] = false; // default: 50
+  whiteList['play-during'] = false; // default: auto
+  whiteList['position'] = false; // default: static
+  whiteList['presentation-level'] = false; // default: 0
+  whiteList['quotes'] = false; // default: text
+  whiteList['region-fragment'] = false; // default: auto
+  whiteList['resize'] = false; // default: none
+  whiteList['rest'] = false; // default: depending on individual properties
+  whiteList['rest-after'] = false; // default: none
+  whiteList['rest-before'] = false; // default: none
+  whiteList['richness'] = false; // default: 50
+  whiteList['right'] = false; // default: auto
+  whiteList['rotation'] = false; // default: 0
+  whiteList['rotation-point'] = false; // default: 50% 50%
+  whiteList['ruby-align'] = false; // default: auto
+  whiteList['ruby-merge'] = false; // default: separate
+  whiteList['ruby-position'] = false; // default: before
+  whiteList['shape-image-threshold'] = false; // default: 0.0
+  whiteList['shape-outside'] = false; // default: none
+  whiteList['shape-margin'] = false; // default: 0
+  whiteList['size'] = false; // default: auto
+  whiteList['speak'] = false; // default: auto
+  whiteList['speak-as'] = false; // default: normal
+  whiteList['speak-header'] = false; // default: once
+  whiteList['speak-numeral'] = false; // default: continuous
+  whiteList['speak-punctuation'] = false; // default: none
+  whiteList['speech-rate'] = false; // default: medium
+  whiteList['stress'] = false; // default: 50
+  whiteList['string-set'] = false; // default: none
+  whiteList['tab-size'] = false; // default: 8
+  whiteList['table-layout'] = false; // default: auto
+  whiteList['text-align'] = true; // default: start
+  whiteList['text-align-last'] = true; // default: auto
+  whiteList['text-combine-upright'] = true; // default: none
+  whiteList['text-decoration'] = true; // default: none
+  whiteList['text-decoration-color'] = true; // default: currentColor
+  whiteList['text-decoration-line'] = true; // default: none
+  whiteList['text-decoration-skip'] = true; // default: objects
+  whiteList['text-decoration-style'] = true; // default: solid
+  whiteList['text-emphasis'] = true; // default: depending on individual properties
+  whiteList['text-emphasis-color'] = true; // default: currentColor
+  whiteList['text-emphasis-position'] = true; // default: over right
+  whiteList['text-emphasis-style'] = true; // default: none
+  whiteList['text-height'] = true; // default: auto
+  whiteList['text-indent'] = true; // default: 0
+  whiteList['text-justify'] = true; // default: auto
+  whiteList['text-orientation'] = true; // default: mixed
+  whiteList['text-overflow'] = true; // default: clip
+  whiteList['text-shadow'] = true; // default: none
+  whiteList['text-space-collapse'] = true; // default: collapse
+  whiteList['text-transform'] = true; // default: none
+  whiteList['text-underline-position'] = true; // default: auto
+  whiteList['text-wrap'] = true; // default: normal
+  whiteList['top'] = false; // default: auto
+  whiteList['transform'] = false; // default: none
+  whiteList['transform-origin'] = false; // default: 50% 50% 0
+  whiteList['transform-style'] = false; // default: flat
+  whiteList['transition'] = false; // default: depending on individual properties
+  whiteList['transition-delay'] = false; // default: 0s
+  whiteList['transition-duration'] = false; // default: 0s
+  whiteList['transition-property'] = false; // default: all
+  whiteList['transition-timing-function'] = false; // default: ease
+  whiteList['unicode-bidi'] = false; // default: normal
+  whiteList['vertical-align'] = false; // default: baseline
+  whiteList['visibility'] = false; // default: visible
+  whiteList['voice-balance'] = false; // default: center
+  whiteList['voice-duration'] = false; // default: auto
+  whiteList['voice-family'] = false; // default: implementation dependent
+  whiteList['voice-pitch'] = false; // default: medium
+  whiteList['voice-range'] = false; // default: medium
+  whiteList['voice-rate'] = false; // default: normal
+  whiteList['voice-stress'] = false; // default: normal
+  whiteList['voice-volume'] = false; // default: medium
+  whiteList['volume'] = false; // default: medium
+  whiteList['white-space'] = false; // default: normal
+  whiteList['widows'] = false; // default: 2
+  whiteList['width'] = true; // default: auto
+  whiteList['will-change'] = false; // default: auto
+  whiteList['word-break'] = true; // default: normal
+  whiteList['word-spacing'] = true; // default: normal
+  whiteList['word-wrap'] = true; // default: normal
+  whiteList['wrap-flow'] = false; // default: auto
+  whiteList['wrap-through'] = false; // default: wrap
+  whiteList['writing-mode'] = false; // default: horizontal-tb
+  whiteList['z-index'] = false; // default: auto
+  
+  
+  
+  /**
+   * 匹配到白名单上的一个属性时
+   *
+   * @param {String} name
+   * @param {String} value
+   * @param {Object} options
+   * @return {String}
+   */
+  function onAttr (name, value, options) {
+    // do nothing
+  }
+  
+  /**
+   * 匹配到不在白名单上的一个属性时
+   *
+   * @param {String} name
+   * @param {String} value
+   * @param {Object} options
+   * @return {String}
+   */
+  function onIgnoreAttr (name, value, options) {
+    // do nothing
+  }
+  
+  
+  exports.whiteList = whiteList;
+  exports.onAttr = onAttr;
+  exports.onIgnoreAttr = onIgnoreAttr;
+  
+  },{}],8:[function(require,module,exports){
+  /**
+   * cssfilter
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var DEFAULT = require('./default');
+  var FilterCSS = require('./css');
+  
+  
+  /**
+   * XSS过滤
+   *
+   * @param {String} css 要过滤的CSS代码
+   * @param {Object} options 选项：whiteList, onAttr, onIgnoreAttr
+   * @return {String}
+   */
+  function filterCSS (html, options) {
+    var xss = new FilterCSS(options);
+    return xss.process(html);
+  }
+  
+  
+  // 输出
+  exports = module.exports = filterCSS;
+  exports.FilterCSS = FilterCSS;
+  for (var i in DEFAULT) exports[i] = DEFAULT[i];
+  
+  
+  
+  // 在AMD下使用
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return module.exports;
+    });
+  }
+  
+  // 在浏览器端使用
+  if (typeof window !== 'undefined') {
+    window.filterCSS = module.exports;
+  }
+  
+  },{"./css":6,"./default":7}],9:[function(require,module,exports){
+  /**
+   * cssfilter
+   *
+   * @author 老雷<leizongmin@gmail.com>
+   */
+  
+  var _ = require('./util');
+  
+  
+  /**
+   * 解析style
+   *
+   * @param {String} css
+   * @param {Function} onAttr 处理属性的函数
+   *   参数格式： function (sourcePosition, position, name, value, source)
+   * @return {String}
+   */
+  function parseStyle (css, onAttr) {
+    css = _.trimRight(css);
+    if (css[css.length - 1] !== ';') css += ';';
+    var cssLength = css.length;
+    var isParenthesisOpen = false;
+    var lastPos = 0;
+    var i = 0;
+    var retCSS = '';
+  
+    function addNewAttr () {
+      // 如果没有正常的闭合圆括号，则直接忽略当前属性
+      if (!isParenthesisOpen) {
+        var source = _.trim(css.slice(lastPos, i));
+        var j = source.indexOf(':');
+        if (j !== -1) {
+          var name = _.trim(source.slice(0, j));
+          var value = _.trim(source.slice(j + 1));
+          // 必须有属性名称
+          if (name) {
+            var ret = onAttr(lastPos, retCSS.length, name, value, source);
+            if (ret) retCSS += ret + '; ';
+          }
+        }
+      }
+      lastPos = i + 1;
+    }
+  
+    for (; i < cssLength; i++) {
+      var c = css[i];
+      if (c === '/' && css[i + 1] === '*') {
+        // 备注开始
+        var j = css.indexOf('*/', i + 2);
+        // 如果没有正常的备注结束，则后面的部分全部跳过
+        if (j === -1) break;
+        // 直接将当前位置调到备注结尾，并且初始化状态
+        i = j + 1;
+        lastPos = i + 1;
+        isParenthesisOpen = false;
+      } else if (c === '(') {
+        isParenthesisOpen = true;
+      } else if (c === ')') {
+        isParenthesisOpen = false;
+      } else if (c === ';') {
+        if (isParenthesisOpen) {
+          // 在圆括号里面，忽略
+        } else {
+          addNewAttr();
+        }
+      } else if (c === '\n') {
+        addNewAttr();
+      }
+    }
+  
+    return _.trim(retCSS);
+  }
+  
+  module.exports = parseStyle;
+  
+  },{"./util":10}],10:[function(require,module,exports){
+  module.exports = {
+    indexOf: function (arr, item) {
+      var i, j;
+      if (Array.prototype.indexOf) {
+        return arr.indexOf(item);
+      }
+      for (i = 0, j = arr.length; i < j; i++) {
+        if (arr[i] === item) {
+          return i;
+        }
+      }
+      return -1;
+    },
+    forEach: function (arr, fn, scope) {
+      var i, j;
+      if (Array.prototype.forEach) {
+        return arr.forEach(fn, scope);
+      }
+      for (i = 0, j = arr.length; i < j; i++) {
+        fn.call(scope, arr[i], i, arr);
+      }
+    },
+    trim: function (str) {
+      if (String.prototype.trim) {
+        return str.trim();
+      }
+      return str.replace(/(^\s*)|(\s*$)/g, '');
+    },
+    trimRight: function (str) {
+      if (String.prototype.trimRight) {
+        return str.trimRight();
+      }
+      return str.replace(/(\s*$)/g, '');
+    }
+  };
+  
+  },{}]},{},[2]);
+  
+
+});

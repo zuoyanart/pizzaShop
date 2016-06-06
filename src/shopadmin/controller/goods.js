@@ -102,7 +102,7 @@ export default class extends Base {
             let p = this.post();
             p.pid = parseInt(p.pid);
             p.weight = parseInt(p.weight);
-            let node = await this.model("goodstype").create(p);
+            let node = await this.model("goods").create(p);
             if (node.state == true) {
                 return this.json({
                     "state": true

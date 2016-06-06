@@ -39,7 +39,7 @@ fis.match("**/*", {
         id: '$1', //id支持简写，去掉modules和.js后缀中间的部分
         release: '${statics}/$&',
         url: '${url}/$&',
-        optimizer: fis.plugin('uglify-js')
+        // optimizer: fis.plugin('uglify-js')
     })
     //page下面的页面发布时去掉page文件夹
     .match(/^\/view\/(common|home|login|master|shopadmin)\/(.*)\.(html)$/i, {

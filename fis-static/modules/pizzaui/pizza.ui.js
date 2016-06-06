@@ -125,6 +125,10 @@ var jQuery = require('jquery');
      *  @obj 待校验的对象(jQuery)
      */
     function testValid(obj) {
+      if(!obj.data('validate')){
+        console.log(obj);
+        console.log("上面的元素不存在");
+      }
       var value = obj.data('validate'),
         _must = (value.must == "true" || value.must == true),
         _isValid = true;

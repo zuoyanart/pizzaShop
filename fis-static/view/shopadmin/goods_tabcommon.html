@@ -1,113 +1,259 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="import" href="/widget/meta/meta.html?__inline">
     <link rel="stylesheet" href="/site/common/common.css">
-    <link rel="stylesheet" href="/site/home/base.css" >
+    <link rel="stylesheet" href="/site/home/base.css">
+    <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
+    <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
 </head>
+
 <body style="background-color:#fff;">
-<ul class="list" id="list">
-    <div class="form" style="width:800px;">
-        <div>
-            <label for="">商品名称</label>
-            <input type="text" id="name" name="name">
+    <ul class="list" id="list">
+        <div class="form" style="width:800px;">
+            <div>
+                <label for="">商品名称<i>*</i></label>
+                <input type="text" id="goods_name" name="goods_name">
+            </div>
+            <div>
+                <label for="">商品货号</label>
+                <input type="text" id="goods_sn" name="goods_sn">
+            </div>
+            <div>
+                <label for="">商品分类<i>*</i></label>
+                <select name="cat_id" id="cat_id"></select>
+            </div>
+            <div>
+                <label for="">商品品牌</label>
+                <select id="brand_id" name="brand_id">
+                    <option></option>
+                </select>
+            </div>
+            <div>
+                <label for="">本店售价<i>*</i></label>
+                <input type="text" id="shop_price" name="shop_price" value="0">
+            </div>
+            <div>
+                <label for="">会员价格</label>
+                <input type="text" id="weight" name="weight" value="0">
+            </div>
+            <div>
+                <label for="">市场价</label>
+                <input type="text" id="market_price" name="market_price" value="0">
+            </div>
+            <div>
+                <label for="">虚拟销量</label>
+                <input type="text" id="virtual_sales" name="virtual_sales" value="0">
+            </div>
+            <div>
+                <label for="">赠送消费积分数</label>
+                <input type="text" id="give_integral" name="give_integral" value="-1">
+            </div>
+            <div>
+                <label for="">赠送等级积分数</label>
+                <input type="text" id="rank_integral" name="rank_integral" value="-1">
+            </div>
+            <div>
+                <label for="">积分购买金额</label>
+                <input type="text" id="integral" name="integral" value="0">
+            </div>
+            <div>
+                <label for="">是否促销</label>
+                <select class="" name="is_promote" id="is_promote">
+                    <option value="0" selected="selected">不促销</option>
+                    <option value="1">促销</option>
+                </select>
+            </div>
+            <div>
+                <label for="">促销价</label>
+                <input type="text" id="promote_price" name="promote_price" value="0" disabled="disabled">
+            </div>
+            <div>
+                <label for="">促销日期</label>
+                开始：
+                <input type="text" id="promote_start_date" name="promote_start_date" value="0" style="width:200px;" disabled="disabled"> &nbsp;&nbsp;&nbsp;&nbsp;结束：
+                <input type="text" id="promote_end_date" name="promote_end_date" value="0" style="width:200px;" disabled="disabled">
+            </div>
+            <div>
+                <label for="">上传商品图片</label>
+                <input type="text" id="goods_img" name="goods_img" value="">
+            </div>
+            <div>
+                <label for="">上传商品缩略图</label>
+                <input type="text" id="goods_thumb" name="goods_thumb" value="">
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="更新">
+            </div>
         </div>
-        <div>
-            <label for="">商品货号</label>
-            <input type="text" id="goodsn" name="goodsn">
-        </div>
-        <div>
-            <label for="">商品分类</label>
-            <select name="catid" id="catid"></select>
-        </div>
-        <div>
-            <label for="">商品品牌</label>
-            <input type="text" id="pinpai" name="pinpai">
-        </div>
-        <div>
-            <label for="">本店售价</label>
-            <input type="text" id="shopprice" name="shopprice" value="0">
-        </div>
-        <div>
-            <label for="">会员价格</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">市场价</label>
-            <input type="text" id="marketprice" name="marketprice" value="0">
-        </div>
-        <div>
-            <label for="">虚拟销量</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">赠送消费积分数</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">赠送等级积分数</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">积分购买金额</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">促销价</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">促销日期</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">上传商品图片</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <label for="">上传商品缩略图</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" value="更新">
-        </div>
-    </div>
-</ul>
-<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
-<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var goods = require('shopadmin/goods/goods');
-    goods.get("common");
-    function edit(obj) {
-        $(".form").pizzaValidate({
-          'fields': {
-            '#catname': {
-              'must': true,
-              'minLength': 1,
-              'maxLength': 20,
-              focusMsg: "请输入商品类型名称",
-              errMsg: '标题不能为空或标题必须在1-20个字符之间'
-            },
-          },
-          ajaxFun: function(data) {
-            let id = tools.getPara("id");
-            let op = "create";
-            if (id != "") {
-              op = "update";
-              data += "&id=" + id;
+    </ul>
+    <script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+    <script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        require("layer");
+        var globleConfig = require('globle/globle');
+        globleConfig.init();
+        var common = require('common/common');
+        common.init();
+
+        var tools = require("pizzatools");
+        var goods = require('shopadmin/goods/goods');
+        var pinpai = require('shopadmin/pinpai/pinpai');
+        var goodstree = require('shopadmin/tree/tree');
+        goods.get("common");
+        pinpai.pageAll(function(msg) {
+            var s = '';
+            var data = msg.msg;
+            var l = data.length;
+            for (var i = 0; i < l; i++) {
+                s += '<option value="' + data[i].id + '">' + data[i].title + '</option>';
             }
-            $.ajax({
-              url: options.url + op,
-              data: data,
-              success: function(msg) {
-                if (msg.state == true) {
-                  history.back();
-                }
-              }
-            });
-          }
+            $("#brand_id").html(s);
         });
-      }
-</script>
+        //绑定商品分类
+        goodstree.pageall(function(data) {
+            $("#cat_id").html(data);
+        });
+
+        function edit(obj) {
+            $(".form").pizzaValidate({
+                'fields': {
+                    '#goods_name': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 120,
+                        focusMsg: "请输入商品名称",
+                        errMsg: '标题不能为空或标题必须在1-120个字符之间'
+                    },
+                    '#goods_sn': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 60,
+                        focusMsg: "请输入商品货号,如果为空，系统将自动生成一个唯一的货号",
+                        errMsg: '商品货号必须在1-60个字符之间'
+                    },
+                    '#cat_id': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 5,
+                        focusMsg: "请选择商品分类",
+                        errMsg: '请选择商品分类'
+                    },
+                    '#brand_id': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 5,
+                        focusMsg: "请选择商品品牌",
+                        errMsg: '请选择商品品牌'
+                    },
+                    '#shop_price': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入本店售价",
+                        errMsg: '本店售价必须在1-10个字符之间'
+                    },
+                    '#market_price': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入市场价",
+                        errMsg: '市场价必须在10个字符之间'
+                    },
+                    '#virtual_sales': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入虚拟销量",
+                        errMsg: '虚拟销量必须在1-120个字符之间'
+                    },
+                    '#give_integral': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 120,
+                        focusMsg: "请输入购买该商品时赠送消费积分数,-1表示按商品价格赠送",
+                        errMsg: '请输入购买该商品时赠送消费积分数,-1表示按商品价格赠送'
+                    },
+                    '#rank_integral': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入购买该商品时赠送等级积分数,-1表示按商品价格赠送",
+                        errMsg: '请输入购买该商品时赠送等级积分数,-1表示按商品价格赠送'
+                    },
+                    '#integral': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入购买该商品时最多可以使用积分的金额",
+                        errMsg: '请输入购买该商品时最多可以使用积分的金额'
+                    },
+                    '#is_promote': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 120,
+                        focusMsg: "请选择是否促销",
+                        errMsg: '请选择是否促销'
+                    },
+                    '#promote_price': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入促销价格",
+                        errMsg: '促销价格必须在1-10个字符之间'
+                    },
+                    '#promote_start_date': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 120,
+                        focusMsg: "请选择促销开始时间",
+                        errMsg: '请选择促销开始时间'
+                    },
+                    '#promote_end_date': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 120,
+                        focusMsg: "请选择促销结束时间",
+                        errMsg: '请选择促销结束时间'
+                    },
+                    '#goods_img': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 200,
+                        focusMsg: "请上传商品图片",
+                        errMsg: '商品图片必须在1-200个字符之间'
+                    },
+                    '#goods_thumb': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 200,
+                        focusMsg: "请上传缩略图，若不传则根据商品图自动生成",
+                        errMsg: '商品缩略图必须在1-200个字符之间'
+                    },
+                },
+                ajaxFun: function(data) {
+                    let id = tools.getPara("id");
+                    let op = "create";
+                    if (id != "") {
+                        op = "update";
+                        data += "&id=" + id;
+                    }
+                    $.ajax({
+                        url: '/shopadmin/goods/' + op,
+                        data: data,
+                        success: function(msg) {
+                            if (msg.state == true) {
+                                // history.back();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        edit();
+    </script>
 </body>
+
 </html>

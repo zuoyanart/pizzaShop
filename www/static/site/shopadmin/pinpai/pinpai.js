@@ -122,6 +122,21 @@ define('shopadmin/pinpai/pinpai', function(require, exports, module) {
         });
       }
       /**
+       * 获取所有的品牌
+       * @method function
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      my.pageAll = function(callback) {
+        $.ajax({
+          url: options.url + 'pageall',
+          data: 'cp=1',
+          success: function(msg) {
+            callback(msg);
+          }
+        });
+      }
+      /**
        * 获取模块列表
        * @method page
        * @return {[type]} [description]
@@ -145,6 +160,7 @@ define('shopadmin/pinpai/pinpai', function(require, exports, module) {
         }
       });
     }
+  
     /**
      * 操作事件绑定
      * @method eventBind

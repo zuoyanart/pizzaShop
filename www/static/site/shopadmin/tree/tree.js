@@ -12,8 +12,8 @@ define('shopadmin/tree/tree', function(require, exports, module) {
     var common = require('common/common');
     var my = {};
     var options = {
-      url: '/home/tree/',
-      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <i>display:1</i>\r\n      <span><a href=\"/home/tree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/home/tree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\r\n<%}%>\r\n"
+      url: '/shopadmin/goodstree/',
+      tpl: "<%for(var i=0,ll=data.length; i<ll; i++) { %>\r\n    <li class=\"pid<%= data[i].pid%>\" path=\"<%= data[i].nodepath%>\" id=\"<%= data[i].id%>\">\r\n      <%var deep = data[i].nodepath.split(',').length - 3 %>\r\n      <%for(var j=0;j<deep;j++) {%>\r\n        <b class=\"indent\"></b>\r\n      <%}%>\r\n      <i class=\"icon-add\"></i>\r\n      <em><%= data[i].name%></em>\r\n      <i>display:1</i>\r\n      <span><a href=\"/shopadmin/goodstree/edit?id=<%= data[i].id%>\">编辑</a><a href=\"/shopadmin/goodstree/edit?pid=<%= data[i].id%>\">添加子节点</a></span>\r\n    </li>\r\n<%}%>\r\n"
     };
   
     /**
@@ -105,13 +105,18 @@ define('shopadmin/tree/tree', function(require, exports, module) {
         }
       });
     }
-  
+  /**
+   * 获取所有分类
+   * @method function
+   * @param  {Function} callback [description]
+   * @return {[type]}            [description]
+   */
     my.pageall = function(callback) {
         $.ajax({
           url: options.url + 'pageall',
           success: function(msg) {
             if (msg.state == true) {
-              var s = '<option value="1">首页</option>';
+              var s = '<option value="1">全部分类</option>';
               var data = msg.msg;
               s += fomatNodeList(1, data);
               callback(s);

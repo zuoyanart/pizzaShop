@@ -10,7 +10,7 @@ var tree = (function() {
   var common = require('common/common');
   var my = {};
   var options = {
-    url: '/home/tree/',
+    url: '/shopadmin/goodstree/',
     tpl: __inline('../ejs/tree.ejs')
   };
 
@@ -103,13 +103,18 @@ var tree = (function() {
       }
     });
   }
-
+/**
+ * 获取所有分类
+ * @method function
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
   my.pageall = function(callback) {
       $.ajax({
         url: options.url + 'pageall',
         success: function(msg) {
           if (msg.state == true) {
-            var s = '<option value="1">首页</option>';
+            var s = '<option value="1">全部分类</option>';
             var data = msg.msg;
             s += fomatNodeList(1, data);
             callback(s);

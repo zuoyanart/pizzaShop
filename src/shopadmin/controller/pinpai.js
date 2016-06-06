@@ -21,6 +21,15 @@ export default class extends Base {
             let docs = await this.model("pinpai").page(param.kw, param.cp, param.mp);
             return this.json(docs);
         }
+        /**
+         * 获取所有子节点
+         * @method pageAction
+         * @return {[type]}   [description]
+         */
+    async pageallAction() {
+            let docs = await this.model("pinpai").pageAll();
+            return this.json(docs);
+        }
         //编辑节点
     editAction() {
         return this.display();
