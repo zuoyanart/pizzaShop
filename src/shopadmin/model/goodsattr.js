@@ -4,34 +4,22 @@ import tools from '../../common/tools/tools.js';
  * model
  */
 export default class extends think.model.base {
-    /**
-     *  根据父节点获取所有子节点
-     * @method checkUserLogin
-     * @param  {[type]}       username [description]
-     * @param  {[type]}       password [description]
-     * @return {[type]}                [description]
-     */
-    async page(params) {
-            var paramJson = {};
-            // if (params.catid != 0) { //商品分类
-            //     paramJson.catid = params.catid;
-            // }
-            // if (params.pinpai != 0) { //品牌
-            //     paramJson.pinpaiId = params.pinpai;
-            // }
-            // if (params.status != 0) { //筛选热销，精品，新品等
-            //     paramJson.status = 1;
-            // }
-            // if (params.issale) { //是否上架
-            //     paramJson.isOnSale = params.issale;
-            // }
-
-            paramJson.name = ["like", "%" + params.kw + "%"];
-
-            let data = await this.where(
-                    paramJson
-                )
-                .limit((params.cp - 1) * params.mp, params.mp)
+    init(...args) {
+            super.init(...args);
+            this.tableName = "goods_attr"; //将对应的数据表名设置为 user2
+            this.pk = "goods_attr_id";
+        }
+        /**
+         *  根据父节点获取所有子节点
+         * @method checkUserLogin
+         * @param  {[type]}       username [description]
+         * @param  {[type]}       password [description]
+         * @return {[type]}                [description]
+         */
+    async page(goodsid) {
+            let data = await this.where({
+                    goodsid: goodsid
+                })
                 .select();
             return {
                 state: true,
@@ -72,13 +60,9 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(json) {
-            if (!json.goods_sn || json.goods_sn == '') {
-                json.goods_sn = 'ASU' + Date.parse(new Date()).toString().replace('000','');
-            }
             let id = await this.add(json);
             return {
-                state: true,
-                msg: id
+                state: true
             }
         }
         /**
@@ -88,11 +72,11 @@ export default class extends think.model.base {
          * @param  {[type]} ispass [description]
          * @return {[type]}        [description]
          */
-    async updateGoodsType(id, goodstype) {
+    async pass(id, ispass) {
             let row = await this.where({
-                goods_id: id
+                id: ["IN", id.split(',')]
             }).update({
-              goods_type: goodstype
+                pass: ispass
             });
             return {
                 state: true
@@ -106,14 +90,11 @@ export default class extends think.model.base {
          */
     async del(id) {
         let row = await this.where({
-            id: ["IN", id.split(',')]
+            goodsid: id
         }).delete();
         return {
             state: true
         }
     }
-
-
-
 
 }

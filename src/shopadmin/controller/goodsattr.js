@@ -1,6 +1,6 @@
 'use strict';
 /**
- * 商品类型
+ * 商品类型属性
  */
 import Base from './base.js';
 import tools from '../../common/tools/tools.js';
@@ -11,36 +11,10 @@ export default class extends Base {
      * @return {Promise} []
      */
     indexAction() {
-            //auto render template file index_index.html
-            return this.display();
-        }
-        /**
-         * 加载tab
-         * @method tabAction
-         * @return {[type]}  [description]
-         */
-    tabAction() {
-        console.log("asdasd");
-        let tab = tools.xss(this.post("tab"));
-        let s = '<iframe src="/shopadmin/goods/tab' + tab + '" scrolling="no"></iframe>';
-        return this.json({
-            "state": true,
-            msg: s
-        });
-    }
-    tabcommonAction() {
-        return this.display();
-    }
-    tabinfoAction() {
-        return this.display();
-    }
-    tabotherAction() {
-        return this.display();
-    }
-    tabattrAction() {
-        return this.display();
-    }
-    tabphotoAction() {
+            this.assign({
+                "catid": tools.xss(this.get("catid")),
+                "catname": tools.xss(escape(this.get("catname")))
+            });
             return this.display();
         }
         /**
@@ -51,7 +25,7 @@ export default class extends Base {
     async pageAction() {
             let param = tools.xss(this.post());
             // let node = await tools.httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
-            let node = await this.model("goods").page(param);
+            let node = await this.model("goodsattr").page(param.goodsid);
             return this.json(node);
         }
         /**
@@ -61,7 +35,7 @@ export default class extends Base {
          */
     async pageallAction() {
             // let node = await tools.httpAgent(this.config("api") + 'node/pageall', "get");
-            let node = await this.model("goods").pageall();
+            let node = await this.model("goodstypeattr").pageall();
             return this.json(node);
         }
         //编辑节点
@@ -76,7 +50,7 @@ export default class extends Base {
      */
     async getAction() {
         // let node = await tools.httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
-        let node = await this.model("goods").get(this.post("id"));
+        let node = await this.model("goodstypeattr").get(this.post("id"));
         return this.json(node);
     }
 
@@ -86,8 +60,15 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async updateAction() {
-        let p = tools.xss(this.post());
-        let node = await this.model("goods").edit(p);
+        let p = this.post();
+        p.attrid = parseInt(p.attrid);
+        p.catid = parseInt(p.catid);
+        p.inputtype = parseInt(p.inputtype);
+        p.attrtype = parseInt(p.attrtype);
+        p.weight = parseInt(p.weight);
+        p.attrvalue = p.attrvalue.replace(/ /g, "");
+        // let node = await tools.httpAgent(this.config("api") + 'node', "put", p);
+        let node = await this.model("goodstypeattr").edit(p);
         if (node.state == true) {
             return this.json({
                 "state": true
@@ -106,8 +87,24 @@ export default class extends Base {
      */
     async createAction() {
             let p = tools.xss(this.post());
-            let node = await this.model("goods").create(p);
-            return this.json(node);
+            console.log(p);
+            console.log(p.length);
+            let len = p.itemlength;
+            let attr = this.model("goodsattr");
+            await this.model("goods").updateGoodsType(p.goodsid, p.goodstype);
+            attr.del(p.goodsid);
+            for (var key in p) {
+                if (key.indexOf("catid") > -1 && p[key] != '') {
+                    await attr.create({
+                        goodsid: p.goodsid,
+                        attrid: key.split('_')[1],
+                        attrvalue: p[key]
+                    });
+                }
+            }
+            return this.json({
+                "state": true
+            });
         }
         /**
          * 删除品牌
@@ -116,7 +113,7 @@ export default class extends Base {
          */
     async removeAction() {
         let p = tools.xss(this.post());
-        let pinpai = await this.model("goods").remove(p.id);
+        let pinpai = await this.model("goodstypeattr").remove(p.id);
         return this.json({
             "state": true
         });

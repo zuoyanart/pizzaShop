@@ -4,43 +4,69 @@
 <head>
     <link rel="import" href="/widget/meta/meta.html?__inline">
     <link rel="stylesheet" href="/site/common/common.css">
-    <link rel="stylesheet" href="/site/home/base.css" >
+    <link rel="stylesheet" href="/site/home/base.css">
+    <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
+    <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
 </head>
+
 <body style="background-color:#fff;">
-<ul class="list" id="list">
-    <div class="form" style="width:800px;">
-        <div>
-            <label for="">名称</label>
-            <input type="text" id="title" name="title">
+    <ul class="list" id="list">
+        <div class="form" style="width:800px;">
+            <div style="padding-left:0px">
+                <textarea rows="30" cols="60" id="goods_desc" name="goods_desc"></textarea>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="更新">
+            </div>
         </div>
-        <div>
-            <label for="">LOGO</label>
-            <input type="text" style="width:610px;margin-right:7px;" id="logo" name="logo">
-            <input type="button" id="timgup" value="选择图片" />
-        </div>
-        <div>
-            <label for="">品牌网址</label>
-            <input type="text" id="link" name="link">
-        </div>
-        <div>
-            <label for="">描述</label>
-            <textarea rows="5" cols="40" id="brief" name="brief"></textarea>
-        </div>
-        <div>
-            <label for="">权重</label>
-            <input type="text" id="weight" name="weight" value="0">
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" value="更新">
-        </div>
-    </div>
-</ul>
-<script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
-<script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
-<script type="text/javascript">
-    var goods = require('shopadmin/goods/goods');
-    goods.get();
-    goods.edit();
-</script>
+    </ul>
+    <script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        require("layer");
+        var globleConfig = require('globle/globle');
+        globleConfig.init();
+        var common = require('common/common');
+        common.init();
+
+        var tools = require("pizzatools");
+        var goods = require('shopadmin/goods/goods');
+
+
+
+        KindEditor.ready(function(K) {
+            window.editor = K.create('#goods_desc', {
+              uploadJson: '/upfile/local',
+              allowFileManager: false
+            });
+               goods.get("common");
+          });
+
+
+        function edit(obj) {
+            $(".form").pizzaValidate({
+                ajaxFun: function(data) {
+                    let id = parent.document.location.href.split('=')[1];
+                    if(!id) {
+                      layer.msg("请先填写通用信息")
+                      return;
+                    }
+                    var op = "update";
+                    var data = "goods_id=" + id + '&goods_desc=' + editor.html();
+
+                    $.ajax({
+                        url: '/shopadmin/goods/' + op,
+                        data: data,
+                        success: function(msg) {
+                            if (msg.state == true) {
+
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        edit();
+    </script>
 </body>
+
 </html>

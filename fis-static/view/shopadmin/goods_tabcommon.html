@@ -102,7 +102,7 @@
         var goods = require('shopadmin/goods/goods');
         var pinpai = require('shopadmin/pinpai/pinpai');
         var goodstree = require('shopadmin/tree/tree');
-        goods.get("common");
+
         pinpai.pageAll(function(msg) {
             var s = '';
             var data = msg.msg;
@@ -111,10 +111,11 @@
                 s += '<option value="' + data[i].id + '">' + data[i].title + '</option>';
             }
             $("#brand_id").html(s);
-        });
-        //绑定商品分类
-        goodstree.pageall(function(data) {
-            $("#cat_id").html(data);
+            //绑定商品分类
+            goodstree.pageall(function(data) {
+                $("#cat_id").html(data);
+                  goods.get("common");
+            });
         });
 
         function edit(obj) {
@@ -234,18 +235,21 @@
                     },
                 },
                 ajaxFun: function(data) {
-                    let id = tools.getPara("id");
+                    let id = parent.document.location.href.split('=')[1];
                     let op = "create";
-                    if (id != "") {
+                    if (id) {
                         op = "update";
-                        data += "&id=" + id;
+                        data += "&goods_id=" + id;
                     }
                     $.ajax({
                         url: '/shopadmin/goods/' + op,
                         data: data,
                         success: function(msg) {
                             if (msg.state == true) {
-                                // history.back();
+                                if (op == 'create') {
+                                    //更新超链接地址，添加goods的id
+                                    parent.document.location.href = parent.document.location.href + '#id=' + msg.msg;
+                                }
                             }
                         }
                     });

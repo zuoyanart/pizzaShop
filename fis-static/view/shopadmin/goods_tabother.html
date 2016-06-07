@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/common/common.css">
+    <link rel="stylesheet" href="/site/home/base.css">
+    <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
+    <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
+</head>
+
+<body style="background-color:#fff;">
+    <ul class="list" id="list">
+        <div class="form" style="width:800px;">
+            <div>
+                <label for="">商品重量</label>
+                <input type="text" id="goods_weight" name="goods_weight" value="0" style="width:545px;">
+                <select name="weight_unit" id="weight_unit" style="width:100px;">
+                    <option value="0.001" selected="selected">克</option>
+                    <option value="1">千克</option>
+                </select>
+            </div>
+            <div>
+                <label for="">商品库存数量</label>
+                <input type="number" id="goods_number" name="goods_number" value="0">
+            </div>
+            <div>
+                <label for="">库存警告数量</label>
+                <input type="text" id="warn_number" name="warn_number" value="0">
+            </div>
+            <div>
+                <label for="">加入推荐</label>
+                <select name="is_best" id="is_best" style="width:110px;">
+                    <option value="1" selected="selected">精品</option>
+                    <option value="0">不推荐到精品</option>
+                </select>
+                <select name="is_new" id="is_new" style="width:110px;">
+                    <option value="1" selected="selected">新品</option>
+                    <option value="0">不推荐到新品</option>
+                </select>
+                <select name="is_hot" id="is_hot" style="width:110px;">
+                    <option value="1" selected="selected">热销</option>
+                    <option value="0">不推荐到热销</option>
+                </select>
+            </div>
+            <div>
+                <label for="">上架</label>
+                <select name="is_on_sale" id="is_on_sale" style="width:110px;">
+                    <option value="1" selected="selected">上架销售</option>
+                    <option value="0">暂不销售</option>
+                </select>
+                <select name="is_alone_sale" id="is_alone_sale" style="width:200px;">
+                    <option value="1" selected="selected">独立销售</option>
+                    <option value="0">做为配件或赠品销售</option>
+                </select>
+                <select name="is_shipping" id="is_shipping" style="width:110px;">
+                    <option value="0" selected="selected">正常运费</option>
+                    <option value="1">免运费</option>
+                </select>
+            </div>
+            <div>
+                <label for="">商品关键字</label>
+                <input type="text" id="keywords" name="keywords" value="" placeholder="用空格隔开">
+            </div>
+            <div>
+                <label for="">商品简单描述</label>
+                <textarea name="goods_brief" id="goods_brief" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <label for="">商家备注</label>
+                <textarea name="seller_note" id="seller_note" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="更新">
+            </div>
+        </div>
+    </ul>
+    <script type="text/javascript">
+        require("layer");
+        var globleConfig = require('globle/globle');
+        globleConfig.init();
+        var common = require('common/common');
+        common.init();
+
+        var tools = require("pizzatools");
+        var goods = require('shopadmin/goods/goods');
+        goods.get("common");
+
+        function edit(obj) {
+            $(".form").pizzaValidate({
+                'fields': {
+                    '#goods_weight': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请输入商品重量",
+                        errMsg: '商品重量必须在1-10个字符之间'
+                    },
+                    '#weight_unit': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 10,
+                        focusMsg: "请选择商品重量单位",
+                        errMsg: '重量单位必须在1-10个字符之间'
+                    },
+                    '#goods_number': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 8,
+                        'reg': 'int',
+                        focusMsg: "请输入商品库存数量",
+                        errMsg: '商品库存数量必须在1-8个字符之间'
+                    },
+                    '#warn_number': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 8,
+                        'reg': 'int',
+                        focusMsg: "请输入库存警告数量",
+                        errMsg: '库存警告数量必须在1-8个字符之间'
+                    },
+                    '#is_best': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否精品推荐",
+                        errMsg: '请选择是否精品推荐'
+                    },
+                    '#is_new': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否新品推荐",
+                        errMsg: '请选择是否新品推荐'
+                    },
+                    '#is_hot': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否热销推荐",
+                        errMsg: '请选择是否热销推荐'
+                    },
+                    '#is_on_sale': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否上架",
+                        errMsg: '请选择是否上架'
+                    },
+                    '#is_alone_sale': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否独立销售",
+                        errMsg: '请选择是否独立销售'
+                    },
+                    '#is_shipping': {
+                        'must': true,
+                        'minLength': 1,
+                        'maxLength': 2,
+                        focusMsg: "请选择是否免运费",
+                        errMsg: '请选择是否免运费'
+                    },
+                    '#keywords': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 300,
+                        focusMsg: "请输入关键字，以空格隔开",
+                        errMsg: '关键字必须在1-300个字符之间'
+                    },
+                    '#goods_brief': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 2000,
+                        focusMsg: "请输入商品简单描述",
+                        errMsg: '描述必须在1-2000个字符之间'
+                    },
+                    '#seller_note': {
+                        'must': false,
+                        'minLength': 1,
+                        'maxLength': 2000,
+                        focusMsg: "请输入商家备注",
+                        errMsg: '备注必须在1-2000个字符之间'
+                    }
+                },
+                ajaxFun: function(data) {
+                    let id = parent.document.location.href.split('=')[1];
+                    if (!id) {
+                        layer.msg("请先填写通用信息")
+                        return;
+                    }
+                    op = "update";
+                    data += "&goods_id=" + id;
+                    $.ajax({
+                        url: '/shopadmin/goods/' + op,
+                        data: data,
+                        success: function(msg) {
+                            if (msg.state == true) {
+
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        edit();
+    </script>
+</body>
+
+</html>

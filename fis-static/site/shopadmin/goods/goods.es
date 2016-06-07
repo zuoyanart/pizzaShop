@@ -37,18 +37,24 @@ let goods = (function() {
      * @param  {[type]} obj [description]
      * @return {[type]}     [description]
      */
-  my.get = function(tab) {
-      let id = tools.getPara("id");
-      if (id == "") {
+  my.get = function(callback) {
+      let id = parent.document.location.href.split('=')[1];
+      if (!id) {
         return;
       }
       $.ajax({
-        url: options.url + 'get' + tab,
+        url: options.url + 'get',
         data: 'id=' + id,
         success: function(result) {
           if (result.state == true) {
             for (var key in result.msg) {
               $('#' + key).val(result.msg[key]);
+            }
+            if(typeof(editor) != "undefined") {
+                editor.html(result.msg.goods_desc);
+            }
+            if(typeof(callback) == "function") {
+              callback();
             }
           }
         }

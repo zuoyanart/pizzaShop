@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/common/common.css">
+    <link rel="stylesheet" href="/site/home/base.css">
+    <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
+    <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
+</head>
+
+<body style="background-color:#fff;">
+    <ul class="list" id="list">
+        <div class="form" style="width:800px;">
+            <div id="goodstype">
+                <label for="">商品类型</label>
+                <select name="goods_type" id="goods_type">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="更新">
+            </div>
+        </div>
+    </ul>
+    <script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        require("layer");
+        var globleConfig = require('globle/globle');
+        globleConfig.init();
+        var common = require('common/common');
+        common.init();
+
+        var tools = require("pizzatools");
+        var goods = require('shopadmin/goods/goods');
+        var goodsType = require('shopadmin/goodstype/goodstype');
+        var goodsTypeAttr = require('shopadmin/goodstypeattr/goodstypeattr');
+        var goodsattr = require('shopadmin/goodsattr/goodsattr');
+        goodsType.pageAll(function(msg) {
+            var data = msg.msg;
+            var l = data.length;
+            var s = '<option value="0" selected="selected">请选择商品属性</option>';
+            for (var i = 0; i < l; i++) {
+                s += '<option value="' + data[i].id + '">' + data[i].catname + '</option>'
+            }
+            $("#goods_type").html(s);
+            $("#goods_type").change(function() { //绑定change事件
+                goodsTypeAttr.pageAll($(this).val(), function(msg) {
+                    var s = '',
+                        item = '',
+                        selectItem = [];
+                    var data = msg.msg;
+                    var l = data.length;
+                    var fields = {};
+                    for (var i = 0; i < l; i++) {
+                        if (data[i].inputtype == 1) { //select
+                            s += '<div class="goodstype"><label>' + data[i].attrname + '</label><select id="catid_' + data[i].attrid + '_' + i + '" name="catid_' + data[i].attrid + '_' + i + '">';
+                            selectItem = data[i].attrvalue.split('\n');
+                            s+= '<option value="">请选择</option>';
+                            for(var j=0,ll=selectItem.length;j<ll;j++) {
+                              s += '<option value="'+selectItem[j]+'">'+selectItem[j]+'</option>';
+                            }
+                            s+='</select></div>';
+                        } else { //input
+                            s += '<div class="goodstype"><label>' + data[i].attrname + '</label><input type="text" id="catid_' + data[i].attrid + '_' + i + '" name="catid_' + data[i].attrid + '_' + i + '"/></div>';
+                        }
+                        item = '{"must": false, "minLength":1,"maxLength":1000, "focusMsg": "请输入' + data[i].attrname + '", "errMsg": "' + data[i].attrname + '必须在1-1000个字符之间"}';
+                        fields['#catid_' + data[i].attrid + '_' + i] = JSON.parse(item);
+                    }
+                    $(".goodstype").remove();
+                    $("#goodstype").after(s);
+                    console.log(fields);
+                    $(".form").pizzaValidate({
+                        'fields': fields,
+                        ajaxFun: function(data) {
+                            let id = parent.document.location.href.split('=')[1];
+                            if (!id) {
+                                layer.msg("请先填写通用信息")
+                                return;
+                            }
+                            var op = "create";
+                            data += "&goodsid=" + id +'&goodstype=' + $("#goods_type").val();
+                            $.ajax({
+                                url: '/shopadmin/goodsattr/' + op,
+                                data: data,
+                                success: function(msg) {
+                                    if (msg.state == true) {
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+            goods.get(function() {
+               $("#goods_type").trigger("change");
+               goodsattr.pageAll(parent.document.location.href.split('=')[1]);
+            });
+
+        });
+    </script>
+</body>
+
+</html>
