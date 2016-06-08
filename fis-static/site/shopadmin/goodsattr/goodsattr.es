@@ -26,14 +26,15 @@ let goodsattr = (function() {
             url: options.url + 'page',
             data: "goodsid=" + goodsid,
             success: function(msg) {
-              console.log(typeof(callback));
+                console.log(typeof(callback));
                 if (typeof(callback) == "function") {
-                  callback(msg);
+                    callback(msg);
                 } else {
                     var data = msg.msg;
                     var len = data.length;
-                    for(var i=0;i<len;i++) {
-                      $("#catid_" + data[i].attrid + '_' +i).val(data[i].attrvalue);
+                    for (var i = 0; i < len; i++) {
+                        $(".catid_" + data[i].attrid ).val(data[i].attrvalue);
+                        $(".price_" + data[i].attrid+"_"+ escape(data[i].attrvalue).replace(/%/g,'')).val(data[i].attrprice);
                     }
                 }
             }

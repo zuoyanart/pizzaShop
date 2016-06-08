@@ -16,7 +16,6 @@ export default class extends think.controller.base {
     let file = `${module}/error/${status}.html`;//es6字符串模板, display格式为：module/controller/action ===> module/controller_action.html
     let options = this.config("tpl");
     options = think.extend({}, options, {type: "ejs"});
-    console.log(options);
     return this.display(file, options);
   }
   /**

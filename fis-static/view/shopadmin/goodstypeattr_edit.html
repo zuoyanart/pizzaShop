@@ -8,6 +8,13 @@
 <div class="form"  style="width:800px;">
   <div><label for="">属性名称</label><input type="text" id="attrname" name="attrname"></div>
   <div><label for="">商品类型</label><input type="text" id="catename" name="catename" disabled="disabled"></div>
+  <div><label for="">属性是否可选</label>
+    <select name="attrtype" id="attrtype">
+      <option value="0">唯一属性</option>
+      <option value="1">单选属性</option>
+      <option value="2">复选属性</option>
+    </select>
+  </div>
   <div><label for="">录入方式</label><select id="inputtype" name="inputtype">
     <option value="0">手动录入</option>
     <option value="2">多行文本框</option>

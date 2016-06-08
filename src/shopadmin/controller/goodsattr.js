@@ -98,7 +98,8 @@ export default class extends Base {
                     await attr.create({
                         goodsid: p.goodsid,
                         attrid: key.split('_')[1],
-                        attrvalue: p[key]
+                        attrvalue: p[key],
+                        attrprice: p[key.replace("catid", "price")] ? p[key.replace("catid", "price")] : 0
                     });
                 }
             }

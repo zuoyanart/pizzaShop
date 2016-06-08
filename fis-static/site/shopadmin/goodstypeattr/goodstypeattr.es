@@ -89,6 +89,13 @@ let goodstypeattr = (function() {
                     focusMsg: "请选择商品录入方式",
                     errMsg: '录入方式必须在1-20个字符之间'
                 },
+                '#attrtype': {
+                    'must': true,
+                    'minLength': 1,
+                    'maxLength': 2,
+                    focusMsg: "选择(单选/复选属性),用户购买商品时则需要选定具体的属性值",
+                    errMsg: '是否可选必须在1-2个字符之间'
+                },
                 '#attrvalue': {
                     'must': false,
                     'minLength': 1,
