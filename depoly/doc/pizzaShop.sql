@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2016-06-07 19:15:12
+Date: 2016-06-08 20:04:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2358,23 +2358,33 @@ CREATE TABLE `pz_goods_attr` (
   `goodsid` int(11) DEFAULT '0' COMMENT '商品编号',
   `attrid` smallint(5) DEFAULT '0' COMMENT '属性编号',
   `attrvalue` text COMMENT '属性值',
-  `attrprice` varchar(255) DEFAULT '' COMMENT '属性价格',
+  `attrprice` int(4) DEFAULT '0' COMMENT '属性价格',
   PRIMARY KEY (`goods_attr_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pz_goods_attr
 -- ----------------------------
-INSERT INTO `pz_goods_attr` VALUES ('26', '13', '9', '导演', '');
-INSERT INTO `pz_goods_attr` VALUES ('25', '13', '8', '中文', '');
-INSERT INTO `pz_goods_attr` VALUES ('24', '13', '7', '国家地区', '');
-INSERT INTO `pz_goods_attr` VALUES ('23', '13', '6', '片装数', '');
-INSERT INTO `pz_goods_attr` VALUES ('22', '13', '5', 'HDCD', '');
-INSERT INTO `pz_goods_attr` VALUES ('21', '13', '4', '商品别名', '');
-INSERT INTO `pz_goods_attr` VALUES ('20', '13', '3', '英文片名', '');
-INSERT INTO `pz_goods_attr` VALUES ('19', '13', '2', '海贼王', '');
-INSERT INTO `pz_goods_attr` VALUES ('27', '13', '11', '蓝调', '');
-INSERT INTO `pz_goods_attr` VALUES ('28', '13', '13', '有', '');
+INSERT INTO `pz_goods_attr` VALUES ('44', '13', '4', '商品别名', '0');
+INSERT INTO `pz_goods_attr` VALUES ('43', '13', '3', '英文片名', '0');
+INSERT INTO `pz_goods_attr` VALUES ('42', '13', '2', '中文片名', '0');
+INSERT INTO `pz_goods_attr` VALUES ('45', '13', '5', 'DTS', '0');
+INSERT INTO `pz_goods_attr` VALUES ('46', '13', '6', '片装数', '0');
+INSERT INTO `pz_goods_attr` VALUES ('47', '13', '7', '中国', '0');
+INSERT INTO `pz_goods_attr` VALUES ('48', '13', '8', '中文', '0');
+INSERT INTO `pz_goods_attr` VALUES ('49', '13', '9', '导演', '0');
+INSERT INTO `pz_goods_attr` VALUES ('50', '13', '10', '主唱', '0');
+INSERT INTO `pz_goods_attr` VALUES ('51', '13', '11', '流行', '0');
+INSERT INTO `pz_goods_attr` VALUES ('52', '13', '12', '10m', '0');
+INSERT INTO `pz_goods_attr` VALUES ('53', '13', '13', '有', '0');
+INSERT INTO `pz_goods_attr` VALUES ('54', '13', '14', 'SD5456', '0');
+INSERT INTO `pz_goods_attr` VALUES ('55', '13', '15', 'WD458', '0');
+INSERT INTO `pz_goods_attr` VALUES ('56', '13', '16', '发行公司', '0');
+INSERT INTO `pz_goods_attr` VALUES ('57', '13', '17', 'test', '0');
+INSERT INTO `pz_goods_attr` VALUES ('58', '13', '18', 'U盘1', '10');
+INSERT INTO `pz_goods_attr` VALUES ('59', '13', '18', 'U盘2', '20');
+INSERT INTO `pz_goods_attr` VALUES ('60', '13', '18', 'U盘3', '30');
+INSERT INTO `pz_goods_attr` VALUES ('61', '13', '18', 'U盘4', '40');
 
 -- ----------------------------
 -- Table structure for pz_goods_node
@@ -2427,27 +2437,28 @@ CREATE TABLE `pz_goods_type_attr` (
   `attrvalue` text COMMENT '属性可选值',
   `weight` tinyint(3) DEFAULT NULL,
   PRIMARY KEY (`attrid`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='此表用来维护商品的属性信息';
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='此表用来维护商品的属性信息';
 
 -- ----------------------------
 -- Records of pz_goods_type_attr
 -- ----------------------------
 INSERT INTO `pz_goods_type_attr` VALUES ('3', '5', '英文片名', '0', '0', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('10', '5', '主唱', '0', '1', '', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('10', '5', '主唱', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('2', '5', '中文片名', '0', '0', 'ddasdasd\n不知道\nasdasd\nasdasd\nasdasd\nasdasd', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('11', '5', '所属类别', '1', '1', '古典\n流行\n摇滚\n乡村\n民谣\n爵士\n蓝调\n电子\n舞曲 \n国乐\n民族\n怀旧\n经典\n人声\n合唱\n发烧\n试音\n儿童\n胎教\n轻音乐\n世界音乐\n庆典音乐\n影视音乐\n新世纪音乐\n大自然音乐', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('11', '5', '所属类别', '1', '0', '古典\n流行\n摇滚\n乡村\n民谣\n爵士\n蓝调\n电子\n舞曲 \n国乐\n民族\n怀旧\n经典\n人声\n合唱\n发烧\n试音\n儿童\n胎教\n轻音乐\n世界音乐\n庆典音乐\n影视音乐\n新世纪音乐\n大自然音乐', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('4', '5', '商品别名', '0', '0', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('5', '5', '介质/格式', '1', '1', 'HDCD\nDTS\nDVD\nDVD9\nVCD\nCD\nTAPE\nLP', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('5', '5', '介质/格式', '1', '0', 'HDCD\nDTS\nDVD\nDVD9\nVCD\nCD\nTAPE\nLP', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('6', '5', '片装数', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('7', '5', '国家地区', '0', '0', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('8', '5', '语种', '1', '1', '中文\n英文\n法文\n西班牙文', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('8', '5', '语种', '1', '0', '中文\n英文\n法文\n西班牙文', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('9', '5', '导演/指挥', '0', '0', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('12', '5', '长度', '0', '1', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('13', '5', '歌词', '1', '1', '有\n无', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('12', '5', '长度', '0', '0', '', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('13', '5', '歌词', '1', '0', '有\n无', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('14', '5', '碟片代码', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('15', '5', 'ISRC码', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('16', '5', '发行公司', '0', '0', '', '0');
-INSERT INTO `pz_goods_type_attr` VALUES ('17', '5', 'test', '0', '1', '', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('17', '5', 'test', '0', '0', '', '0');
+INSERT INTO `pz_goods_type_attr` VALUES ('18', '5', '邮寄方式', '1', '1', 'U盘1\nU盘2\nU盘3\nU盘4', '0');
 
 -- ----------------------------
 -- Table structure for pz_goods-del
