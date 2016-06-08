@@ -1,0 +1,26 @@
+div.nav{
+  width: 100%;
+  background:url(/site/shop/img/nav_new_line.jpg) repeat-x;
+  height: 38px;
+  & > div{
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    clear:both;
+    a{
+      display: inline-block;
+      min-width: 119px;
+      text-align: center;
+      padding: 0 10px;
+      height: 38px;
+      line-height: 38px;
+      color:#fff;
+      &:hover{
+        background-color: #EB155B;
+      }
+      &.choose{
+        background-color: #EB155B;
+      }
+    }
+  }
+}
