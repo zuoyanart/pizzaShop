@@ -1,1 +1,58 @@
-#header{width:100%;height:135px}#header>.top{background-color:#F2F2F2;height:26px;color:#333}#header>.top a{color:#333;margin:0 5px}#header>.top div.rightp{width:1200px;height:26px;margin:0 auto;line-height:26px;clear:both}#header>.top div.right{float:right;width:315px;height:100%}#header>.bottom{height:89px}#header>.bottom>div{width:1200px;height:100%;margin:0 auto;padding-top:10px;position:relative}#header>.bottom>div img{vertical-align:middle}#header>.bottom>div form{width:520px;display:inline-block;margin-left:54px}#header>.bottom>div form input[type="text"]{width:418px;height:38px;border:3px solid #ED145B}#header>.bottom>div form input[type="submit"]{width:100px;height:38px;background-color:#ED145B;border:none;vertical-align:middle;color:#fff;margin-left:-2px}#header>.bottom>div .cart{position:absolute;display:inline-block;width:121px;height:34px;line-height:34px;background-color:#F9F9F9;border:1px solid #E5E5E5;right:0px;top:37px}#header>.bottom>div .cart>img{margin-top:-10px}
+#header {
+  width: 100%;
+  height: 135px; }
+  #header > .top {
+    background-color: #F2F2F2;
+    height: 26px;
+    color: #333; }
+    #header > .top a {
+      color: #333;
+      margin: 0 5px; }
+    #header > .top div.rightp {
+      width: 1200px;
+      height: 26px;
+      margin: 0 auto;
+      line-height: 26px;
+      clear: both; }
+    #header > .top div.right {
+      float: right;
+      width: 315px;
+      height: 100%; }
+  #header > .bottom {
+    height: 89px; }
+    #header > .bottom > div {
+      width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      padding-top: 10px;
+      position: relative; }
+      #header > .bottom > div img {
+        vertical-align: middle; }
+      #header > .bottom > div form {
+        width: 520px;
+        display: inline-block;
+        margin-left: 54px; }
+        #header > .bottom > div form input[type="text"] {
+          width: 418px;
+          height: 38px;
+          border: 3px solid #ED145B; }
+        #header > .bottom > div form input[type="submit"] {
+          width: 100px;
+          height: 38px;
+          background-color: #ED145B;
+          border: none;
+          vertical-align: middle;
+          color: #fff;
+          margin-left: -2px; }
+      #header > .bottom > div .cart {
+        position: absolute;
+        display: inline-block;
+        width: 121px;
+        height: 34px;
+        line-height: 34px;
+        background-color: #F9F9F9;
+        border: 1px solid #E5E5E5;
+        right: 0px;
+        top: 37px; }
+        #header > .bottom > div .cart > img {
+          margin-top: -10px; }

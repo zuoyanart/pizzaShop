@@ -3,7 +3,7 @@
     <label class="checkgroup">
       <input type="checkbox" id="goods_<%= data[i].id%>" name="checkall"><label for="goods_<%= data[i].id%>" class="check-all"></label>
     </label>
-    <a target="_blank"><%= data[i].catname%></a>
-    <span><a href="/shopadmin/goodsattr/?catid=<%= data[i].id%>&catname=<%= escape(data[i].catname)%>">属性列表</a><a href="./goods/edit?id=<%= data[i].id%>">编辑</a><i class="remove">删除</i></span>
+    <a><%= data[i].goods_name%></a>
+    <span><a href="./goods/edit#id=<%= data[i].goods_id%>">编辑</a><i class="remove">删除</i></span>
   </li>
 <%}%>

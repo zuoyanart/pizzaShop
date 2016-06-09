@@ -8,8 +8,8 @@ export default class extends Base {
      * @return {Promise} []
      */
     async indexAction() {
-      let content = await this.fetch();
-      console.log(content);
+        let goods = this.model("/shopadmin/goods");
+
         return this.display();
     }
 }

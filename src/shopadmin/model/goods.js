@@ -4,6 +4,10 @@ import tools from '../../common/tools/tools.js';
  * model
  */
 export default class extends think.model.base {
+    init(...args) {
+            super.init(...args);
+            this.pk = "goods_id";
+        }
     /**
      *  根据父节点获取所有子节点
      * @method checkUserLogin
@@ -26,7 +30,7 @@ export default class extends think.model.base {
             //     paramJson.isOnSale = params.issale;
             // }
 
-            paramJson.name = ["like", "%" + params.kw + "%"];
+            paramJson.goods_name = ["like", "%" + params.kw + "%"];
 
             let data = await this.where(
                     paramJson

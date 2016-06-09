@@ -1,0 +1,24 @@
+.main {
+  width: 1200px;
+  min-height: 50px;
+  clear: both;
+  margin: 0 auto; }
+  .main > .left {
+    width: 228px;
+    height: 500px;
+    float: left;
+    padding-top: 20px;
+    margin-right: 10px; }
+    .main > .left h3 {
+      height: 40px;
+      line-height: 40px;
+      background-color: #EB155B;
+      color: #fff;
+      font-size: 18px;
+      text-align: center; }
+  .main > .right {
+    width: 962px;
+    min-height: 500px;
+    float: left; }
+    .main > .right .goods {
+      width: 100%; }

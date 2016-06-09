@@ -1,0 +1,11 @@
+.main .right .top {
+  clear: both;
+  width: 100%; }
+  .main .right .top .topleft {
+    width: 372px;
+    height: 477px;
+    float: left; }
+  .main .right .top .topright {
+    width: 570px;
+    height: 477px;
+    float: left; }

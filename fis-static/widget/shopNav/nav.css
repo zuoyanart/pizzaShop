@@ -1,1 +1,21 @@
-div.nav{width:100%;background:url(/site/shop/img/nav_new_line.jpg) repeat-x;height:38px}div.nav>div{width:1200px;height:100%;margin:0 auto;clear:both}div.nav>div a{display:inline-block;min-width:119px;text-align:center;padding:0 10px;height:38px;line-height:38px;color:#fff}div.nav>div a:hover{background-color:#EB155B}div.nav>div a.choose{background-color:#EB155B}
+div.nav {
+  width: 100%;
+  background: url(/site/shop/img/nav_new_line.jpg) repeat-x;
+  height: 38px; }
+  div.nav > div {
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    clear: both; }
+    div.nav > div a {
+      display: inline-block;
+      min-width: 119px;
+      text-align: center;
+      padding: 0 10px;
+      height: 38px;
+      line-height: 38px;
+      color: #fff; }
+      div.nav > div a:hover {
+        background-color: #EB155B; }
+      div.nav > div a.choose {
+        background-color: #EB155B; }

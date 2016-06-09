@@ -50,7 +50,6 @@ export default class extends Base {
          */
     async pageAction() {
             let param = tools.xss(this.post());
-            // let node = await tools.httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
             let node = await this.model("goods").page(param);
             return this.json(node);
         }
