@@ -8,8 +8,16 @@ export default class extends Base {
      * @return {Promise} []
      */
     async indexAction() {
-        let goods = this.model("/shopadmin/goods");
 
+        let goods = this.model("goods");
+
+        let  goodsResult = await goods.page({
+          // status: 0
+        });
+
+        this.assign({
+          hot: goodsResult
+        });
         return this.display();
     }
 }

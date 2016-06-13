@@ -8,30 +8,46 @@ export default class extends think.model.base {
             super.init(...args);
             this.pk = "goods_id";
         }
-    /**
-     *  根据父节点获取所有子节点
-     * @method checkUserLogin
-     * @param  {[type]}       username [description]
-     * @param  {[type]}       password [description]
-     * @return {[type]}                [description]
-     */
+        /**
+         *  根据父节点获取所有子节点
+         * @method checkUserLogin
+         * @param  {[type]}       username [description]
+         * @param  {[type]}       password [description]
+         * @return {[type]}                [description]
+         */
     async page(params) {
-            var paramJson = {};
-            // if (params.catid != 0) { //商品分类
-            //     paramJson.catid = params.catid;
-            // }
-            // if (params.pinpai != 0) { //品牌
-            //     paramJson.pinpaiId = params.pinpai;
-            // }
-            // if (params.status != 0) { //筛选热销，精品，新品等
-            //     paramJson.status = 1;
-            // }
-            // if (params.issale) { //是否上架
-            //     paramJson.isOnSale = params.issale;
-            // }
+            let defaultJson = {
+                catid: 0,
+                pinpai: 0,
+                status: -1,
+                is_on_sale: 1,
+                kw: "",
+                cp:1,
+                mp:10
+            };
+            let paramJson = {};
+            params = tools.mergeJson(params, defaultJson);
 
+            if (params.catid != 0) { //商品分类
+                paramJson.cat_id = params.catid;
+            }
+
+            if (params.pinpai != 0) { //品牌
+                paramJson.brand_id = params.pinpai;
+            }
+
+            switch (params.status) { //筛选热销，精品，新品等
+                case 0: //热销
+                    paramJson.is_hot = 1;
+                    break;
+                case 1: //新品
+                    paramJson.is_new = 1;
+                    break;
+                case 2: //精品
+                    paramJson.is_best = 1;
+                    break;
+            }
             paramJson.goods_name = ["like", "%" + params.kw + "%"];
-            // paramJson.is_on_sale = 1;//是否开放销售
 
             let data = await this.where(
                     paramJson
@@ -78,7 +94,7 @@ export default class extends think.model.base {
          */
     async create(json) {
             if (!json.goods_sn || json.goods_sn == '') {
-                json.goods_sn = 'ASU' + Date.parse(new Date()).toString().replace('000','');
+                json.goods_sn = 'ASU' + Date.parse(new Date()).toString().replace('000', '');
             }
             let id = await this.add(json);
             return {
@@ -97,7 +113,7 @@ export default class extends think.model.base {
             let row = await this.where({
                 goods_id: id
             }).update({
-              goods_type: goodstype
+                goods_type: goodstype
             });
             return {
                 state: true
@@ -117,8 +133,4 @@ export default class extends think.model.base {
             state: true
         }
     }
-
-
-
-
 }

@@ -1,2 +1,2 @@
 @ECHO ON
-fis3  release -w  -d ../ -L -p
+fis3  release  -d ../ -wL
