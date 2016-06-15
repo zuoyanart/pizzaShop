@@ -9,19 +9,23 @@ export default class extends Base {
      * @method uploadAction
      * @return {[type]}     [description]
      */
-    async localAction() {
+    localAction() {
         let f = this.file();
-        let s = await upload.localImg(f.imgFile);
-        if(s != '') {
-          return this.json({
-            "error":0,
-            "url": s
-          });
-        } else {
-          return this.json({
-            "error":1,
-            "message": "上传失败,文件类型不正确"
-          });
-        }
+        let self = this;
+        upload.localImg(f.imgFile, 'shop', function(err, res) {
+            if (!err) {
+              console.log(res);
+                return self.json({
+                    "error": 0,
+                    "url": res.key
+                });
+            } else {
+                return self.json({
+                    "error": 1,
+                    "message": "上传失败,文件类型不正确"
+                });
+            }
+        });
+
     }
 }

@@ -5,6 +5,7 @@
     <link rel="import" href="/widget/meta/meta.html?__inline">
     <link rel="stylesheet" href="/site/common/common.css">
     <link rel="stylesheet" href="/site/home/base.css">
+    <link rel="stylesheet" href="/widget/kindeditor-4.1.10/themes/default/default.css" />
     <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
     <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
 </head>
@@ -77,11 +78,11 @@
             </div>
             <div>
                 <label for="">上传商品图片</label>
-                <input type="text" id="goods_img" name="goods_img" value="">
+                <input type="text" id="goods_img" name="goods_img" value=""/ style="width:500px;">&nbsp;<input type="button" name="name" value="上传" id="goods_img_up">
             </div>
             <div>
                 <label for="">上传商品缩略图</label>
-                <input type="text" id="goods_thumb" name="goods_thumb" value="">
+                <input type="text" id="goods_thumb" name="goods_thumb" value=""style="width:500px;">&nbsp;<input type="button" name="name" value="上传" id="goods_thumb_up">
             </div>
             <div>
                 <input type="submit" class="btn btn-primary" value="更新">
@@ -116,6 +117,36 @@
                 $("#cat_id").html(data);
                   goods.get("common");
             });
+        });
+        //绑定图片上传
+        KindEditor.ready(function(K) {
+              var editor = K.editor({
+                uploadJson: '/upfile/local'
+              });
+              K('#goods_img_up').click(function() {
+                editor.loadPlugin('image', function() {
+                  editor.plugin.imageDialog({
+                    showRemote : false,
+                    imageUrl : K('#goods_img').val(),
+                    clickFn : function(url, title, width, height, border, align) {
+                      K('#goods_img').val(url);
+                      editor.hideDialog();
+                    }
+                  });
+                });
+              });
+              K('#goods_thumb_up').click(function() {
+                editor.loadPlugin('image', function() {
+                  editor.plugin.imageDialog({
+                    showRemote : false,
+                    imageUrl : K('#goods_thumb').val(),
+                    clickFn : function(url, title, width, height, border, align) {
+                      K('#goods_thumb').val(url);
+                      editor.hideDialog();
+                    }
+                  });
+                });
+              });
         });
 
         function edit(obj) {
