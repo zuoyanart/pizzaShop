@@ -10,13 +10,32 @@ export default class extends Base {
     async indexAction() {
 
         let goods = this.model("goods");
-
-        let  goodsResult = await goods.page({
-          // status: 0
+        //获取热销商品
+        let hotGoods = await goods.page({
+            is_hot: 1
+        }, {
+            cp: 1,
+            mp: 5
+        });
+        //获取新品推荐
+        let newGoods = await goods.page({
+            is_new: 1
+        }, {
+            cp: 1,
+            mp: 5
+        });
+        //获取精品推荐推荐
+        let bestGoods = await goods.page({
+            is_best: 1
+        }, {
+            cp: 1,
+            mp: 5
         });
 
         this.assign({
-          hot: goodsResult
+            hotgoods: hotGoods,
+            newgoods: newGoods,
+            bestgoods: bestGoods
         });
         return this.display();
     }

@@ -15,44 +15,22 @@ export default class extends think.model.base {
          * @param  {[type]}       password [description]
          * @return {[type]}                [description]
          */
-    async page(params) {
-            let defaultJson = {
-                catid: 0,
-                pinpai: 0,
-                status: -1,
-                is_on_sale: 1,
-                kw: "",
-                cp:1,
-                mp:10
+    async page(query, option) {
+            let defaultOption = {
+                cp: 1,
+                mp: 10
             };
-            let paramJson = {};
-            params = tools.mergeJson(params, defaultJson);
-
-            if (params.catid != 0) { //商品分类
-                paramJson.cat_id = params.catid;
+            query.is_on_sale = 1;
+            option = tools.mergeJson(option, defaultOption);
+            //关键字
+            if (query.kw) {
+                query.goods_name = ["like", "%" + query.kw + "%"];
             }
-
-            if (params.pinpai != 0) { //品牌
-                paramJson.brand_id = params.pinpai;
-            }
-
-            switch (params.status) { //筛选热销，精品，新品等
-                case 0: //热销
-                    paramJson.is_hot = 1;
-                    break;
-                case 1: //新品
-                    paramJson.is_new = 1;
-                    break;
-                case 2: //精品
-                    paramJson.is_best = 1;
-                    break;
-            }
-            paramJson.goods_name = ["like", "%" + params.kw + "%"];
-
+            delete query.kw;
             let data = await this.where(
-                    paramJson
+                    query
                 )
-                .limit((params.cp - 1) * params.mp, params.mp)
+                .limit((option.cp - 1) * option.mp, option.mp)
                 .select();
             return {
                 state: true,
@@ -67,7 +45,8 @@ export default class extends think.model.base {
          */
     async get(id) {
             let row = await this.where({
-                goods_id: id
+                goods_id: id,
+                is_on_sale: 1
             }).find();
             return {
                 state: true,

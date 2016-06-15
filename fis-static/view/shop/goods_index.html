@@ -64,10 +64,10 @@
                     </ul>
                 </div>
                 <div class="topright">
-                    <h1>暖怀－白18K金钻石戒指</h1>
+                    <h1><%= goods.goods_name%></h1>
                     <ul>
-                        <li style="width:100%">本店售价：<strong>￥4400元</strong><span>￥500元</span></li>
-                        <li>商品货号：ECS024545</li>
+                        <li style="width:100%">本店售价：<strong>￥<%= goods.shop_price%>元</strong><span>￥<%= goods.market_price%>元</span></li>
+                        <li>商品货号：<%= goods.goods_sn%></li>
                         <li>商品库存：97</li>
                         <li>商品品牌：<a href="#">美的</a></li>
                         <li>商品重量：100克</li>
@@ -79,7 +79,7 @@
                         <li>促销价：<strong>￥110元</strong></li>
                         <li>剩余时间：100天10小时25分钟11秒</li>
                         <li>购买数量：
-                            <input type="number" /> 商品总价：<em>100元</em></li>
+                            <input type="number" style="width:100px;"/> 商品总价：<em>100元</em></li>
                         <li>
                             <a href=""><img src="/site/shop/img/goumai2.gif" alt=""></a>
                         </li>

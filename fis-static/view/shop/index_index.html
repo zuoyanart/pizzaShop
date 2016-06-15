@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <title>魅力商城</title>
     <link rel="import" href="/widget/meta/meta.html?__inline">
     <link rel="import" href="/widget/shopMeta/meta.html?__inline">
     <link rel="stylesheet" href="/site/shop/index/index.css">
@@ -31,14 +32,14 @@
     <div class="goods">
         <h3 class="h3title"><a href="#">更多</a>特价商品</h3>
         <ul>
-          <% for(var i=1,ll=hot.msg.length; i<ll;i++) {%>
+          <% for(var i=0,ll=hotgoods.msg.length; i<ll;i++) {%>
             <li>
-                <a href="/shop/goods?id=<%= hot.msg[i].goods_id%>">
+                <a href="/shop/goods?id=<%= hotgoods.msg[i].goods_id%>" target="_blank">
                     <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br><%= hot.msg[i].goods_name%>
+                    <br><%= hotgoods.msg[i].goods_name%>
                 </a>
-                <p>市场价：<span class="market">￥<%= hot.msg[i].market_price%>元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
+                <p>市场价：<span class="market">￥<%= hotgoods.msg[i].market_price%>元</span></p>
+                <p>促销价：<span>￥<%= hotgoods.msg[i].shop_price%>元</span></p>
             </li>
           <% }%>
             <div style="clear:both;"></div>
@@ -47,138 +48,48 @@
     <div class="goods">
         <h3 class="h3title"><a href="#">更多</a>新品上架</h3>
         <ul>
+          <% for(var i=0,ll=newgoods.msg.length; i<ll;i++) {%>
             <li>
-                <a href="">
+                <a href="/shop/goods?id=<%= newgoods.msg[i].goods_id%>" target="_blank">
                     <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
+                    <br><%= newgoods.msg[i].goods_name%>
                 </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
+                <p>市场价：<span class="market">￥<%= newgoods.msg[i].market_price%>元</span></p>
+                <p>促销价：<span>￥<%= newgoods.msg[i].shop_price%>元</span></p>
             </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
+          <% }%>
             <div style="clear:both;"></div>
         </ul>
     </div>
     <div class="goods">
         <h3 class="h3title"><a href="#">更多</a>热卖商品</h3>
         <ul>
+          <% for(var i=0,ll=hotgoods.msg.length; i<ll;i++) {%>
             <li>
-                <a href="">
+                <a href="/shop/goods?id=<%= hotgoods.msg[i].goods_id%>" target="_blank">
                     <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
+                    <br><%= hotgoods.msg[i].goods_name%>
                 </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
+                <p>市场价：<span class="market">￥<%= hotgoods.msg[i].market_price%>元</span></p>
+                <p>促销价：<span>￥<%= hotgoods.msg[i].shop_price%>元</span></p>
             </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
+          <% }%>
             <div style="clear:both;"></div>
         </ul>
     </div>
     <div class="goods">
         <h3 class="h3title"><a href="#">更多</a>精品推荐</h3>
         <ul>
+          <% for(var i=0,ll=bestgoods.msg.length; i<ll;i++) {%>
             <li>
-                <a href="">
+                <a href="/shop/goods?id=<%= bestgoods.msg[i].goods_id%>" target="_blank">
                     <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
+                    <br><%= bestgoods.msg[i].goods_name%>
                 </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
+                <p>市场价：<span class="market">￥<%= bestgoods.msg[i].market_price%>元</span></p>
+                <p>促销价：<span>￥<%= bestgoods.msg[i].shop_price%>元</span></p>
             </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
-            <li>
-                <a href="">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br>爱冕－白18K爱冕－白18K
-                </a>
-                <p>市场价：<span class="market">￥500元</span></p>
-                <p>促销价：<span>￥1000元</span></p>
-            </li>
+          <% }%>
             <div style="clear:both;"></div>
         </ul>
     </div>
