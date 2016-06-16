@@ -9,7 +9,7 @@ export default {
   log_connect: true,
   adapter: {
     mysql: {
-      host: "127.0.0.1",
+      host: "192.168.1.117",
       port: "",
       database: "pizzaShop", //数据库名称
       user: "root", //数据库帐号

@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地测试
-Source Server Version : 50538
-Source Host           : localhost:3306
-Source Database       : pizzashop
+Source Server Version : 50173
+Source Host           : 192.168.1.117:3306
+Source Database       : pizzaShop
 
 Target Server Type    : MYSQL
-Target Server Version : 50538
+Target Server Version : 50173
 File Encoding         : 65001
 
-Date: 2016-06-15 23:52:30
+Date: 2016-06-16 20:00:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,6 +62,43 @@ CREATE TABLE `ecs_ad` (
 
 -- ----------------------------
 -- Records of ecs_ad
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ecs_ad_custom
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_ad_custom`;
+CREATE TABLE `ecs_ad_custom` (
+  `ad_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ad_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `ad_name` varchar(60) DEFAULT NULL,
+  `add_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `content` mediumtext,
+  `url` varchar(255) DEFAULT NULL,
+  `ad_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ad_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_ad_custom
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ecs_ad_position
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_ad_position`;
+CREATE TABLE `ecs_ad_position` (
+  `position_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `position_name` varchar(60) NOT NULL DEFAULT '',
+  `ad_width` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `ad_height` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `position_desc` varchar(255) NOT NULL DEFAULT '',
+  `position_style` text NOT NULL,
+  PRIMARY KEY (`position_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_ad_position
 -- ----------------------------
 
 -- ----------------------------
@@ -167,43 +204,6 @@ CREATE TABLE `ecs_adsense` (
 
 -- ----------------------------
 -- Records of ecs_adsense
--- ----------------------------
-
--- ----------------------------
--- Table structure for ecs_ad_custom
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_ad_custom`;
-CREATE TABLE `ecs_ad_custom` (
-  `ad_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `ad_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `ad_name` varchar(60) DEFAULT NULL,
-  `add_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `content` mediumtext,
-  `url` varchar(255) DEFAULT NULL,
-  `ad_status` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ad_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_ad_custom
--- ----------------------------
-
--- ----------------------------
--- Table structure for ecs_ad_position
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_ad_position`;
-CREATE TABLE `ecs_ad_position` (
-  `position_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `position_name` varchar(60) NOT NULL DEFAULT '',
-  `ad_width` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `ad_height` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `position_desc` varchar(255) NOT NULL DEFAULT '',
-  `position_style` text NOT NULL,
-  PRIMARY KEY (`position_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_ad_position
 -- ----------------------------
 
 -- ----------------------------
@@ -553,6 +553,20 @@ CREATE TABLE `ecs_cart` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for ecs_cat_recommend
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_cat_recommend`;
+CREATE TABLE `ecs_cat_recommend` (
+  `cat_id` smallint(5) NOT NULL,
+  `recommend_type` tinyint(1) NOT NULL,
+  PRIMARY KEY (`cat_id`,`recommend_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_cat_recommend
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for ecs_category
 -- ----------------------------
 DROP TABLE IF EXISTS `ecs_category`;
@@ -576,20 +590,6 @@ CREATE TABLE `ecs_category` (
 
 -- ----------------------------
 -- Records of ecs_category
--- ----------------------------
-
--- ----------------------------
--- Table structure for ecs_cat_recommend
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_cat_recommend`;
-CREATE TABLE `ecs_cat_recommend` (
-  `cat_id` smallint(5) NOT NULL,
-  `recommend_type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`cat_id`,`recommend_type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_cat_recommend
 -- ----------------------------
 
 -- ----------------------------
@@ -951,25 +951,6 @@ CREATE TABLE `ecs_goods_cat` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ecs_goods_gallery
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_goods_gallery`;
-CREATE TABLE `ecs_goods_gallery` (
-  `img_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `img_url` varchar(255) NOT NULL DEFAULT '',
-  `img_desc` varchar(255) NOT NULL DEFAULT '',
-  `thumb_url` varchar(255) NOT NULL DEFAULT '',
-  `img_original` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`img_id`),
-  KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_goods_gallery
--- ----------------------------
-
--- ----------------------------
 -- Table structure for ecs_goods_type
 -- ----------------------------
 DROP TABLE IF EXISTS `ecs_goods_type`;
@@ -1270,6 +1251,23 @@ CREATE TABLE `ecs_package_goods` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for ecs_pay_log
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_pay_log`;
+CREATE TABLE `ecs_pay_log` (
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `order_amount` decimal(10,2) unsigned NOT NULL,
+  `order_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_paid` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`log_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_pay_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for ecs_payment
 -- ----------------------------
 DROP TABLE IF EXISTS `ecs_payment`;
@@ -1290,23 +1288,6 @@ CREATE TABLE `ecs_payment` (
 
 -- ----------------------------
 -- Records of ecs_payment
--- ----------------------------
-
--- ----------------------------
--- Table structure for ecs_pay_log
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_pay_log`;
-CREATE TABLE `ecs_pay_log` (
-  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `order_amount` decimal(10,2) unsigned NOT NULL,
-  `order_type` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `is_paid` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_pay_log
 -- ----------------------------
 
 -- ----------------------------
@@ -1344,26 +1325,6 @@ CREATE TABLE `ecs_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ecs_region
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_region`;
-CREATE TABLE `ecs_region` (
-  `region_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `region_name` varchar(120) NOT NULL DEFAULT '',
-  `region_type` tinyint(1) NOT NULL DEFAULT '2',
-  `agency_id` smallint(5) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`region_id`),
-  KEY `parent_id` (`parent_id`),
-  KEY `region_type` (`region_type`),
-  KEY `agency_id` (`agency_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_region
--- ----------------------------
-
--- ----------------------------
 -- Table structure for ecs_reg_extend_info
 -- ----------------------------
 DROP TABLE IF EXISTS `ecs_reg_extend_info`;
@@ -1395,6 +1356,26 @@ CREATE TABLE `ecs_reg_fields` (
 
 -- ----------------------------
 -- Records of ecs_reg_fields
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ecs_region
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_region`;
+CREATE TABLE `ecs_region` (
+  `region_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `region_name` varchar(120) NOT NULL DEFAULT '',
+  `region_type` tinyint(1) NOT NULL DEFAULT '2',
+  `agency_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`region_id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `region_type` (`region_type`),
+  KEY `agency_id` (`agency_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_region
 -- ----------------------------
 
 -- ----------------------------
@@ -1656,56 +1637,6 @@ CREATE TABLE `ecs_topic` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ecs_users
--- ----------------------------
-DROP TABLE IF EXISTS `ecs_users`;
-CREATE TABLE `ecs_users` (
-  `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(60) NOT NULL DEFAULT '',
-  `user_name` varchar(60) NOT NULL DEFAULT '',
-  `password` varchar(32) NOT NULL DEFAULT '',
-  `question` varchar(255) NOT NULL DEFAULT '',
-  `answer` varchar(255) NOT NULL DEFAULT '',
-  `sex` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `birthday` date NOT NULL DEFAULT '0000-00-00',
-  `user_money` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `frozen_money` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `pay_points` int(10) unsigned NOT NULL DEFAULT '0',
-  `rank_points` int(10) unsigned NOT NULL DEFAULT '0',
-  `address_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `reg_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `last_login` int(11) unsigned NOT NULL DEFAULT '0',
-  `last_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_ip` varchar(15) NOT NULL DEFAULT '',
-  `visit_count` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `user_rank` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `is_special` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `ec_salt` varchar(10) DEFAULT NULL,
-  `salt` varchar(10) NOT NULL DEFAULT '0',
-  `parent_id` mediumint(9) NOT NULL DEFAULT '0',
-  `flag` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `alias` varchar(60) NOT NULL,
-  `msn` varchar(60) NOT NULL,
-  `qq` varchar(20) NOT NULL,
-  `office_phone` varchar(20) NOT NULL,
-  `home_phone` varchar(20) NOT NULL,
-  `mobile_phone` varchar(20) NOT NULL,
-  `is_validated` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `credit_line` decimal(10,2) unsigned NOT NULL,
-  `passwd_question` varchar(50) DEFAULT NULL,
-  `passwd_answer` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_name` (`user_name`),
-  KEY `email` (`email`),
-  KEY `parent_id` (`parent_id`),
-  KEY `flag` (`flag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of ecs_users
--- ----------------------------
-
--- ----------------------------
 -- Table structure for ecs_user_account
 -- ----------------------------
 DROP TABLE IF EXISTS `ecs_user_account`;
@@ -1813,6 +1744,56 @@ CREATE TABLE `ecs_user_rank` (
 
 -- ----------------------------
 -- Records of ecs_user_rank
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ecs_users
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs_users`;
+CREATE TABLE `ecs_users` (
+  `user_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(60) NOT NULL DEFAULT '',
+  `user_name` varchar(60) NOT NULL DEFAULT '',
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `question` varchar(255) NOT NULL DEFAULT '',
+  `answer` varchar(255) NOT NULL DEFAULT '',
+  `sex` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `birthday` date NOT NULL DEFAULT '0000-00-00',
+  `user_money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `frozen_money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `pay_points` int(10) unsigned NOT NULL DEFAULT '0',
+  `rank_points` int(10) unsigned NOT NULL DEFAULT '0',
+  `address_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `reg_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_login` int(11) unsigned NOT NULL DEFAULT '0',
+  `last_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_ip` varchar(15) NOT NULL DEFAULT '',
+  `visit_count` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `user_rank` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `is_special` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `ec_salt` varchar(10) DEFAULT NULL,
+  `salt` varchar(10) NOT NULL DEFAULT '0',
+  `parent_id` mediumint(9) NOT NULL DEFAULT '0',
+  `flag` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `alias` varchar(60) NOT NULL,
+  `msn` varchar(60) NOT NULL,
+  `qq` varchar(20) NOT NULL,
+  `office_phone` varchar(20) NOT NULL,
+  `home_phone` varchar(20) NOT NULL,
+  `mobile_phone` varchar(20) NOT NULL,
+  `is_validated` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `credit_line` decimal(10,2) unsigned NOT NULL,
+  `passwd_question` varchar(50) DEFAULT NULL,
+  `passwd_answer` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_name` (`user_name`),
+  KEY `email` (`email`),
+  KEY `parent_id` (`parent_id`),
+  KEY `flag` (`flag`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ecs_users
 -- ----------------------------
 
 -- ----------------------------
@@ -1958,6 +1939,22 @@ CREATE TABLE `pz_actionmodel` (
 
 -- ----------------------------
 -- Records of pz_actionmodel
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pz_actionModel
+-- ----------------------------
+DROP TABLE IF EXISTS `pz_actionModel`;
+CREATE TABLE `pz_actionModel` (
+  `actionModelId` int(11) NOT NULL AUTO_INCREMENT,
+  `actionModelName` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目模块名称',
+  `actionModel` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目模块编码',
+  `actionModelState` int(255) DEFAULT '0' COMMENT '栏目模块状态',
+  PRIMARY KEY (`actionModelId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pz_actionModel
 -- ----------------------------
 
 -- ----------------------------
@@ -2350,76 +2347,6 @@ INSERT INTO `pz_goods` VALUES ('13', '14', 'ASU1465280932', '爱冕－白18K金�
 INSERT INTO `pz_goods` VALUES ('14', '13', 'ASU1465280932', 'asd asd', '+', '0', '11', '', '0', '0.000', '0.00', '0', '0.00', '0.00', '0', '0', '1', '', '', '', '', '', '', '1', '', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '-1', '-1', '0', '0');
 
 -- ----------------------------
--- Table structure for pz_goods-del
--- ----------------------------
-DROP TABLE IF EXISTS `pz_goods-del`;
-CREATE TABLE `pz_goods-del` (
-  `goodsid` int(11) NOT NULL AUTO_INCREMENT,
-  `catid` smallint(5) DEFAULT '0' COMMENT '商品分类id',
-  `goodsn` varchar(60) DEFAULT '' COMMENT '商品货号',
-  `name` varchar(120) DEFAULT '' COMMENT '商品名称',
-  `nameStyle` varchar(60) DEFAULT '' COMMENT '商品名称显示样式',
-  `clickCount` int(10) DEFAULT '0' COMMENT '浏览次数',
-  `pinpaiId` smallint(5) DEFAULT '0' COMMENT '品牌ID',
-  `providerName` varchar(100) DEFAULT '' COMMENT '供货商名称，程序还没实现该功能',
-  `goodsNumber` smallint(5) DEFAULT '0' COMMENT '库存数量',
-  `goodWeight` decimal(10,3) DEFAULT '0.000' COMMENT '商品重量,默认单位克',
-  `marketPrice` decimal(10,2) DEFAULT '0.00' COMMENT '市场价格',
-  `shopPrice` decimal(10,2) DEFAULT '0.00' COMMENT '本店售价',
-  `promotePrice` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '促销价格，如果有促销价格，则按照促销价格销售，此价格不再参与会员的折扣计算。',
-  `promoteStart` int(11) NOT NULL DEFAULT '0' COMMENT '促销开始日期',
-  `promoteEnd` int(11) NOT NULL DEFAULT '0' COMMENT '促销结束日期',
-  `warnNumer` tinyint(3) NOT NULL DEFAULT '1' COMMENT '库存警告数量',
-  `keywords` varchar(255) NOT NULL DEFAULT '',
-  `brief` varchar(255) NOT NULL DEFAULT '',
-  `goodDesc` text NOT NULL COMMENT '详细描述',
-  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '前台显示的微缩图片，如在分类筛选时显示的小图片',
-  `goodsImg` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的实际大小图片，如进入该商品页时介绍商品属性所显示的大图片',
-  `original_img` varchar(255) NOT NULL DEFAULT '' COMMENT '商品原始图片地址',
-  `isReal` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否实体商品',
-  `extensionCode` varchar(30) NOT NULL DEFAULT '' COMMENT '虚拟商品代码',
-  `isOnSale` tinyint(1) NOT NULL DEFAULT '1' COMMENT '能否销售(上架、下架)：1，上架；0，下架；',
-  `isAloneSale` tinyint(1) NOT NULL DEFAULT '1' COMMENT '能否单独销售',
-  `integral` int(10) NOT NULL DEFAULT '0' COMMENT '商品的积分',
-  `addTime` int(10) NOT NULL DEFAULT '0' COMMENT '加入时间',
-  `sortOrder` smallint(4) NOT NULL DEFAULT '0' COMMENT '排列顺序',
-  `isDelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
-  `isBest` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否精品',
-  `isNew` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否新品',
-  `isHot` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否热销',
-  `isPromote` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否特价',
-  `bonusTypeId` tinyint(3) NOT NULL DEFAULT '0' COMMENT '红包类型id',
-  `suppliersId` smallint(5) NOT NULL DEFAULT '0' COMMENT '供货商id',
-  `isCheck` tinyint(1) NOT NULL DEFAULT '0' COMMENT '供货商商品审核标识，0，未审核；1，已审核',
-  `lastUpdate` int(10) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
-  `goodsType` smallint(5) NOT NULL DEFAULT '0' COMMENT '商品类型ID',
-  `sellerNote` varchar(255) NOT NULL DEFAULT '' COMMENT '商家备注',
-  `giveIntegral` int(11) NOT NULL DEFAULT '-1' COMMENT '送消费积分数',
-  `rankIntegral` int(11) NOT NULL DEFAULT '-1' COMMENT '送等级积分数',
-  PRIMARY KEY (`goodsid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品数据表';
-
--- ----------------------------
--- Records of pz_goods-del
--- ----------------------------
-
--- ----------------------------
--- Table structure for pz_goodstype
--- ----------------------------
-DROP TABLE IF EXISTS `pz_goodstype`;
-CREATE TABLE `pz_goodstype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `catname` varchar(60) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pz_goodstype
--- ----------------------------
-INSERT INTO `pz_goodstype` VALUES ('4', '书');
-INSERT INTO `pz_goodstype` VALUES ('5', '音乐');
-
--- ----------------------------
 -- Table structure for pz_goods_attr
 -- ----------------------------
 DROP TABLE IF EXISTS `pz_goods_attr`;
@@ -2455,6 +2382,25 @@ INSERT INTO `pz_goods_attr` VALUES ('58', '13', '18', 'U盘1', '10');
 INSERT INTO `pz_goods_attr` VALUES ('59', '13', '18', 'U盘2', '20');
 INSERT INTO `pz_goods_attr` VALUES ('60', '13', '18', 'U盘3', '30');
 INSERT INTO `pz_goods_attr` VALUES ('61', '13', '18', 'U盘4', '40');
+
+-- ----------------------------
+-- Table structure for pz_goods_gallery
+-- ----------------------------
+DROP TABLE IF EXISTS `pz_goods_gallery`;
+CREATE TABLE `pz_goods_gallery` (
+  `img_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `img_url` varchar(255) NOT NULL DEFAULT '',
+  `img_desc` varchar(255) NOT NULL DEFAULT '',
+  `thumb_url` varchar(255) NOT NULL DEFAULT '',
+  `img_original` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`img_id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pz_goods_gallery
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for pz_goods_node
@@ -2529,6 +2475,76 @@ INSERT INTO `pz_goods_type_attr` VALUES ('15', '5', 'ISRC码', '0', '0', '', '0'
 INSERT INTO `pz_goods_type_attr` VALUES ('16', '5', '发行公司', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('17', '5', 'test', '0', '0', '', '0');
 INSERT INTO `pz_goods_type_attr` VALUES ('18', '5', '邮寄方式', '1', '1', 'U盘1\nU盘2\nU盘3\nU盘4', '0');
+
+-- ----------------------------
+-- Table structure for pz_goods-del
+-- ----------------------------
+DROP TABLE IF EXISTS `pz_goods-del`;
+CREATE TABLE `pz_goods-del` (
+  `goodsid` int(11) NOT NULL AUTO_INCREMENT,
+  `catid` smallint(5) DEFAULT '0' COMMENT '商品分类id',
+  `goodsn` varchar(60) DEFAULT '' COMMENT '商品货号',
+  `name` varchar(120) DEFAULT '' COMMENT '商品名称',
+  `nameStyle` varchar(60) DEFAULT '' COMMENT '商品名称显示样式',
+  `clickCount` int(10) DEFAULT '0' COMMENT '浏览次数',
+  `pinpaiId` smallint(5) DEFAULT '0' COMMENT '品牌ID',
+  `providerName` varchar(100) DEFAULT '' COMMENT '供货商名称，程序还没实现该功能',
+  `goodsNumber` smallint(5) DEFAULT '0' COMMENT '库存数量',
+  `goodWeight` decimal(10,3) DEFAULT '0.000' COMMENT '商品重量,默认单位克',
+  `marketPrice` decimal(10,2) DEFAULT '0.00' COMMENT '市场价格',
+  `shopPrice` decimal(10,2) DEFAULT '0.00' COMMENT '本店售价',
+  `promotePrice` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '促销价格，如果有促销价格，则按照促销价格销售，此价格不再参与会员的折扣计算。',
+  `promoteStart` int(11) NOT NULL DEFAULT '0' COMMENT '促销开始日期',
+  `promoteEnd` int(11) NOT NULL DEFAULT '0' COMMENT '促销结束日期',
+  `warnNumer` tinyint(3) NOT NULL DEFAULT '1' COMMENT '库存警告数量',
+  `keywords` varchar(255) NOT NULL DEFAULT '',
+  `brief` varchar(255) NOT NULL DEFAULT '',
+  `goodDesc` text NOT NULL COMMENT '详细描述',
+  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '前台显示的微缩图片，如在分类筛选时显示的小图片',
+  `goodsImg` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的实际大小图片，如进入该商品页时介绍商品属性所显示的大图片',
+  `original_img` varchar(255) NOT NULL DEFAULT '' COMMENT '商品原始图片地址',
+  `isReal` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否实体商品',
+  `extensionCode` varchar(30) NOT NULL DEFAULT '' COMMENT '虚拟商品代码',
+  `isOnSale` tinyint(1) NOT NULL DEFAULT '1' COMMENT '能否销售(上架、下架)：1，上架；0，下架；',
+  `isAloneSale` tinyint(1) NOT NULL DEFAULT '1' COMMENT '能否单独销售',
+  `integral` int(10) NOT NULL DEFAULT '0' COMMENT '商品的积分',
+  `addTime` int(10) NOT NULL DEFAULT '0' COMMENT '加入时间',
+  `sortOrder` smallint(4) NOT NULL DEFAULT '0' COMMENT '排列顺序',
+  `isDelete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已删除',
+  `isBest` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否精品',
+  `isNew` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否新品',
+  `isHot` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否热销',
+  `isPromote` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否特价',
+  `bonusTypeId` tinyint(3) NOT NULL DEFAULT '0' COMMENT '红包类型id',
+  `suppliersId` smallint(5) NOT NULL DEFAULT '0' COMMENT '供货商id',
+  `isCheck` tinyint(1) NOT NULL DEFAULT '0' COMMENT '供货商商品审核标识，0，未审核；1，已审核',
+  `lastUpdate` int(10) NOT NULL DEFAULT '0' COMMENT '最后更新时间',
+  `goodsType` smallint(5) NOT NULL DEFAULT '0' COMMENT '商品类型ID',
+  `sellerNote` varchar(255) NOT NULL DEFAULT '' COMMENT '商家备注',
+  `giveIntegral` int(11) NOT NULL DEFAULT '-1' COMMENT '送消费积分数',
+  `rankIntegral` int(11) NOT NULL DEFAULT '-1' COMMENT '送等级积分数',
+  PRIMARY KEY (`goodsid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品数据表';
+
+-- ----------------------------
+-- Records of pz_goods-del
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for pz_goodstype
+-- ----------------------------
+DROP TABLE IF EXISTS `pz_goodstype`;
+CREATE TABLE `pz_goodstype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `catname` varchar(60) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pz_goodstype
+-- ----------------------------
+INSERT INTO `pz_goodstype` VALUES ('4', '书');
+INSERT INTO `pz_goodstype` VALUES ('5', '音乐');
 
 -- ----------------------------
 -- Table structure for pz_goodtree
@@ -2667,3 +2683,21 @@ CREATE TABLE `pz_usergroup` (
 -- ----------------------------
 INSERT INTO `pz_usergroup` VALUES ('1', '超级管理员', '超级管理员', '0');
 INSERT INTO `pz_usergroup` VALUES ('3', '编辑部', '编辑部', '0');
+
+-- ----------------------------
+-- Table structure for pz_userGroup
+-- ----------------------------
+DROP TABLE IF EXISTS `pz_userGroup`;
+CREATE TABLE `pz_userGroup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT '' COMMENT '用户组名称',
+  `des` varchar(1000) DEFAULT '' COMMENT '用户组描述',
+  `state` int(4) DEFAULT '0' COMMENT '用户组状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pz_userGroup
+-- ----------------------------
+INSERT INTO `pz_userGroup` VALUES ('1', '超级管理员', '超级管理员', '0');
+INSERT INTO `pz_userGroup` VALUES ('3', '编辑部', '编辑部', '0');

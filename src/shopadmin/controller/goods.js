@@ -119,6 +119,16 @@ export default class extends Base {
         return this.json({
             "state": true
         });
+    }
+    /**
+     * 获取相册列表
+     * @method pagegalleryAction
+     * @return {[type]}          [description]
+     */
+    async pagegalleryAction() {
+      let id = tools.xss(this.post("id"));//商品id
+      let gallery = await this.model("goodsgallery").page(id, 1,10);
+      return this.json(gallery)
 
     }
 

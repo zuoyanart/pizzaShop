@@ -60,6 +60,35 @@ let goods = (function() {
         }
       });
     }
+    /**
+     * 获取商品相册
+     * @method function
+     * @return {[type]} [description]
+     */
+    my.getGallery = function() {
+      let id = parent.document.location.href.split('=')[1];//获取goodsid
+      if (!id) {
+        return;
+      }
+      $.ajax({
+        url: options.url + 'pagegallery',
+        data: 'id=' + id,
+        success: function(result) {
+          if (result.state == true) {
+            let i = 0;
+            // for (var key in result.msg) {
+            //   $('#' + key).val(result.msg[key]);
+            // }
+            // if(typeof(editor) != "undefined") {
+            //     editor.html(result.msg.goods_desc);
+            // }
+            // if(typeof(callback) == "function") {
+            //   callback();
+            // }
+          }
+        }
+      });
+    }
 
     /**
      * 编辑模块
