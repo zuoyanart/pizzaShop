@@ -7,43 +7,47 @@
     <link rel="stylesheet" href="/site/home/base.css">
     <script src="/lib/mod.js" data-loader="data-loader" charset="utf-8"></script>
     <script src="/lib/ejs.js" data-loader="data-loader" charset="utf-8"></script>
+    <link rel="stylesheet" href="/widget/kindeditor-4.1.10/themes/default/default.css" />
 </head>
+
 <body style="background-color:#fff;">
     <ul class="list" id="list">
         <div class="form" style="width:800px;">
-          <div>
-               <img src="http://o8tdqcp0r.bkt.clouddn.com/2016/06/15/v0rajwenn_0xg19ozwbawfspb5ttekhp.jpg!list" alt="">
-          </div>
+            <div>
+                <img src="http://o8tdqcp0r.bkt.clouddn.com/2016/06/15/v0rajwenn_0xg19ozwbawfspb5ttekhp.jpg!list" alt="">
+            </div>
             <div>
                 <label for="">图片上传</label>
                 <input type="text" id="img_url-0" name="img_url-0" value="" style="width:545px;">
-                <input type="button" id="img_url-0" value="上传"/>
+                <input type="button" id="img_url-up0" value="上传" />
             </div>
             <div>
                 <label for="">图片上传</label>
                 <input type="text" id="img_url-1" name="img_url-1" value="" style="width:545px;">
-                <input type="button" id="img_url-1" value="上传"/>
+                <input type="button" id="img_url-up1" value="上传" />
             </div>
             <div>
                 <label for="">图片上传</label>
                 <input type="text" id="img_url-2" name="img_url-2" value="" style="width:545px;">
-                <input type="button" id="img_url-2" value="上传"/>
+                <input type="button" id="img_url-up2" value="上传" />
             </div>
             <div>
                 <label for="">图片上传</label>
                 <input type="text" id="img_url-3" name="img_url-3" value="" style="width:545px;">
-                <input type="button" id="img_url-3" value="上传"/>
+                <input type="button" id="img_url-up3" value="上传" />
             </div>
             <div>
                 <label for="">图片上传</label>
                 <input type="text" id="img_url-4" name="img_url-4" value="" style="width:545px;">
-                <input type="button" id="img_url-4" value="上传"/>
+                <input type="button" id="img_url-up4" value="上传" />
             </div>
             <div>
                 <input type="submit" class="btn btn-primary" value="更新">
             </div>
         </div>
     </ul>
+    <script src="/widget/kindeditor-4.1.10/kindeditor.js" charset="utf-8"></script>
+    <script src="/widget/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
     <script type="text/javascript">
         require("layer");
         var globleConfig = require('globle/globle');
@@ -54,6 +58,75 @@
         var tools = require("pizzatools");
         var goods = require('shopadmin/goods/goods');
         goods.getGallery();
+
+
+        //绑定图片上传
+        KindEditor.ready(function(K) {
+            var editor = K.editor({
+                uploadJson: '/upfile/local'
+            });
+            K('#img_url-up0').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: K('#img_url-0').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#img_url-0').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#img_url-up1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: K('#img_url-1').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#img_url-1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#img_url-up2').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: K('#img_url-2').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#img_url-2').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#img_url-up3').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: K('#img_url-3').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#img_url-3').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            K('#img_url-up4').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: K('#img_url-4').val(),
+                        clickFn: function(url, title, width, height, border, align) {
+                            K('#img_url-4').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
+
 
         function edit(obj) {
             $(".form").pizzaValidate({
@@ -100,10 +173,9 @@
                         layer.msg("请先填写通用信息")
                         return;
                     }
-                    op = "update";
-                    data += "&goods_id=" + id;
+                    data += "&goodsid=" + id;
                     $.ajax({
-                        url: '/shopadmin/goodsgallery/' + op,
+                        url: '/shopadmin/goodsgallery/create',
                         data: data,
                         success: function(msg) {
                             if (msg.state == true) {

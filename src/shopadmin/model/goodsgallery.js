@@ -15,7 +15,7 @@ export default class extends think.model.base {
          * @param  {[type]}       password [description]
          * @return {[type]}                [description]
          */
-    async page(goodsid,cp, mp) {
+    async page(goodsid, cp, mp) {
             let data = await this.where({
                     goods_id: goodsid
                 })
@@ -63,8 +63,7 @@ export default class extends think.model.base {
     async create(dataobj) {
             let id = await this.add(dataobj);
             return {
-                state: true,
-                msg: id
+                state: true
             }
         }
         /**
@@ -72,9 +71,9 @@ export default class extends think.model.base {
          * @method pageall
          * @return {[type]} [description]
          */
-    async remove(id) {
+    async remove(goodsid) {
         let row = await this.where({
-            id: ["IN", id.split(',')]
+            goodsid: goodsid
         }).delete();
         return {
             state: true
