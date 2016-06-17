@@ -73,7 +73,7 @@ export default class extends think.model.base {
          */
     async remove(goodsid) {
         let row = await this.where({
-            goodsid: goodsid
+            goods_id: goodsid
         }).delete();
         return {
             state: true

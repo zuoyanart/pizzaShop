@@ -10,11 +10,16 @@ export default class extends Base {
      */
     async indexAction() {
         let goods = this.model("goods");
+        let gallery = this.model("shopadmin/goodsgallery");
         let id = this.get("id");
-        let goodsResult = await goods.get(id);//获取商品详细
-        console.log(goodsResult);
+        let promiseArr = [];
+        promiseArr.push(goods.get(id)); //获取商品详细
+        promiseArr.push(gallery.page(id, 1, 10)); //获取相册列表
+        let result = await Promise.all(promiseArr);
         this.assign({
-           goods: goodsResult.msg
+            goods: result[0].msg,
+            gallery: result[1].msg,
+            url: think.config("cloudImgUrl").shop
         });
 
         return this.display();

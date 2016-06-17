@@ -76,16 +76,9 @@ let goods = (function() {
             success: function(result) {
                 if (result.state == true) {
                     let i = 0;
-                    console.log(result);
-                    // for (var key in result.msg) {
-                    //   $('#' + key).val(result.msg[key]);
-                    // }
-                    // if(typeof(editor) != "undefined") {
-                    //     editor.html(result.msg.goods_desc);
-                    // }
-                    // if(typeof(callback) == "function") {
-                    //   callback();
-                    // }
+                    for (let j = 0; j < result.msg.length; j++) {
+                        $('#img_url-' + j).val(result.msg[j].img_url);
+                    }
                 }
             }
         });

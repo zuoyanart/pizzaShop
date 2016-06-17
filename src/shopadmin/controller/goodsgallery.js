@@ -8,16 +8,16 @@ export default class extends Base {
 
 
     /**
-     * 更新节点
+     * 创建和更新商品相册
      * @method updateAction
      * @return {[type]}     [description]
      */
     async createAction() {
         let param = tools.xss(this.post());
-        param.goodsid = parseInt(param);
+        param.goodsid = parseInt(param.goodsid);
         let item = {};
         let gallery = this.model("goodsgallery");
-        let row = await gallery.remove(param.goodsid);
+        let row = await gallery.remove(param.goodsid); //删除该商品所有的照片
         if (row.state) {
             for (let i = 0; i < 5; i++) {
                 if (param["img_url-" + i] != "") {
@@ -25,9 +25,12 @@ export default class extends Base {
                         goods_id: param.goodsid,
                         img_url: param["img_url-" + i]
                     }
-                    gallery.add(item);
+                    gallery.add(item); //插入照片
                 }
             }
         }
+        return this.json({
+            state: true
+        });
     }
 }
