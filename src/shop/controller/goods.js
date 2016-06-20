@@ -20,7 +20,7 @@ export default class extends Base {
         promiseArr.push(goodsAttr.page(id));
 
         let result = await Promise.all(promiseArr);
-        console.log(result[2].msg);
+        
         this.assign({
             goods: result[0].msg,
             gallery: result[1].msg,
