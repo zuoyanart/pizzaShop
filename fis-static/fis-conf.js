@@ -94,7 +94,8 @@ fis.match('::packager', {
         useTrack: false,
         'pkg/base.js': ['/modules/jquery/*.js', '/modules/layer/*.js', '/modules/pizzalayer/*.js', '/modules/pizzatools/*.js'],
         'pkg/base-a.js': ['/widget/globle/*.js', '/modules/pizzaui/pizza.ui.js', '/site/common/common.js'],
-        'pkg/base.css': ['/css/pizza.css', '/css/iconfont.css']
+        'pkg/base.css': ['/css/pizza.css', '/css/iconfont.css'],
+        'pkg/base-a.css': ['/css/amui.css', '/css/iconfont.css']
     }),
     spriter: fis.plugin('csssprites', {
         layout: 'matrix',
