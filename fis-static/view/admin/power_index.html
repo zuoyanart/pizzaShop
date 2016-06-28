@@ -1,0 +1,25 @@
+{% extends  "../master/index.html"  %}
+
+{% block css %}
+<link rel="stylesheet" href="/site/admin/tree/tree.css">
+{% endblock%}
+
+{% block title %}
+ 权限管理
+ {% endblock %}
+ <!---->
+{% block content %}
+<div class="menu">
+
+</div>
+<ul class="treelist" id="treelist">
+  <li id="1" path="path,1,"><b class="icon-admin"></b>&nbsp;&nbsp;<em>权限列表</em><span><a href="/admin/power/edit?pid=1">添加部门</a></span></li>
+</ul>
+ {% endblock %}
+ <!---->
+ {% block js %}
+ <script type="text/javascript">
+  var power = require('admin/power/power');
+  power.init();
+ </script>
+ {% endblock %}

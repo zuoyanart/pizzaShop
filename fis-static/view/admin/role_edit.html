@@ -1,0 +1,27 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 文章管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list" id="list">
+<div class="form"  style="width:800px;">
+  <div><label for="">角色名称</label><input type="text" id="name" name="name"></div>
+  <div><label for="">描述</label><textarea id="des" name="des"></textarea></div>
+  <div><label for="">状态</label><select id="state" name="state">
+    <option value="0">正常</option>
+    <option value="-1">冻结</option>
+  </select></div>
+  <div><input type="submit" class="btn btn-primary" value="更新"></div>
+</div>
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script type="text/javascript">
+  var userGroup = require('admin/usergroup/usergroup');
+  userGroup.getRole();
+  userGroup.editRole();
+
+</script>
+{% endblock %}

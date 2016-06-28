@@ -35,27 +35,36 @@ let goods = (function() {
          */
     self.addCart = (obj = '.cart') => {
         let number = parseInt($(".number").val());
-        if (isNaN(number) || number < 1) { //如果为非数字，并且<1
+        if (isNaN(number) || number < 1) { //如果为非数字，或者<1
             number = 1;
         }
-        let cart = store.get("pz_cart");
-        if (!cart) {
-            cart = {};
+        // let cart = store.get("pz_cart");
+        // if (!cart) {
+        //     cart = {};
+        // }
+        // let goodsnum = $("#goodsnum").text();
+        // if (!cart[goodsnum]) { //如果已经添加到购物车，则不做修改
+        //     let item = {
+        //         name: $("#goodsname").text(), //商品名称
+        //         number: number, //购买数量
+        //         id: tools.getPara("id"), //商品id
+        //         market: $("#price > span").text(), //市场价
+        //         shop: $("#price > strong").text(), //本店售价
+        //         img: $(".jqzoom").attr("src")
+        //     }
+        //     cart[goodsnum] = item;
+        //     store.set("pz_cart", cart);
+        // }
+
+        let data = {
+            name: $("#goodsname").text(), //商品名称
+            number: number, //购买数量
+            id: tools.getPara("id"), //商品id
+            // market: $("#price > span").text(), //市场价
+            // shop: $("#price > strong").text(), //本店售价
+            img: $(".jqzoom").attr("src")
         }
-        let goodsnum = $("#goodsnum").text();
-        if (!cart[goodsnum]) { //如果已经添加到购物车，则不做修改
-            let item = {
-                name: $("#goodsname").text(), //商品名称
-                number: number, //购买数量
-                id: tools.getPara("id"), //商品id
-                market: $("#price > span").text(), //市场价
-                shop: $("#price > strong").text(), //本店售价
-                img: $(".jqzoom").attr("src")
-            }
-            cart[goodsnum] = item;
-            store.set("pz_cart", cart);
-        }
-        flow.addCartToServer(function() {
+        flow.addCartToServer(data, function() {
             document.location.href = "/shop/flow";
         });
     }

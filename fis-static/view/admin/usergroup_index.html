@@ -1,0 +1,18 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 用户管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <label class="checkgroup">
+    <input type="checkbox" id="checkall" name="checkall"><label for="checkall" class="check-all"></label>全选
+  </label>|<a href="/admin/usergroup/edit">添加用户组</a>
+</div>
+<ul class="list" id="list">
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script type="text/javascript">
+  var userGroup = require('admin/usergroup/usergroup');
+  userGroup.init();
+</script>
+{% endblock %}

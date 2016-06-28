@@ -1,0 +1,18 @@
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li>
+    <label class="checkgroup">
+      <input type="checkbox" id="article_<%= data[i].id%>" name="checkall"><label for="article_<%= data[i].id%>" class="check-all"></label>
+    </label>
+    <a href="">[<%= data[i].nodename%>] <%= data[i].title%></a>
+    <% if(data[i].pass == 0){%>
+    <b>[未审核]</b>
+    <%}%>
+    <span><a href="/admin/article/edit?id=<%= data[i].id%>">编辑</a><i class="comment">评论</i>
+      <% if(data[i].pass == 1){%>
+      <i class="pass">取消审核</i>
+      <%} else {%>
+        <i class="pass">审核</i>
+      <%}%>
+        <i class="remove">删除</i></span>
+  </li>
+<%}%>

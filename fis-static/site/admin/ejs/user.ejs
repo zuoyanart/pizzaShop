@@ -1,0 +1,18 @@
+<%for(var i=0, l=data.length; i<l; i++) { %>
+  <li>
+    <label class="checkgroup">
+      <input type="checkbox" id="user_<%= data[i].id%>" name="checkall"><label for="user_<%= data[i].id%>" class="check-all"></label>
+    </label>
+    <a href=""><%= data[i].username %></a>
+    <% if(data[i].state == -1) {%>
+    <b>[已冻结]</b>
+    <%}%>
+    <span><a href="/admin/user/edit?id=<%= data[i].id%>">编辑</a>
+      <% if(data[i].state == -1) {%>
+      <i class="pass">取消冻结</i>
+      <%} else if(data[i].id != 1){%>
+        <i class="pass">冻结</i>
+      <%}%>
+    <i class="remove">删除</i></span>
+  </li>
+<%}%>

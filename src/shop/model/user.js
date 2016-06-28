@@ -1,5 +1,5 @@
 'use strict';
-import tools from '../tools/tools.js';
+import tools from '../../common/tools/tools.js';
 /**
  * model
  */
@@ -7,7 +7,7 @@ export default class extends think.model.base {
     init(...args) {
         super.init(...args);
         this.pk = 'id';
-
+        this.tableName = "user"; //将对应的数据表名设置为 user2
     }
 
     async page(kw, cp, mp) {

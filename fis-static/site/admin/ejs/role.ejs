@@ -1,0 +1,8 @@
+<ul class="list rolelist">
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li id="role_<%= data[i].id%>">
+    <a href="javascript:void(0);"><%= data[i].name%></a>
+    <span><i class="roleRemove">冻结</i></span>
+  </li>
+<%}%>
+</ul>

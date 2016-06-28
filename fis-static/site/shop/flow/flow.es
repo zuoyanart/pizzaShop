@@ -1,3 +1,9 @@
+/**
+ * 购物车
+ * @method
+ * @param  {[type]} function( [description]
+ * @return {[type]}           [description]
+ */
 let flow = (function() {
     let self = {};
     let $, jQuery;
@@ -36,13 +42,13 @@ let flow = (function() {
      * @method
      * @return {[type]} [description]
      */
-    self.addCartToServer = (callback = function() {}) => {
-        if (getCookie()) { //未登录状态不提交到服务器
-            return;
-        }
+    self.addCartToServer = (data = {}, callback = function() {}) => {
+        // if (tools.getCookie("userid") == '') { //未登录状态不提交到服务器
+        //     return;
+        // }
         $.ajax({
             url: '/shop/flow/create',
-            data: 'cart=' + store.get("pz_cart"),
+            data: data,
             success: function(msg) {
                 callback(msg);
                 //TODO:

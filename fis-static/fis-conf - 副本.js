@@ -15,7 +15,11 @@ fis.hook('commonjs', {
 fis.match("**/*", {
         release: '${statics}/$&'
     })
-    .match(/^\/site\/([^\/]+)\/(.*)\.(ejs)$/i, {
+    .match(/^\/site\/(common|home|login)\/(.*)\.(ejs)$/i, {
+        isHtmlLike: true,
+        release: false
+    })
+    .match(/^\/site\/(shopadmin)\/(.*)\.(ejs)$/i, {
         isHtmlLike: true,
         release: false
     })
@@ -38,7 +42,7 @@ fis.match("**/*", {
         // optimizer: fis.plugin('uglify-js')
     })
     //page下面的页面发布时去掉page文件夹
-    .match(/^\/view\/(common|master|admin|home|shopadmin)\/(.*)\.(html)$/i, {
+    .match(/^\/view\/(common|home|login|master|shopadmin|shop)\/(.*)\.(html)$/i, {
         parser: fis.plugin('swigt'),
         useCache: false,
         release: '/$&'
@@ -81,7 +85,7 @@ fis.match('::packager', {
         resourceType: 'mod',
         obtainScript: true,
         allInOne: {
-            ignore: ["/widget/kindeditor-4.1.10/kindeditor.js", "/widget/kindeditor-4.1.10/lang/zh_CN.js", '/lib/ejs.js'],
+            ignore: ["/widget/kindeditor-4.1.10/kindeditor.js", "/widget/kindeditor-4.1.10/lang/zh_CN.js",'/lib/ejs.js'],
             includeAsyncs: false //不包含异步依赖
         },
         useInlineMap: true, // 资源映射表内嵌
