@@ -19,7 +19,7 @@ export default class extends LoginBase {
          */
     async loginAction() {
             let data = this.post();
-            let model = this.model("user");
+            let model = this.model("userAdmin");
             let user = await model.checkUserLogin(data.name, data.password);
             if (user.state == true) {
                 let msg = user.msg;
