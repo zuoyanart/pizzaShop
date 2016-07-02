@@ -1,7 +1,6 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../tools/tools.js';
 export default class extends Base {
 
   /**
@@ -18,8 +17,8 @@ export default class extends Base {
      * @return {[type]}   [description]
      */
   async pageAction() {
-      let param = tools.xss(this.post());
-      let result = await tools.httpAgent(think.config("api") + "role/page", "post", tools.httpParam(param));
+      let param = xss(this.post());
+      let result = await httpAgent(think.config("api") + "role/page", "post", httpParam(param));
       return this.json(result);
     }
     /**
@@ -28,7 +27,7 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
   async getAction() {
-      let user = await tools.httpAgent(this.config("api") + 'role/' + tools.xss(this.post("id")), "get");
+      let user = await httpAgent(this.config("api") + 'role/' + xss(this.post("id")), "get");
       return this.json(user);
     }
     /**
@@ -45,10 +44,10 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
   async updateAction() {
-      let role = tools.xss(this.post());
+      let role = xss(this.post());
       role.id = parseInt(role.id);
       role.state = parseInt(role.state);
-      let result = await tools.httpAgent(think.config("api") + 'role', "put", role);
+      let result = await httpAgent(think.config("api") + 'role', "put", role);
       return this.json(result);
     }
     /**
@@ -60,7 +59,7 @@ export default class extends Base {
       let us = this.post();
       us.state = parseInt(us.state);
       us.groupid = parseInt(us.groupid);
-      let user = await tools.httpAgent(this.config("api") + 'role', "post", us);
+      let user = await httpAgent(this.config("api") + 'role', "post", us);
       return this.json(user);
     }
     /**
@@ -69,8 +68,8 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
   async removeAction() {
-      let id = tools.xss(this.post("id")).replace(/,0/, "");
-      let result = await tools.httpAgent(think.config("api") + 'role', "del", "id=" + id);
+      let id = xss(this.post("id")).replace(/,0/, "");
+      let result = await httpAgent(think.config("api") + 'role', "del", "id=" + id);
       return this.json(result);
     }
     /**

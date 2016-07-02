@@ -3,7 +3,7 @@
  * 商品类型
  */
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
+
 export default class extends Base {
 
     /**
@@ -20,8 +20,8 @@ export default class extends Base {
          * @return {[type]}   [description]
          */
     async pageAction() {
-            let param = tools.xss(this.post());
-            // let node = await tools.httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
+            let param = xss(this.post());
+            // let node = await httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
             let node = await this.model("goodstype").page(param.kw, param.cp, param.mp);
             return this.json(node);
         }
@@ -31,7 +31,7 @@ export default class extends Base {
          * @return {[type]}      [description]
          */
     async pageallAction() {
-            // let node = await tools.httpAgent(this.config("api") + 'node/pageall', "get");
+            // let node = await httpAgent(this.config("api") + 'node/pageall', "get");
             let node = await this.model("goodstype").pageall();
             return this.json(node);
         }
@@ -46,7 +46,7 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
     async getAction() {
-        // let node = await tools.httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
+        // let node = await httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
         let node = await this.model("goodstype").get(this.post("id"));
         return this.json(node);
     }
@@ -60,7 +60,7 @@ export default class extends Base {
         let p = this.post();
         p.id = parseInt(p.id);
         p.weight = parseInt(p.weight);
-        // let node = await tools.httpAgent(this.config("api") + 'node', "put", p);
+        // let node = await httpAgent(this.config("api") + 'node', "put", p);
         let node = await this.model("goodstype").edit(p);
         if (node.state == true) {
             return this.json({
@@ -99,7 +99,7 @@ export default class extends Base {
          * @return {[type]}     [description]
          */
     async removeAction() {
-        let p = tools.xss(this.post());
+        let p = xss(this.post());
         let pinpai = await this.model("goodstype").remove(p.id);
         return this.json({
             "state": true

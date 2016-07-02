@@ -1,0 +1,31 @@
+{% extends "../master/index.html" %} {% block css%} {% endblock %} {% block title %} 留言板管理 {% endblock %}
+<!---->
+{% block content %}
+<div class="menu">
+  <a href="javascript:history.back();">返回</a>
+</div>
+<ul class="list" id="list">
+<div class="form"  style="width:800px;">
+  <div><label for="">姓名</label><input type="text" id="username" name="username"></div>
+  <div><label for="">手机</label><input type="text" id="phone" name="phone"></div>
+  <div><label for="">邮箱</label><input type="text" id="mail" name="mail"></div>
+  <div><label for="">地址</label><input type="text" id="addr" name="addr"></div>
+  <div><label for="">留言内容</label><textarea name="des" rows="10" cols="20" id="des"></textarea></div>
+  <div><label for="">是否审核</label><select name="pass" id="pass">
+    <option value="0">未审核</option>
+    <option value="1">审核</option>
+  </select></div>
+  <div><label for="">描述</label><textarea name="brief" rows="5" cols="20" id="brief" placeholder="备用字段" readonly="enabled"></textarea></div>
+  <div><input type="submit" class="btn btn-primary" value="更新"></div>
+</div>
+</ul>
+{% endblock %}
+<!---->
+{% block js %}
+<script type="text/javascript">
+  var modules = require('admin/guestbook/guestbook');
+    modules.get();
+    modules.edit();
+
+</script>
+{% endblock %}

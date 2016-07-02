@@ -1,5 +1,5 @@
 'use strict';
-import tools from '../../common/tools/tools.js';
+
 /**
  * model
  */
@@ -21,7 +21,7 @@ export default class extends think.model.base {
                 mp: 10
             };
             query.is_on_sale = 1;
-            option = tools.mergeJson(option, defaultOption);
+            option = mergeJson(option, defaultOption);
             //关键字
             if (query.kw) {
                 query.goods_name = ["like", "%" + query.kw + "%"];

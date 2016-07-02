@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
+
 
 export default class extends Base {
     /**
@@ -20,7 +20,7 @@ export default class extends Base {
         promiseArr.push(goodsAttr.page(id));
 
         let result = await Promise.all(promiseArr);
-        
+
         this.assign({
             goods: result[0].msg,
             gallery: result[1].msg,

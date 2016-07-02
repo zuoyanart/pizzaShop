@@ -1,5 +1,5 @@
 'use strict';
-import tools from '../../common/tools/tools.js';
+
 /**
  * model
  */
@@ -50,7 +50,7 @@ export default class extends think.model.base {
                 delete article.password;
                 row = await this.update(article);
             } else {
-                let salt = tools.randomChar(10, "sp");
+                let salt = randomChar(10, "sp");
                 article.password = think.md5(article.password + salt);
                 article.salt = salt;
                 row = await this.update(article);
@@ -66,7 +66,7 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(article) {
-            let salt = tools.randomChar(10, "sp");
+            let salt = randomChar(10, "sp");
             article.password = think.md5(article.password + salt);
             article.salt = salt;
             let id = await this.add(article);

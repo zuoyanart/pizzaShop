@@ -22,12 +22,11 @@ export default {
       secure: true,
       auth: {
         user: 'huabinglan@163.com',
-        pass: 'spnt@#loveworld'
+        pass: ''
       }
     }
   },
-  cloudImg: true,//是否启用云上传
-  cloudImgUrl: {//云访问地址
-    shop:'http://o8tdqcp0r.bkt.clouddn.com'
+  cloudImgUrl:{
+    "shop": "http://o8tdqcp0r.bkt.clouddn.com"
   }
 };

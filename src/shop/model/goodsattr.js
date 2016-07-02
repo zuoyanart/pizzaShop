@@ -1,5 +1,5 @@
 'use strict';
-import tools from '../../common/tools/tools.js';
+
 /**
  * model
  */

@@ -2,7 +2,6 @@
 
 import Base from './base.js';
 import mail from '../tools/mail.js';
-import tools from '../tools/tools.js';
 import cheerio from 'cheerio';
 export default class extends Base {
 
@@ -13,7 +12,7 @@ export default class extends Base {
     async indexAction() {
         let _self = this;
         var webObj = this.get("object");
-        var article = await tools.readFile("/data/host/pizzaManage/app/mochawesome-reports/mochawesome.html");
+        var article = await readFile("/data/host/pizzaManage/app/mochawesome-reports/mochawesome.html");
         let $ = cheerio.load(article, {
             normalizeWhitespace: true,
             xmlMode: true
@@ -35,7 +34,7 @@ export default class extends Base {
         let _self = this;
         var webObj = this.get("object");
         var hosts = this.get("hosts");
-        let article = await tools.httpSpider("http://192.168.1.134:8080", "get");
+        let article = await httpSpider("http://192.168.1.134:8080", "get");
         console.log(article);
         let $ = cheerio.load(article, {
             normalizeWhitespace: true,
@@ -59,7 +58,7 @@ export default class extends Base {
         var webObj = this.get("obj");
         var ml = new mail();
 
-        let article = await tools.readFile("/data/host/nightwatch/reports/report.txt");
+        let article = await readFile("/data/host/nightwatch/reports/report.txt");
         if (article.toString().indexOf("FAILED") > -1) {
             article = article.toString().replace(/\n/g, "<br/>").replace(/\[0m/g, "&nbsp;");
             article = article.replace(/\[0;32m/g, "&nbsp;");

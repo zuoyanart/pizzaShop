@@ -1,5 +1,4 @@
 'use strict';
-import tools from '../tools/tools.js';
 /**
  * model
  */
@@ -13,7 +12,7 @@ export default class extends think.model.base {
      */
     async page(kw, nodeid, cp, mp) {
             if (think.config("openApi")) {
-                let article = await tools.httpAgent(this.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
+                let article = await httpAgent(this.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
                 return article;
             } else {
                 let rows = await this.join({
@@ -22,7 +21,7 @@ export default class extends think.model.base {
                         join: "inner",
                         on: ["nodeid", "node.id"]
                     }).join({
-                        table: "user_admin",
+                        table: "user",
                         as: "user",
                         join: "inner",
                         on: ["uid", "id"]
@@ -48,7 +47,7 @@ export default class extends think.model.base {
          */
     async get(id) {
             if (think.config("openApi")) {
-                let article = await tools.httpAgent(this.config("api") + 'article/' + parseInt(id), "get");
+                let article = await httpAgent(this.config("api") + 'article/' + parseInt(id), "get");
                 return article;
             } else {
                 let row = await this.where({
@@ -68,7 +67,7 @@ export default class extends think.model.base {
          */
     async articleUpdate(article) {
             if (think.config("openApi")) {
-                let article = await tools.httpAgent(this.config("api") + 'article', "put", article);
+                let article = await httpAgent(this.config("api") + 'article', "put", article);
                 return article;
             } else {
                 let row = await this.update(article);
@@ -85,7 +84,7 @@ export default class extends think.model.base {
          */
     async create(article) {
             if (think.config("openApi")) {
-                let article = await tools.httpAgent(this.config("api") + 'article', "put", article);
+                let article = await httpAgent(this.config("api") + 'article', "put", article);
                 return article;
             } else {
                 let id = await this.add(article);

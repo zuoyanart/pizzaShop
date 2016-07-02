@@ -1,0 +1,18 @@
+<%for(var i=0,ll=data.length; i<ll; i++) { %>
+  <li>
+    <label class="checkgroup">
+      <input type="checkbox" id="guestbook_<%= data[i].gbid%>" name="checkall"><label for="guestbook_<%= data[i].gbid%>" class="check-all"></label>
+    </label>
+    <a href="javascript:void(0);"><% var title = data[i].brief.split('$');%>姓名：<%= title[0]%>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;手机：<%= title[1]%>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<%= title[2]%>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;地址：<%= title[3]%></a><br/><%= data[i].des%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>发布于：<%= tools.formatUnixTime(data[i].createtime, "yyyy-MM-dd hh:mm:ss")%></b>
+    <% if(data[i].pass == 0){%>
+    <b class="pass">[未审核]</b>
+    <%}%>
+    <span><a href="/admin/guestbook/edit?id=<%= data[i].gbid%>">编辑</a><!--i class="replay">回复</i-->
+      <% if(data[i].pass == 1){%>
+      <i class="pass">取消审核</i>
+      <%} else {%>
+        <i class="pass">审核</i>
+      <%}%>
+        <i class="remove">删除</i></span>
+  </li>
+<%}%>

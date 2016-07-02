@@ -1,7 +1,5 @@
 'use strict';
 
-import tools from './tools.js';
-
 
 export default class {
   /**
@@ -14,7 +12,7 @@ export default class {
    * @return {[type]}           [description]
    */
   static async pageArticle(nodeid, kw, cp, mp) {
-    return tools.httpAgent(think.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
+    return httpAgent(think.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
   }
 /**
  * get 文章
@@ -23,7 +21,7 @@ export default class {
  * @return {[type]}      [description]
  */
   static async getArticle(id) {
-    return tools.httpAgent(think.config("api") + 'article/' +id, "get");
+    return httpAgent(think.config("api") + 'article/' +id, "get");
   }
   /**
    * get 模块
@@ -32,7 +30,7 @@ export default class {
    * @return {[type]}      [description]
    */
     static async getBlock(id) {
-      return tools.httpAgent(think.config("api") + 'block/' +id, "get");
+      return httpAgent(think.config("api") + 'block/' +id, "get");
     }
 
 

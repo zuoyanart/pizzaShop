@@ -1,7 +1,5 @@
 'use strict';
 
-import tools from '../../common/tools/tools.js';
-
 export default class extends think.controller.base {
   /**
    * some base method in here
@@ -10,10 +8,10 @@ export default class extends think.controller.base {
     let username = this.cookie('username');
     let id = this.cookie("id");
     let key = this.cookie('key');
-    let ip = this.ip();
-    let secureKey = think.md5(username + ip + id + think.config("salt") + this.userAgent());
+    let ua = this.userAgent();
+    let secureKey = think.md5(username + ua + id + think.config("salt"));
     if (key !== secureKey) {
-       this.redirect('/login');
+       this.redirect('/admin/login');
     }
   }
 }

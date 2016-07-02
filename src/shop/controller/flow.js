@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
+
 
 export default class extends Base { //购物车相关
     /**
@@ -18,7 +18,7 @@ export default class extends Base { //购物车相关
          * @return {[type]}    [description]
          */
     async createActon() {
-        let param = tools.xss(this.post());
+        let param = xss(this.post());
         let cart_id = this.cookie("cart_id"); //获取购物车id
         let uid = this.cookie("userid"); //用户登录的id
         console.log(cart_id);

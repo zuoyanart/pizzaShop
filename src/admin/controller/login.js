@@ -1,7 +1,6 @@
 'use strict';
 
 import LoginBase from './loginbase.js';
-import tools from "../../common/tools/tools.js"
 
 export default class extends LoginBase {
     /**
@@ -18,15 +17,16 @@ export default class extends LoginBase {
          * @return {[type]}    [description]
          */
     async loginAction() {
-            let data = this.post();
+            let data = xss(this.post());
             let model = this.model("userAdmin");
             let user = await model.checkUserLogin(data.name, data.password);
             if (user.state == true) {
                 let msg = user.msg;
-                let ip = this.ip();
+                // let ip = this.ip();
+                let ua = this.userAgent();
                 this.cookie("username", data.name);
                 this.cookie("id", msg.id);
-                this.cookie("key", think.md5(data.name + ip + msg.id + think.config("salt") + this.userAgent()), {
+                this.cookie("key", think.md5(data.name + ua + msg.id + think.config("salt")), {
                     httponly: true
                 });
                 return this.json({
@@ -37,7 +37,6 @@ export default class extends LoginBase {
                     "state": false
                 });
             }
-
         }
         /**
          * 退出登录
@@ -45,21 +44,11 @@ export default class extends LoginBase {
          * @return {[type]}       [description]
          */
     loginoutAction() {
-      this.cookie("id", null);
-      this.cookie("key", null);
+        this.cookie("id", null);
+        this.cookie("key", null);
+        this.cookie("username", null);
         return this.json({
             "state": true
         });
-    }
-
-    async testAction() {
-        // let data = {"a":"b"};
-        console.log("asdasd");
-        let model = this.model("user");
-        console.log(model);
-        let data = await model.where({
-            "username": "root"
-        }).find();
-        return this.json(data);
     }
 }

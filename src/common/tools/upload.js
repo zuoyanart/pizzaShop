@@ -1,7 +1,6 @@
 'use strict';
 
 import fs from 'fs';
-import tools from './tools.js';
 /**
  * 上传相关操作
  */
@@ -37,8 +36,8 @@ export default class {
      finalFileName = '/' + think.uuid().toLowerCase() + '.' + fileExt;
      think.mkdir(fileConfig.static + fileConfig.toPath);
      //读取文件
-     let fileData = await tools.readFile(file.path);
-     let success = await tools.writeFile(fileConfig.static + fileConfig.toPath + finalFileName, fileData);
+     let fileData = await readFile(file.path);
+     let success = await writeFile(fileConfig.static + fileConfig.toPath + finalFileName, fileData);
      return  fileConfig.toPath + finalFileName;
    }
 }

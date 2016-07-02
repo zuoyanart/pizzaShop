@@ -1,7 +1,6 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../tools/tools.js';
 export default class extends Base {
 
   /**
@@ -18,8 +17,8 @@ export default class extends Base {
      * @return {[type]}   [description]
      */
   async pageAction() {
-      let param = tools.xss(this.post());
-      let results = await tools.httpAgent(think.config("api") + 'usergroup/page', "post", "cp=" + param.cp + '&mp=' + param.mp + '&kw=' + param.kw);
+      let param = xss(this.post());
+      let results = await httpAgent(think.config("api") + 'usergroup/page', "post", "cp=" + param.cp + '&mp=' + param.mp + '&kw=' + param.kw);
       return this.json(results);
     }
     /**
@@ -28,7 +27,7 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
   async getAction() {
-      let user = await tools.httpAgent(this.config("api") + 'usergroup/' + tools.xss(this.post("id")), "get");
+      let user = await httpAgent(this.config("api") + 'usergroup/' + xss(this.post("id")), "get");
       return this.json(user);
     }
     /**
@@ -45,10 +44,10 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
   async updateAction() {
-      let userGroup = tools.xss(this.post());
+      let userGroup = xss(this.post());
       userGroup.id = parseInt(userGroup.id);
       userGroup.state = parseInt(userGroup.state);
-      let result = await tools.httpAgent(think.config("api") + 'usergroup', "put", userGroup);
+      let result = await httpAgent(think.config("api") + 'usergroup', "put", userGroup);
       return this.json(result);
     }
     /**
@@ -59,7 +58,7 @@ export default class extends Base {
   async createAction() {
       let us = this.post();
       us.state = parseInt(us.state);
-      let user = await tools.httpAgent(this.config("api") + 'usergroup', "post", us);
+      let user = await httpAgent(this.config("api") + 'usergroup', "post", us);
       return this.json(user);
     }
     /**
@@ -68,8 +67,8 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
   async removeAction() {
-      let id = tools.xss(this.post("id")).replace(/,0/, "");
-      let result = await tools.httpAgent(think.config("api") + 'usergroup', "del", "id=" + id);
+      let id = xss(this.post("id")).replace(/,0/, "");
+      let result = await httpAgent(think.config("api") + 'usergroup', "del", "id=" + id);
       return this.json(result);
     }
     /**

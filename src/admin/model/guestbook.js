@@ -1,13 +1,11 @@
 'use strict';
-
 /**
  * model
  */
 export default class extends think.model.base {
     init(...args) {
             super.init(...args);
-            this.tableName = "goods_attr"; //将对应的数据表名设置为 user2
-            this.pk = "goods_attr_id";
+            this.pk = "gbid";
         }
         /**
          *  根据父节点获取所有子节点
@@ -16,25 +14,26 @@ export default class extends think.model.base {
          * @param  {[type]}       password [description]
          * @return {[type]}                [description]
          */
-    async page(goodsid) {
-            let data = await this.where({
-                    goodsid: goodsid
+    async page(kw, cp, mp) {
+            let rows = await this.where({
+                    des: ["like", "%" + kw + "%"]
                 })
-                .select();
+                .order("gbid desc")
+                .limit((cp - 1) * mp, mp).select();
             return {
                 state: true,
-                msg: data
-            }
+                msg: rows
+            };
         }
         /**
-         * 获取文章by id
+         * 获取留言板by id
          * @method get
          * @param  {[type]} nodeid [description]
          * @return {[type]}        [description]
          */
     async get(id) {
             let row = await this.where({
-                goods_id: id
+                gbid: id
             }).find();
             return {
                 state: true,
@@ -48,19 +47,9 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async edit(json) {
-            let row = await this.update(json);
-            return {
-                state: true
-            }
-        }
-        /**
-         * 创建节点
-         * @method create
-         * @param  {[type]} node [description]
-         * @return {[type]}      [description]
-         */
-    async create(json) {
-            let id = await this.add(json);
+            let row = await this.where({
+                "gbid": json.gbid
+            }).update(json);
             return {
                 state: true
             }
@@ -74,7 +63,7 @@ export default class extends think.model.base {
          */
     async pass(id, ispass) {
             let row = await this.where({
-                id: ["IN", id.split(',')]
+                gbid: ["IN", id.split(',')]
             }).update({
                 pass: ispass
             });
@@ -83,14 +72,27 @@ export default class extends think.model.base {
             }
         }
         /**
-         * 删除文章
+         * 创建节点
+         * @method create
+         * @param  {[type]} node [description]
+         * @return {[type]}      [description]
+         */
+    async create(json) {
+            let id = await this.add(json);
+            return {
+                state: true,
+                msg: id
+            }
+        }
+        /**
+         * 删除留言板
          * @method del
          * @param  {[type]} id [description]
          * @return {[type]}    [description]
          */
     async del(id) {
         let row = await this.where({
-            goodsid: id
+            gbid: ["IN", id.split(',')]
         }).delete();
         return {
             state: true

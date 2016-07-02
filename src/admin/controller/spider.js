@@ -1,7 +1,6 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../tools/tools.js';
 import cheerio from 'cheerio';
 export default class extends Base {
     /**
@@ -14,8 +13,8 @@ export default class extends Base {
             };
             let msg = [];
             let jsonItem = {};
-            let param = tools.xss(this.post());
-            let article = await tools.httpSpider("http://www.jianyezuqiu.cn/jianyeftweb/website/newsList.htm" + "?page=" + param.cp + "&cid=12", "get");
+            let param = xss(this.post());
+            let article = await httpSpider("http://www.jianyezuqiu.cn/jianyeftweb/website/newsList.htm" + "?page=" + param.cp + "&cid=12", "get");
             // console.log(article);
             let $ = cheerio.load(article, {
                 normalizeWhitespace: true,
@@ -50,15 +49,15 @@ export default class extends Base {
         let json = {
             "state": true
         };
-        let param = tools.xss(this.post());
-        let article = await tools.httpSpider("http://www.jianyezuqiu.cn/jianyeftweb/website/newsRead.htm?id=" + param.id, "get");
+        let param = xss(this.post());
+        let article = await httpSpider("http://www.jianyezuqiu.cn/jianyeftweb/website/newsRead.htm?id=" + param.id, "get");
         let $ = cheerio.load(article, {
             normalizeWhitespace: true,
             xmlMode: true
         });
         let msg = {};
         msg.title = $(".articale").find("header > h3").text();
-        msg.content = tools.htmlDecode($(".detail").html()).split('分享到')[0];
+        msg.content = htmlDecode($(".detail").html()).split('分享到')[0];
 
         msg.content = msg.content.replace(/<(\/){0,1}div[^<>]*>/ig, '').replace(/<\/span>/ig, "</span><br/><br/>").replace(/<(\/){0,1}span[^<>]*>/ig, '').replace(/&amp;/ig,"&");
         json.msg = msg;

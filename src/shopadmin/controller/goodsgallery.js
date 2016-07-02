@@ -3,7 +3,7 @@
  * 商品类型属性
  */
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
+
 export default class extends Base {
 
 
@@ -13,7 +13,7 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async createAction() {
-        let param = tools.xss(this.post());
+        let param = xss(this.post());
         param.goodsid = parseInt(param.goodsid);
         let item = {};
         let gallery = this.model("goodsgallery");

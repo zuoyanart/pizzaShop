@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
+
 export default class extends Base {
 
     /**
@@ -17,7 +17,7 @@ export default class extends Base {
          * @return {[type]}   [description]
          */
     async pageAction() {
-            let param = tools.xss(this.post());
+            let param = xss(this.post());
             let docs = await this.model("pinpai").page(param.kw, param.cp, param.mp);
             return this.json(docs);
         }
@@ -41,7 +41,7 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
     async getAction() {
-        // let pinpai = await tools.httpAgent(this.config("api") + 'pinpai/' + this.post("id"), "get");
+        // let pinpai = await httpAgent(this.config("api") + 'pinpai/' + this.post("id"), "get");
         let pinpai = await this.model("pinpai").get(this.post("id"));
         return this.json(pinpai);
     }
@@ -55,7 +55,7 @@ export default class extends Base {
         let p = this.post();
         p.id = parseInt(p.id);
         p.weight = parseInt(p.weight);
-        // let pinpai = await tools.httpAgent(this.config("api") + 'pinpai', "put", p);
+        // let pinpai = await httpAgent(this.config("api") + 'pinpai', "put", p);
         let pinpai = await this.model("pinpai").edit(p);
         if (pinpai.state == true) {
             return this.json({
@@ -74,7 +74,7 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async createAction() {
-            let p = tools.xss(this.post());
+            let p = xss(this.post());
             p.weight = parseInt(p.weight);
             let pinpai = await this.model("pinpai").create(p);
             if (pinpai.state == true) {
@@ -93,7 +93,7 @@ export default class extends Base {
          * @return {[type]}     [description]
          */
     async removeAction() {
-        let p = tools.xss(this.post());
+        let p = xss(this.post());
         let pinpai = await this.model("pinpai").remove(p.id);
         return this.json({
             "state": true

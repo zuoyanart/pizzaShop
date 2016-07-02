@@ -3,7 +3,6 @@
  * 商品类型
  */
 import Base from './base.js';
-import tools from '../../common/tools/tools.js';
 export default class extends Base {
 
     /**
@@ -21,7 +20,7 @@ export default class extends Base {
          */
     tabAction() {
         console.log("asdasd");
-        let tab = tools.xss(this.post("tab"));
+        let tab = xss(this.post("tab"));
         let s = '<iframe src="/shopadmin/goods/tab' + tab + '" scrolling="no"></iframe>';
         return this.json({
             "state": true,
@@ -49,7 +48,7 @@ export default class extends Base {
          * @return {[type]}   [description]
          */
     async pageAction() {
-            let param = tools.xss(this.post());
+            let param = xss(this.post());
             let node = await this.model("goods").page(param);
             return this.json(node);
         }
@@ -59,7 +58,7 @@ export default class extends Base {
          * @return {[type]}      [description]
          */
     async pageallAction() {
-            // let node = await tools.httpAgent(this.config("api") + 'node/pageall', "get");
+            // let node = await httpAgent(this.config("api") + 'node/pageall', "get");
             let node = await this.model("goods").pageall();
             return this.json(node);
         }
@@ -74,7 +73,7 @@ export default class extends Base {
      * @return {[type]}  [description]
      */
     async getAction() {
-        // let node = await tools.httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
+        // let node = await httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
         let node = await this.model("goods").get(this.post("id"));
         return this.json(node);
     }
@@ -85,7 +84,7 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async updateAction() {
-        let p = tools.xss(this.post());
+        let p = xss(this.post());
         let node = await this.model("goods").edit(p);
         if (node.state == true) {
             return this.json({
@@ -104,7 +103,7 @@ export default class extends Base {
      * @return {[type]}     [description]
      */
     async createAction() {
-            let p = tools.xss(this.post());
+            let p = xss(this.post());
             let node = await this.model("goods").create(p);
             return this.json(node);
         }
@@ -114,7 +113,7 @@ export default class extends Base {
          * @return {[type]}     [description]
          */
     async removeAction() {
-        let p = tools.xss(this.post());
+        let p = xss(this.post());
         let pinpai = await this.model("goods").remove(p.id);
         return this.json({
             "state": true
@@ -126,7 +125,7 @@ export default class extends Base {
      * @return {[type]}          [description]
      */
     async pagegalleryAction() {
-      let id = tools.xss(this.post("id"));//商品id
+      let id = xss(this.post("id"));//商品id
       let gallery = await this.model("goodsgallery").page(id, 1,10);
       return this.json(gallery)
 

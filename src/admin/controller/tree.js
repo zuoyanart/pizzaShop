@@ -1,7 +1,6 @@
 'use strict';
 
 import Base from './base.js';
-import tools from '../tools/tools.js';
 export default class extends Base {
 
   /**
@@ -18,8 +17,8 @@ export default class extends Base {
      * @return {[type]}   [description]
      */
   async pageAction() {
-    let pid = this.post("pid");
-    // let node = await tools.httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
+    let pid = xss(this.post("pid"));
+    // let node = await httpAgent(this.config("api") + 'node/page', "post", "pid=" + this.post("pid"));
     let node = await this.model("tree").page(pid);
     return this.json(node);
   }
@@ -29,7 +28,7 @@ export default class extends Base {
    * @return {[type]}      [description]
    */
   async pageallAction() {
-    // let node = await tools.httpAgent(this.config("api") + 'node/pageall', "get");
+    // let node = await httpAgent(this.config("api") + 'node/pageall', "get");
     let node = await this.model("tree").pageall();
     return this.json(node);
   }
@@ -44,7 +43,7 @@ export default class extends Base {
    * @return {[type]}  [description]
    */
   async getAction() {
-    // let node = await tools.httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
+    // let node = await httpAgent(this.config("api") + 'node/' + this.post("id"), "get");
     let node = await this.model("tree").get(this.post("id"));
     return this.json(node);
   }
@@ -58,7 +57,7 @@ export default class extends Base {
     let p = this.post();
     p.id = parseInt(p.id);
     p.weight = parseInt(p.weight);
-    // let node = await tools.httpAgent(this.config("api") + 'node', "put", p);
+    // let node = await httpAgent(this.config("api") + 'node', "put", p);
     let node = await this.model("tree").nodeUpdate(p);
     if (node.state == true) {
       return this.json({
@@ -80,7 +79,7 @@ export default class extends Base {
     let p = this.post();
     p.pid = parseInt(p.pid);
     p.weight = parseInt(p.weight);
-    // let node = await tools.httpAgent(this.config("api") + 'node', "post", p);
+    // let node = await httpAgent(this.config("api") + 'node', "post", p);
     let node = await this.model("tree").create(p);
     if (node.state == true) {
       return this.json({

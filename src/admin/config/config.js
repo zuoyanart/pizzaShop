@@ -11,7 +11,7 @@ export default {
       secure: true,
       auth: {
         user: 'huabinglan@163.com',
-        pass: 'spnt@#loveworld'
+        pass: ''
       }
     },
     to: ['490526801@qq.com','success99@126.com','2191921092@qq.com']
