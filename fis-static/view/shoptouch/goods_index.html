@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= goods.goods_name%>
+    </title>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/shop/list/list.css">
+    <link rel="stylesheet" href="/site/shop/goods/goods.css">
+    <link rel="stylesheet" href="/site/shop/common/model/imgzoom/imagezoom.css">
+    <script src="/site/shop/common/model/imgzoom/jquery.imagezoom.min.js"></script>
+</head>
+
+<body>
+    <link rel="import" href="/widget/shopHeader/header.html?__inline">
+    <link rel="import" href="/widget/shopNav/nav.html?__inline">
+    <div class="main">
+        <div class="left">
+            <h3>所有商品分类</h3>
+        </div>
+        <div class="right">
+            <div class="top">
+                <div class="topleft box">
+                    <div class="tb-booth tb-pic tb-s310">
+                        <a href="<%= url%><%= gallery[0].img_url%>!list"><img src="<%= url%><%= gallery[0].img_url%>!list" rel="<%= url%><%= gallery[0].img_url%>!list" class="jqzoom" /></a>
+                    </div>
+                    <ul class="tb-thumb" id="thumblist">
+                        <!-- <li class="tb-selected">
+              <div class="tb-pic tb-s40">
+                <a href="javascript:void(0);">
+                  <img src="images/01_small.jpg" mid="images/01_mid.jpg" big="images/01.jpg" />
+                </a>
+              </div>
+            </li> -->
+                        <%for(var i=0;i<gallery.length;i++) {%>
+                            <li>
+                                <div class="tb-pic tb-s40">
+                                    <a href="javascript:void(0);">
+                  <img src="<%= url%><%= gallery[i].img_url%>!smail" mid="<%= url%><%= gallery[i].img_url%>!list" big="<%= url%><%= gallery[i].img_url%>!list" />
+                </a>
+                                </div>
+                            </li>
+                            <% }%>
+                                <!-- <li>
+              <div class="tb-pic tb-s40">
+                <a href="javascript:void(0);">
+                  <img src="images/03_small.jpg" mid="images/03_mid.jpg" big="images/03.jpg" />
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="tb-pic tb-s40">
+                <a href="javascript:void(0);">
+                  <img src="images/04_small.jpg" mid="images/04_mid.jpg" big="images/04.jpg" />
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="tb-pic tb-s40">
+                <a href="javascript:void(0);">
+                  <img src="images/05_small.jpg" mid="images/05_mid.jpg" big="images/05.jpg" />
+                </a>
+              </div>
+            </li> -->
+                    </ul>
+                </div>
+                <div class="topright">
+                    <h1 id="goodsname"><%= goods.goods_name%></h1>
+                    <ul>
+                        <li style="width:100%" id="price">本店售价：<strong>￥<%= goods.shop_price%>元</strong><span>￥<%= goods.market_price%>元</span></li>
+                        <li>商品货号：
+                            <i id="goodsnum"><%= goods.goods_sn%></i>
+                        </li>
+                        <li>商品库存：
+                            <%= goods.goods_number%>
+                        </li>
+                        <li>商品品牌：
+                            <a href="#">
+                                <%= goods.brand_id%>
+                            </a>
+                        </li>
+                        <li>商品重量：
+                            <%= goods.goods_weight%>
+                                <%= goods.weight_unit%>
+                        </li>
+                        <li>上架时间：2015-01-01</li>
+                        <li>商品点击数：
+                            <%= goods.click_count%>
+                        </li>
+                        <li>累计销量：97</li>
+                          <div style="clear:both;"></div>
+                    </ul>
+                    <ul>
+                        <li>促销价：<strong>￥110元</strong></li>
+                        <li>剩余时间：100天10小时25分钟11秒</li>
+                          <div style="clear:both;"></div>
+                    </ul>
+                    <ul>
+                        <li style="width:100%;margin-bottom:20pz;height:40px;">购买数量：
+                            <input type="number" style="width:100px;" value="0" /> 商品总价：<em>100元</em></li>
+                        <li style="width:100%;height:40px;">
+                            <a href="javascript:void(0)" class="cart"><img src="/site/shop/img/goumai2.gif" alt=""></a>
+                        </li>
+                          <div style="clear:both;"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="info tab">
+                <ul>
+                    <li class="active">商品描述</li>
+                    <li>商品属性</li>
+                    <li>相关产品</li>
+                </ul>
+                <div class="item">
+                    <%- goods.goods_desc%>
+                </div>
+                <div class="item">
+                  <ul class="goodsattr">
+                    <%for(var i=0;i<goodsattr.length;i++) {%>
+                        <li>
+                            <%= goodsattr[i].attrname%>：<%= goodsattr[i].attrvalue%>
+                        </li>
+                        <% }%>
+                        <div style="clear:both;"></div>
+                    </ul>
+                </div>
+                <div class="item"></div>
+            </div>
+            <div class="comment">
+                <h3 class="h3title">用户评论</h3>
+                <ul>
+                    <li></li>
+                </ul>
+                <div class="form">
+                    <div>
+                        <label for="">评价等级</label>
+                        <input type="redio" />
+                    </div>
+                    <div>
+                        <label for="">评价内容</label>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-info" value="提交">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+    <script type="text/javascript">
+        var goods = require("shop/goods/goods");
+        goods.init();
+        $(".tab").pizzaTab({
+            activeCla: "active", //默认标题选中样式
+            itemCla: 'item', //默认正文区样式
+        });
+    </script>
+</body>
+
+</html>

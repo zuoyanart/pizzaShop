@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="import" href="/widget/meta/meta.html?__inline">
+    <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/shop/list/list.css">
+    <style>
+        .info {
+            margin: 20px;
+        }
+
+        .tab> .item {
+            padding: 50px;
+        }
+
+        .tab> .item input[type=text],select {
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <link rel="import" href="/widget/shopHeader/header.html?__inline">
+    <link rel="import" href="/widget/shopNav/nav.html?__inline">
+    <div class="main">
+        <div class="info tab">
+            <ul>
+                <li class="active">登录</li>
+                <li>注册</li>
+            </ul>
+            <div class="item">
+                <form action="./login" method="post">
+                    <div>
+                        <label for="">用户名</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label for="">密码</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <button class="btn btn-info">登录</button>
+                    </div>
+                </form>
+            </div>
+            <div class="item">
+                <form action="./update" method="post">
+                    <div>
+                        <label for="">用户名</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label for="">密码</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label for="">重复密码</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label for="">密码提示问题</label>
+                       <select name="" id="">
+                         <option value="">请选择密码问题</option>
+                       </select>
+                    </div>
+                    <div>
+                        <label for="">密码问题答案</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <button class="btn btn-info">登录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+    <script type="text/javascript">
+        var index = require("shop/index/index");
+        index.Item();
+        $(".tab").pizzaTab({
+            activeCla: "active", //默认标题选中样式
+            itemCla: 'item', //默认正文区样式
+        });
+    </script>
+</body>
+
+</html>
