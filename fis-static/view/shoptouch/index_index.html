@@ -1,103 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html data-dpr="2">
 
 <head>
-    <title>魅力商城</title>
-    <link rel="import" href="/widget/meta/meta.html?__inline">
-    <link rel="import" href="/widget/shopMeta/meta.html?__inline">
-    <link rel="stylesheet" href="/site/shop/index/index.css">
+    <title>魅力商城-mobile</title>
+    <link rel="import" href="/widget/shoptouchMeta/meta.html?__inline">
+    <link rel="stylesheet" href="/site/shoptouch/index/index.css">
 </head>
 
 <body>
-    <link rel="import" href="/widget/shopHeader/header.html?__inline">
-    <link rel="import" href="/widget/shopNav/nav.html?__inline">
-    <div class="rotator" id="rotator">
-        <ul class="lz">
-            <li style="background-image:url(/site/shop/img/lz1.png);"><a href="#">&nbsp;</a></li>
-            <li style="background-image:url(/site/shop/img/lz2.jpg);"><a href="#">&nbsp;</a></li>
-            <li style="background-image:url(/site/shop/img/lz3.jpg);"><a href="#">&nbsp;</a></li>
-            <li style="background-image:url(/site/shop/img/lz4.png);"><a href="#">&nbsp;</a></li>
-            <li style="background-image:url(/site/shop/img/lz5.png);"><a href="#">&nbsp;</a></li>
-            <li style="background-image:url(/site/shop/img/lz6.jpg);"><a href="#">&nbsp;</a></li>
-        </ul>
-        <ul class="num">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
+    <header>
+        <div>
+            <a href="/shoptouch"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/wap_logo.png" alt=""></a>
+        </div>
+        <div>
+            <input type="search" placeholder="请输入搜索内容">
+        </div>
+        <div>
+            <a href="/shoptouch/cate"><i class="icon-reorder"></i></a>
+        </div>
+    </header>
+    <div class="slider">
+
     </div>
-    <div class="goods">
-        <h3 class="h3title"><a href="#">更多</a>特价商品</h3>
-        <ul>
-          <% for(var i=0,ll=hotgoods.msg.length; i<ll;i++) {%>
-            <li>
-                <a href="/shop/goods?id=<%= hotgoods.msg[i].goods_id%>" target="_blank">
-                    <img src="http://o8tdqcp0r.bkt.clouddn.com/2016/06/15/v0rajwenn_0xg19ozwbawfspb5ttekhp.jpg!list" alt="">
-                    <br><%= hotgoods.msg[i].goods_name%>
-                </a>
-                <p>市场价：<span class="market">￥<%= hotgoods.msg[i].market_price%>元</span></p>
-                <p>促销价：<span>￥<%= hotgoods.msg[i].shop_price%>元</span></p>
-            </li>
-          <% }%>
-            <div style="clear:both;"></div>
-        </ul>
-    </div>
-    <div class="goods">
-        <h3 class="h3title"><a href="#">更多</a>新品上架</h3>
-        <ul>
-          <% for(var i=0,ll=newgoods.msg.length; i<ll;i++) {%>
-            <li>
-                <a href="/shop/goods?id=<%= newgoods.msg[i].goods_id%>" target="_blank">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br><%= newgoods.msg[i].goods_name%>
-                </a>
-                <p>市场价：<span class="market">￥<%= newgoods.msg[i].market_price%>元</span></p>
-                <p>促销价：<span>￥<%= newgoods.msg[i].shop_price%>元</span></p>
-            </li>
-          <% }%>
-            <div style="clear:both;"></div>
-        </ul>
-    </div>
-    <div class="goods">
-        <h3 class="h3title"><a href="#">更多</a>热卖商品</h3>
-        <ul>
-          <% for(var i=0,ll=hotgoods.msg.length; i<ll;i++) {%>
-            <li>
-                <a href="/shop/goods?id=<%= hotgoods.msg[i].goods_id%>" target="_blank">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br><%= hotgoods.msg[i].goods_name%>
-                </a>
-                <p>市场价：<span class="market">￥<%= hotgoods.msg[i].market_price%>元</span></p>
-                <p>促销价：<span>￥<%= hotgoods.msg[i].shop_price%>元</span></p>
-            </li>
-          <% }%>
-            <div style="clear:both;"></div>
-        </ul>
-    </div>
-    <div class="goods">
-        <h3 class="h3title"><a href="#">更多</a>精品推荐</h3>
-        <ul>
-          <% for(var i=0,ll=bestgoods.msg.length; i<ll;i++) {%>
-            <li>
-                <a href="/shop/goods?id=<%= bestgoods.msg[i].goods_id%>" target="_blank">
-                    <img src="/site/shop/img/test/1.jpg" alt="">
-                    <br><%= bestgoods.msg[i].goods_name%>
-                </a>
-                <p>市场价：<span class="market">￥<%= bestgoods.msg[i].market_price%>元</span></p>
-                <p>促销价：<span>￥<%= bestgoods.msg[i].shop_price%>元</span></p>
-            </li>
-          <% }%>
-            <div style="clear:both;"></div>
-        </ul>
-    </div>
-      <link rel="import" href="/widget/shopFooter/footer.html?__inline">
-    <script type="text/javascript">
-        var index = require("shop/index/index");
-        index.Item();
-    </script>
+    <ul class="indexmenu">
+        <li>
+            <a href="#"><img src="/site/shoptouch/common/img/1.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286364060583873.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286370307249325.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286378877161223.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286350198061632.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286350198061632.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286350198061632.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+        <li>
+            <a href="#"><img src="http://upfile.ecmoban.com/data/assets/ecmoban2014/1464286350198061632.png" alt="">
+                <p>全部分类</p>
+            </a>
+        </li>
+    </ul>
 </body>
 
 </html>

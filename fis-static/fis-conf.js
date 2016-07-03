@@ -43,7 +43,7 @@ fis.match("**/*", {
         useCache: false,
         release: '/$&'
     })
-    .match(/^\/view\/(vue)\/(.*)\.(html)$/i, {
+    .match(/^\/view\/(vue|shop|shoptouch)\/(.*)\.(html)$/i, {
         useCache: false,
         release: '/$&'
     })

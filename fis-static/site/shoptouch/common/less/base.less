@@ -1,0 +1,56 @@
+@import "var.less";
+
+//base style
+.clearfix:after {
+  display: block;
+  height: 0;
+  clear: both;
+  content: "\200B";
+}
+
+//网页占位符
+.hold-space {
+  width: 100%;
+  height: 146px;
+  margin-top: 128px;
+  text-align: center;
+  border: 2px solid @bgcolor-hold;
+  background-color: @bgcolor-hold-place;
+  .title {
+    font-size: 20px;
+    line-height: 102px;
+    height: 102px;
+  }
+  .des {
+    line-height: 44px;
+    height: 44px;
+    color: #fff;
+    background-color: @bgcolor-hold;
+  }
+}
+
+//翻页按钮样式
+.turnpage {
+  width: 100%;
+  height: 36px;
+  text-align: right;
+  .btn {
+    margin-left: 2px;
+  }
+  .number {
+    vertical-align: middle;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    &.choose {
+      color: @bgcolor-danger;
+    }
+  }
+  em {
+    color: @color-a;
+    font-family: 宋体;
+    vertical-align: 16%;
+  }
+}

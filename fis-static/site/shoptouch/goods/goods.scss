@@ -1,0 +1,52 @@
+.main{
+    .right{
+        .top{
+            clear:both;
+            width: 100%;
+            .topleft{
+                width: 372px;
+                height: 477px;
+                float: left;
+            }
+            .topright{
+                width: 570px;
+                height: 477px;
+                float: left;
+                padding-top: 45px;
+                & > ul{
+                  clear:both;
+                  border-bottom: 1px solid #ccc;
+                  padding-bottom: 10px;
+                  margin-bottom: 10px;
+                  li{
+                    height: 30px;
+                    line-height: 30px;
+                    float:left;
+                    width: 244px;
+                    strong{
+                      font-size: 23px;
+                      color:#EB155B;
+                    }
+                    span{
+                      text-decoration: line-through;
+                      margin-left: 20px;
+                      color:#999;
+                    }
+                  }
+                }
+            }
+        }
+    }
+    .goodsattr{
+      width: 100%;
+      clear: both;
+      min-height: 100px;
+      & >li{
+        width: 200px;
+        height: 30px;
+        float: left;
+        line-height: 30px;
+        padding-left: 20px;
+      }
+    }
+}

@@ -1,0 +1,146 @@
+@import "variables.less";
+.star-huang {
+  color: #ffde00;
+  margin: 0 1px;
+  font-size: 15px;
+}
+.star-hong {
+  color: @bgcolor-danger;
+  margin: 0 1px;
+  font-size: 15px;
+}
+.star-orange {//
+  color: @estimate-orange;
+  margin: 0 1px;
+  font-size: 15px;
+}
+.star-gray {//hui
+  color: #727171;
+  margin: 0 1px;
+  font-size: 15px;
+}
+body {
+  .honesty-explain {
+    > p {
+      width: 500px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      border-bottom: 1px dashed #999;
+      em {
+        color: @bgcolor-danger;
+      }
+    }
+    > span {
+      font-size: 16px;
+    }
+    /*.icon-star {
+      margin-right: 8px;
+    }*/
+  }
+  .icon-star {
+    margin-right: 5px;
+  }
+  .red {
+    color: @bgcolor-danger;
+  }
+  .orange {
+    color: @estimate-orange;
+  }
+  .yellow {
+    color: @bgcolor-warning;
+  }
+  .gray {
+    color: @bgcolor-hold;
+  }
+  .icon-question-sign {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.mcicon-rmlink-parent {
+  width: 29px!important;
+  height: 25px!important;
+  padding: 0 0 0 1px !important;
+  line-height: 25px!important;
+}
+.mcicon-rmlink {
+
+  //人脉连接图标
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  background: url("/img/icon/rm-link.png?__sprite") no-repeat;
+}
+.mcicon-del {
+  //图片删除按钮
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background: url("/img/icon/del.png?__sprite") no-repeat;
+  &:hover {
+    background: url("/img/icon/del-hover.png?__sprite") no-repeat;
+  }
+}
+.mcicon-circle {
+  //实心圆点
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: @bgcolor-hold;
+  vertical-align: middle;
+}
+
+.mcicon-circle-danger {
+  //实心圆点
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: @bgcolor-danger;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+//已经分享状态 红色
+.pay-for-share {
+  display: inline-block;
+  width: 87px;
+  height: 28px;
+  vertical-align: middle;
+  margin: 0 3px;
+  background: url(/img/money-small.png) no-repeat 7px 5px @bgcolor-danger;
+  color: #fff;
+  line-height: 28px;
+  padding-left: 30px;
+  text-align: left;
+  border-radius: 0 0 5px 5px;
+  font-size: 12px;
+  box-shadow: 0 0 10px #666 inset;
+  cursor: pointer;
+  &.share-close{
+      background: @bgcolor-hold-place;
+      color:#000;
+      text-align: center;
+      padding-left: 3px;
+  }
+}
+
+//开启分享按钮
+.open-pay-for-share {
+  text-align: center;
+  width: 87px;
+  height: 26px;
+  margin-top: 2px;
+  line-height:26px;
+  border-radius:5px;
+  font-size: 12px;
+  color:#fff;
+  background-color: @btn-bgcolor;
+  &:hover {
+      color:#fff;
+    background-color: @btn-bgcolor-hover;
+  }
+}
