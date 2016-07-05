@@ -37,6 +37,11 @@ fis.match("**/*", {
         url: '${url}/$&',
         // optimizer: fis.plugin('uglify-js')
     })
+    .match('*.less', { //编译less
+        parser: fis.plugin('less'),
+        rExt: '.css',
+        // optimizer: fis.plugin('optimizer-clean-css')
+    })
     //page下面的页面发布时去掉page文件夹
     .match(/^\/view\/(common|master|admin|home|shopadmin)\/(.*)\.(html)$/i, {
         parser: fis.plugin('swigt'),
