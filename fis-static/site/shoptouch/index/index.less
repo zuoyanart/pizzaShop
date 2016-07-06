@@ -91,7 +91,7 @@ header {
         }
         p {
             height: 48rem / @font-size-base;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 48rem / @font-size-base;
             [data-dpr="2"] & {
                 font-size: 28px;
@@ -111,8 +111,14 @@ header {
         line-height: 80rem / @font-size-base;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
-        font-size: 40px;
+        font-size: 16px;
         padding-left: 30rem / @font-size-base;
+        [data-dpr="2"] &{
+          font-size: 36px;
+        }
+        [data-dpr="3"] &{
+          font-size: 60px;
+        }
     }
     .goods {
         & > div {
@@ -126,12 +132,12 @@ header {
             width: 100%;
         }
         p {
-            font-size: 14px;
+            font-size: 13px;
             [data-dpr="2"] & {
-                font-size: 24px;
+                font-size: 28px;
             }
             [data-dpr="3"] & {
-                font-size: 42px;
+                font-size: 46px;
             }
         }
     }
@@ -149,14 +155,29 @@ header {
                 width: 156.5rem / @font-size-base;
                 height: 100%;
                 float: left;
-                font-size: 25px;
+                font-size: 12px;
+                text-align: center;
+                color:#999;
+                [data-dpr="2"] & {
+                    font-size: 25px;
+                }
+                [data-dpr="3"] & {
+                    font-size: 40px;
+                }
                 i{
-                  font-size: 60px;
+                  font-size: 40px;
+                  [data-dpr="2"] {
+                    font-size: 60px;
+                  }
+                  [data-dpr="3"] {
+                    font-size: 60px;
+                  }
                 }
             }
         }
     }
     .copyright {
         text-align: center;
+        color:#999;
     }
 }

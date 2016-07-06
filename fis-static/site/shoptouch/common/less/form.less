@@ -30,17 +30,21 @@ textarea {
     &:focus {
         .input-focus();
     }
+    [data-dpr="2"] &::-webkit-input-placeholder {
+        font-size: 30px;
+        color: @input-placeholder-color;
+    }
+    [data-dpr="3"] &::-webkit-input-placeholder {
+        font-size: 50px;
+        color: @input-placeholder-color;
+    }
+    [data-dpr="2"] & {
+        font-size: 30px;
+    }
+    [data-dpr="3"] & {
+        font-size: 50px;
+    }
 }
-
-[data-dpr="3"] input::-moz-placeholder {
-    font-size: 24px;
-    color: @input-placeholder-color;
-}
-[data-dpr="2"] input::-webkit-input-placeholder {
-    font-size: 14px;
-    color: @input-placeholder-color;
-}
-
 textarea {
     height: auto;
     line-height: 24px;

@@ -37,7 +37,7 @@ fis.match("**/*", {
         url: '${url}/$&',
         // optimizer: fis.plugin('uglify-js')
     })
-    .match('*.less', { //编译less
+    .match('**/*.less', { //编译less
         parser: fis.plugin('less'),
         rExt: '.css',
         // optimizer: fis.plugin('optimizer-clean-css')
