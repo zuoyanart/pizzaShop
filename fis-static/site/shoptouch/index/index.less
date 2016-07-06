@@ -48,23 +48,115 @@ header {
     height: 352rem / @font-size-base;
 }
 .indexmenu {
-    width: 100%;
     height: 356rem / @font-size-base;
     text-align: center;
-    div{
-      width:100%;
-      height:2.125rem;
+    div {
+        width: 100%;
+        height: 163.18rem / @font-size-base;
     }
     a {
         color: #000;
         display: block;
-        height:100%;
-        &.a1{
-          background: url(/site/shoptouch/common/img/1.png) no-repeat center top;
+        height: 100%;
+        div {
+            width: 90.22rem / @font-size-base;
+            height: 90.22rem / @font-size-base;
+            background-size: contain!important;
+            background-position: 50% 50%!important;
+            margin: 0 auto;
+            &.a1 {
+                background: url("/site/shoptouch/common/img/1.png") no-repeat;
+            }
+            &.a2 {
+                background: url("/site/shoptouch/common/img/2.png") no-repeat;
+            }
+            &.a3 {
+                background: url("/site/shoptouch/common/img/3.png") no-repeat;
+            }
+            &.a4 {
+                background: url("/site/shoptouch/common/img/4.png") no-repeat;
+            }
+            &.a5 {
+                background: url("/site/shoptouch/common/img/5.png") no-repeat;
+            }
+            &.a6 {
+                background: url("/site/shoptouch/common/img/6.png") no-repeat;
+            }
+            &.a7 {
+                background: url("/site/shoptouch/common/img/7.png") no-repeat;
+            }
+            &.a8 {
+                background: url("/site/shoptouch/common/img/8.png") no-repeat;
+            }
+        }
+        p {
+            height: 48rem / @font-size-base;
+            font-size: 16px;
+            line-height: 48rem / @font-size-base;
+            [data-dpr="2"] & {
+                font-size: 28px;
+            }
+            [data-dpr="3"] & {
+                font-size: 42px;
+            }
         }
     }
-
     // img{
     //   width: 84rem / @font-size-base;
     // }
+}
+.newday {
+    h2 {
+        height: 80rem / @font-size-base;
+        line-height: 80rem / @font-size-base;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        font-size: 40px;
+        padding-left: 30rem / @font-size-base;
+    }
+    .goods {
+        & > div {
+            margin-bottom: 17rem / @font-size-base;
+            margin-top: 17rem / @font-size-base;
+        }
+        a {
+            color: #000;
+        }
+        img {
+            width: 100%;
+        }
+        p {
+            font-size: 14px;
+            [data-dpr="2"] & {
+                font-size: 24px;
+            }
+            [data-dpr="3"] & {
+                font-size: 42px;
+            }
+        }
+    }
+}
+.footer {
+    background: #efeff4;
+    height: 300rem / @font-size-base;
+    .footer-icon {
+        height: 192rem / @font-size-base;
+        padding: 50rem/@font-size-base 140rem/@font-size-base;
+        ul {
+            width: 470rem / @font-size-base;
+            height: 134rem / @font-size-base;
+            li {
+                width: 156.5rem / @font-size-base;
+                height: 100%;
+                float: left;
+                font-size: 25px;
+                i{
+                  font-size: 60px;
+                }
+            }
+        }
+    }
+    .copyright {
+        text-align: center;
+    }
 }
