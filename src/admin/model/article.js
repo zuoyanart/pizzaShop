@@ -21,7 +21,7 @@ export default class extends think.model.base {
                         join: "inner",
                         on: ["nodeid", "node.id"]
                     }).join({
-                        table: "user",
+                        table: "user_admin",
                         as: "user",
                         join: "inner",
                         on: ["uid", "id"]
