@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-runtime": "6.x.x",
     "moment": "^2.14.1",
+    "node-pinyin": "^0.2.3",
     "qiniu": "^6.1.11",
     "source-map-support": "^0.4.0",
     "thinkjs": "2.2.x"

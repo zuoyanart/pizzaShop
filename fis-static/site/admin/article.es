@@ -180,7 +180,7 @@ let article = (function() {
                         op = "update";
                         data += '&id=' + id;
                     }
-                    data += '&content=' + editor.html();
+                    data += '&content=' + escape(editor.html());
                     $.ajax({
                         url: options.url + op,
                         data: data,

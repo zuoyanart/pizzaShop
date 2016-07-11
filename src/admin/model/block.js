@@ -43,6 +43,7 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async blockUpdate(block) {
+            block.content = unescape(block.content);
             let row = await this.update(block);
             return {
                 state: true
@@ -55,6 +56,7 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(block) {
+            block.content = unescape(block.content);
             let id = await this.add(block);
             return {
                 state: true,

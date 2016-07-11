@@ -6,8 +6,15 @@
 </div>
 <ul class="list" id="list">
 <div class="form"  style="width:800px;">
-  <div><label for="">标题</label><input type="text" id="name" name="name"></div>
-  <div><label for="">连接地址</label><input type="text" id="link" name="link"></div>
+  <div><label for="">节点名称</label><input type="text" id="name" name="name"></div>
+  <div><label for="">连接地址</label><input type="text" id="link" name="link" placeholder="默认请填写mp个数"></div>
+  <div><label for="">正文类型</label><select name="article_type" id="article_type">
+      <option value="">普通</option>
+      <option value="photo">组图</option>
+      <option value="video">视频</option>
+    </select></div>
+  <div><label>SEO关键字</label><input type="text" name="keyword" id="keyword"></div>
+  <div><label>SEO描述</label><textarea name="seodes" id="seodes"></textarea></div>
   <div><label for="">描述</label><textarea name="name" rows="20" cols="40" id="brief" name="brief"></textarea></div>
   <div><label for="">权重</label><input type="number" value="0" id="weight" name="weight"/></div>
   <div><input type="submit" class="btn btn-primary" value="更新"></div>

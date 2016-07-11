@@ -68,6 +68,7 @@ export default class extends Base {
             up.pass = parseInt(up.pass);
             up.reco = parseInt(up.reco);
             up.uid = parseInt(this.cookie("id"));
+            up.createtime = getUnixTime();
             // let article = await tools.httpAgent(this.config("api") + 'article', "post", up);
             let article = await this.model("article").create(up);
             return this.json({

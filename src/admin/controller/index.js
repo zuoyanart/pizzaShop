@@ -2,7 +2,6 @@
 
 import Base from './base.js';
 import mail from '../../common/tools/mail.js';
-import data from '../../common/tools/data.js';
 export default class extends Base {
 
   /**

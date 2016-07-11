@@ -70,6 +70,7 @@ export default class extends think.model.base {
                 let article = await httpAgent(this.config("api") + 'article', "put", article);
                 return article;
             } else {
+                article.content = unescape(article.content);
                 let row = await this.update(article);
                 return {
                     state: true
@@ -87,7 +88,23 @@ export default class extends think.model.base {
                 let article = await httpAgent(this.config("api") + 'article', "put", article);
                 return article;
             } else {
+                article.content = unescape(article.content);
+                if (article.brief == "") { //自动添加描述
+                    article.brief = subStr(removeHtml(article.content), 200);
+                }
                 let id = await this.add(article);
+                //更新link
+                let nodeModel = this.model("tree");
+                let node = await nodeModel.get(article.nodeid);
+                let link = "/content/" + id;
+                if (node.msg.article_type != "") {
+                    link = "/content_" + node.msg.article_type + "/" + id;
+                }
+                let row = await this.where({
+                    id: id
+                }).update({
+                    link: link
+                });
                 return {
                     state: true,
                     msg: id

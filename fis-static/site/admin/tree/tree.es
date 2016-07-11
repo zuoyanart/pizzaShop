@@ -66,10 +66,10 @@ let tree = (function() {
         },
         '#link': {
           'must': false,
-          'minLength': 5,
+          'minLength': 1,
           'maxLength': 150,
           focusMsg: "请输入自定义链接(非必填)",
-          errMsg: '自定义链接须在5-150个字符之间'
+          errMsg: '自定义链接须在1-150个字符之间'
         },
         '#weight': {
           'must': true,
@@ -77,6 +77,27 @@ let tree = (function() {
           'maxLength': 3,
           focusMsg: "请输入节点权重",
           errMsg: '请输入节点权重，只能是小于4位的数字'
+        },
+        '#article_type': {
+          'must': false,
+          'minLength': 1,
+          'maxLength': 30,
+          focusMsg: "请选择正文类型",
+          errMsg: '请选择正文类型'
+        },
+        '#keyword': {
+          'must': false,
+          'minLength': 1,
+          'maxLength': 100,
+          focusMsg: "请输入关键字",
+          errMsg: '请输入关键字，字数必须小于100个字符'
+        },
+        '#seodes': {
+          'must': false,
+          'minLength': 1,
+          'maxLength': 200,
+          focusMsg: "请输入描述",
+          errMsg: '请输入描述，字数必须小于200个字符'
         }
 
       },
@@ -90,7 +111,7 @@ let tree = (function() {
         } else {
           data += '&pid=' + pid;
         }
-        data += '&brief=' + editor.html()
+        data += '&brief=' + escape(editor.html());
         $.ajax({
           url: options.url + op,
           data: data,

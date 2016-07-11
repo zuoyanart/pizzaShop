@@ -3,7 +3,7 @@
     <label class="checkgroup">
       <input type="checkbox" id="article_<%= data[i].id%>" name="checkall"><label for="article_<%= data[i].id%>" class="check-all"></label>
     </label>
-    <a href="">[<%= data[i].nodename%>] <%= data[i].title%></a>
+    <a href="<%= data[i].link%>?preview=true" target="_blank">[<%= data[i].nodename%>] <%= data[i].title%></a>
     <% if(data[i].pass == 0){%>
     <b>[未审核]</b>
     <%}%>

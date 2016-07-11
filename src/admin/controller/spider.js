@@ -15,7 +15,6 @@ export default class extends Base {
             let jsonItem = {};
             let param = xss(this.post());
             let article = await httpSpider("http://www.jianyezuqiu.cn/jianyeftweb/website/newsList.htm" + "?page=" + param.cp + "&cid=12", "get");
-            // console.log(article);
             let $ = cheerio.load(article, {
                 normalizeWhitespace: true,
                 xmlMode: true
@@ -61,7 +60,6 @@ export default class extends Base {
 
         msg.content = msg.content.replace(/<(\/){0,1}div[^<>]*>/ig, '').replace(/<\/span>/ig, "</span><br/><br/>").replace(/<(\/){0,1}span[^<>]*>/ig, '').replace(/&amp;/ig,"&");
         json.msg = msg;
-        // console.log(json);
         return this.json(json);
     }
 }

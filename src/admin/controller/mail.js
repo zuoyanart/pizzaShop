@@ -20,7 +20,6 @@ export default class extends Base {
         if ($(".summary-failures > h1").text() != 0) {
             var ml = new mail();
             ml.sendMail("490526801@qq.com", webObj + "mocha单元测试失败", webObj + "mocha单元测试失败").then(function(msg) {
-                console.log("msg=" + msg);
                 _self.end(msg);
             });
         } else {
@@ -35,7 +34,6 @@ export default class extends Base {
         var webObj = this.get("object");
         var hosts = this.get("hosts");
         let article = await httpSpider("http://192.168.1.134:8080", "get");
-        console.log(article);
         let $ = cheerio.load(article, {
             normalizeWhitespace: true,
             xmlMode: true
@@ -43,7 +41,6 @@ export default class extends Base {
         if ($(".summary-failures > h1").text() != 0) {
             var ml = new mail();
             ml.sendMail("490526801@qq.com", webObj + "golang单元测试失败", webObj + "golang单元测试失败").then(function(msg) {
-                console.log("msg=" + msg);
                 _self.end(msg);
             });
         } else {
@@ -68,9 +65,7 @@ export default class extends Base {
             article = article.replace(/\[0;35m/g, "&nbsp;");
             article = article.replace(/\[1;37m/g, "&nbsp;");
             article = article.replace(/\[0;37m/g, "<br/>&nbsp;");
-            console.log(article);
             ml.sendMail("490526801@qq.com", "验收测试失败", article).then(function(msg) {
-                console.log("msg=" + msg);
                 _self.end(msg);
             });
         } else {
