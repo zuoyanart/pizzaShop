@@ -15,6 +15,7 @@ export default class extends think.model.base {
                 let article = await httpAgent(this.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
                 return article;
             } else {
+              console.log("zhixing");
                 let rows = await this.join({
                         table: "node",
                         as: "node",

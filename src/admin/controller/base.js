@@ -12,6 +12,7 @@ export default class extends think.controller.base {
     let secureKey = think.md5(username + ua + id + think.config("salt"));
     if (key !== secureKey) {
        this.redirect('/admin/login');
+       return this.end();
     }
   }
 }

@@ -18,6 +18,7 @@ export default class extends Base {
          */
     async pageAction() {
             // let article = await tools.httpAgent(this.config("api") + 'article/page', "post", "kw=" + this.post("kw") + "&cp=" + this.post("cp") + "&mp=" + this.post("mp") + "&nodeid=" + this.post("nodeid"));
+            console.log("asdasdddd");
             let param = xss(this.post());
             let article = await this.model("article").page(param.kw, param.nodeid, param.cp, param.mp);
             return this.json(article);
