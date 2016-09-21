@@ -8,7 +8,7 @@ export default class extends Base {
      * @return {Promise} []
      */
     async indexAction() {
-
+      return this.display();
     }
 
     async pageAction() {
