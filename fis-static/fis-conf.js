@@ -43,12 +43,12 @@ fis.match("**/*", {
         // optimizer: fis.plugin('optimizer-clean-css')
     })
     //page下面的页面发布时去掉page文件夹
-    .match(/^\/view\/(common|master|admin|home|shopadmin)\/(.*)\.(html)$/i, {
+    .match(/^\/view\/(common|master|admin|shopadmin)\/(.*)\.(html)$/i, {
         parser: fis.plugin('swigt'),
         useCache: false,
         release: '/$&'
     })
-    .match(/^\/view\/(vue|shop|shoptouch)\/(.*)\.(html)$/i, {
+    .match(/^\/view\/(vue|shop|shoptouch|user|home)\/(.*)\.(html)$/i, {
         useCache: false,
         release: '/$&'
     })
