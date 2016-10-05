@@ -3,35 +3,31 @@ var addr = () => {
     let $ = require("jquery");
 
     self.init = () => {
-        $("#province").on("change", () => {
+        changeArea("#province", "#city");
+        changeArea("#city", "#county");
+    }
+
+    /***私有函数***/
+    /**
+     * 区域联动
+     * @param  {[type]} obj       [description]
+     * @param  {[type]} targetObj [description]
+     * @return {[type]}           [description]
+     */
+    let changeArea = (obj, targetObj) => {
+        $(obj).on("change", () => {
             $.ajax({
                 type: "post",
                 url: "/user/addr/getcity",
-                data: "areaid=" + $("#province").find("option:selected").attr("data"),
+                data: "areaid=" + $(obj).find("option:selected").attr("data"),
                 success: function(msg) {
-                    var s = '';
-                    for (var i = 0; i < msg.result.length; i++) {
-                        s += '<option value="'+ msg.result[i].name+'" data="'+ msg.result[i].area_id+'">' + msg.result[i].name + '</option>';
+                    let s = '<option value="" selected="selected">请选择</option>';
+                    for (let i = 0; i < msg.result.length; i++) {
+                        s += '<option value="' + msg.result[i].name + '" data="' + msg.result[i].area_id + '">' + msg.result[i].name + '</option>';
                     }
-                    console.log(s);
-                    $("#city").html(s);
+                    $(targetObj).html(s);
                 }
-            })
-        });
-        $("#city").on("change", () => {
-            $.ajax({
-                type: "post",
-                url: "/user/addr/getcity",
-                data: "areaid=" + $("#city").find("option:selected").attr("data"),
-                success: function(msg) {
-                    var s = '';
-                    for (var i = 0; i < msg.result.length; i++) {
-                        s += '<option>' + msg.result[i].name + '</option>';
-                    }
-                    console.log(s);
-                    $("#county").html(s);
-                }
-            })
+            });
         });
     }
 

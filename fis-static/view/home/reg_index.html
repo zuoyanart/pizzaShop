@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/home/reg/reg.less">
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain">
+      <div class="form" style="width:500px;">
+        <div><label for="">用户名</label><input type="text" id="username" name="username"></div>
+        <div><label for="">邮箱</label><input type="text" id="mail" name="mail"></div>
+        <div><label for="">手机号码</label><input type="text" id="phone" name="phone"></div>
+        <div><label for="">密码</label><input type="password" id="password" name="password"></div>
+        <div><label for="">确认密码</label><input type="password" id="password1" name="password1"></div>
+        <div><input type="submit" value="登录" class="btn btn-info"></div>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script type="text/javascript">
+    var reg = require("home/reg/reg");
+    reg.init();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/user/addr/addr.less">
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain">
+    <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
+    <div class="userinfo useraddr">
+      <div class="form" style="width:500px;">
+        <div><label for="">原密码</label><input type="password"></div>
+        <div><label for="">新密码</label><input type="password"></div>
+        <div><label for="">重复密码</label><input type="password"></div>
+        <div><input type="submit" value="更新" class="btn btn-info"></div>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script type="text/javascript">
+    var addr = require("user/addr/addr");
+    addr.init();
+  </script>
+</body>
+
+</html>
