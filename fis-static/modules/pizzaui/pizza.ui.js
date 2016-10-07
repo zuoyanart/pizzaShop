@@ -184,8 +184,8 @@ var jQuery = require('jquery');
             dataType: 'json',
             success: function(msg) {
               if (msg.state != 'true') {
+                _isValid = false;
                 $.fn.pizzaValidate.addTips(obj, 'errMsg');
-
               }
               if (_isValid) {
                 $.fn.pizzaValidate.removeTips(obj);

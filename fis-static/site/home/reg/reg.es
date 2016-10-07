@@ -24,8 +24,9 @@ let reg = () => {
                     'must': true,
                     'minLength': 2,
                     'maxLength': 48,
+                    'url': "/reg/check",
                     focusMsg: "请输入用户名",
-                    errMsg: '用户名不能为空或用户名必须在5-48个字符之间'
+                    errMsg: '用户名必须在2-48个字符之间且不能重复'
                 },
                 '#mail': {
                     'must': true,
@@ -61,11 +62,12 @@ let reg = () => {
             },
             ajaxFun: function(data) {
                 $.ajax({
+                  type:"post",
                     url: "/reg/reg",
                     data: data,
                     success: function(msg) {
                         if (msg.state == true) {
-                            history.back();
+                           document.location.href = "/login"
                         }
                     }
                 });

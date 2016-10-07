@@ -3,41 +3,20 @@
  * model
  */
 export default class extends think.model.base {
-    /**
-     *  根据父节点获取所有子节点
-     * @method checkUserLogin
-     * @param  {[type]}       username [description]
-     * @param  {[type]}       password [description]
-     * @return {[type]}                [description]
-     */
-    async page(kw, nodeid, cp, mp) {
-            if (think.config("openApi")) {
-                let article = await httpAgent(this.config("api") + 'article/page', "post", "kw=" + kw + "&cp=" + cp + "&mp=" + mp + "&nodeid=" + nodeid);
-                return article;
-            } else {
-                console.log("zhixing");
-                let rows = await this.join({
-                        table: "node",
-                        as: "node",
-                        join: "inner",
-                        on: ["nodeid", "node.id"]
-                    }).join({
-                        table: "user_admin",
-                        as: "user",
-                        join: "inner",
-                        on: ["uid", "id"]
-                    })
-                    .where({
-                        "node.nodepath": ["like", "%," + nodeid + ",%"],
-                        "title": ["like", "%" + kw + "%"]
-                    }).field("pz_article.*,node.name as nodename,user.username")
-                    .order("id desc")
-                    .limit((cp - 1) * mp, mp).select();
+    init(...args) {
+        super.init(...args);
+        this.pk = 'id';
+    }
 
-                return {
-                    state: true,
-                    msg: rows
-                };
+    async page(kw, cp, mp) {
+            let data = await this.where({
+                    username: ["like", "%" + kw + "%"]
+                })
+                .limit((cp - 1) * mp, mp)
+                .select();
+            return {
+                state: true,
+                msg: data
             }
         }
         /**
@@ -47,17 +26,14 @@ export default class extends think.model.base {
          * @return {[type]}        [description]
          */
     async get(id) {
-            if (think.config("openApi")) {
-                let article = await httpAgent(this.config("api") + 'article/' + parseInt(id), "get");
-                return article;
-            } else {
-                let row = await this.where({
+            let row = await this.where({
                     id: id
-                }).find();
-                return {
-                    state: true,
-                    msg: row
-                }
+                })
+                .fieldReverse("password,salt")
+                .find();
+            return {
+                state: true,
+                msg: row
             }
         }
         /**
@@ -66,16 +42,19 @@ export default class extends think.model.base {
          * @param  {[type]} node [description]
          * @return {[type]}      [description]
          */
-    async edit(article) {
-            if (think.config("openApi")) {
-                let article = await httpAgent(this.config("api") + 'article', "put", article);
-                return article;
+    async userUpdate(user) {
+            let row;
+            if (user.password == '') {
+                delete user.password;
+                row = await this.update(user);
             } else {
-                article.content = unescape(article.content);
-                let row = await this.update(article);
-                return {
-                    state: true
-                }
+                let salt = randomChar(10, "sp");
+                user.password = think.md5(user.password + salt);
+                user.salt = salt;
+                row = await this.update(user);
+            }
+            return {
+                state: true
             }
         }
         /**
@@ -85,6 +64,9 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(user) {
+            let salt = randomChar(10, "sp");
+            user.password = think.md5(user.password + salt);
+            user.salt = salt;
             let id = await this.add(user);
             return {
                 state: true,
@@ -115,15 +97,69 @@ export default class extends think.model.base {
          * @return {[type]}    [description]
          */
     async del(id) {
-        let row = await this.where({
-            id: ["IN", id.split(',')]
+            let row = await this.where({
+                id: ["IN", id.split(',')]
+            }).delete();
+            return {
+                state: true
+            }
+        }
+        /**
+         * 校验用户是否注册
+         * @param  {[type]} username [description]
+         * @return {[type]}          [description]
+         */
+    async checkUserIsReg(username) {
+            let row = await this.where({
+                "username": username
+            }).find();
+            return {
+                state: true,
+                msg: row
+            }
+        }
+        /**
+         * 判断用户名和密码是否正确
+         * @method checkUserLogin
+         * @param  {[type]}       username [description]
+         * @param  {[type]}       password [description]
+         * @return {[type]}                [description]
+         */
+    async checkUserLogin(username, password) {
+            let row = await this.field("password,id,salt").where({
+                "username": username
+            }).find();
+
+            if (think.isEmpty(row)) {
+                return {
+                    "state": false
+                };
+            } else {
+                if (row.password === think.md5(password + row.salt)) {
+                    return {
+                        "state": true,
+                        "msg": row
+                    };
+                } else {
+                    return {
+                        "state": false
+                    };
+                }
+            }
+        }
+        /**
+         * 删除用户
+         * @method dele
+         * @param  {[type]} ids [description]
+         * @return {[type]}     [description]
+         */
+    async dele(ids) {
+        let rows = await this.where({
+            id: ["IN", ids]
         }).delete();
         return {
             state: true
         }
     }
-
-
-
 
 }

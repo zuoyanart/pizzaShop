@@ -17,16 +17,17 @@
     <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
     <div class="userinfo usersetting">
       <div class="form">
-        <div><label for="">电子邮件</label><input type="text" ></div>
-        <div><label for="">QQ</label><input type="text" ></div>
-        <div><label for="">手机</label><input type="text" ></div>
-        <div><input type="submit" value="提交" class="btn btn-info"></div>
+        <div><label for="">电子邮件</label><input type="text" id="mail" name="mail"></div>
+        <div><label for="">手机</label><input type="text" id="phone" name="phone"></div>
+        <div><input type="submit" value="更新" class="btn btn-info"></div>
       </div>
     </div>
     <div style="clear:both;"></div>
   </div>
   <link rel="import" href="/widget/shopFooter/footer.html?__inline">
   <script type="text/javascript">
+    var setting = require("user/setting/setting");
+    setting.init();
   </script>
 </body>
 
