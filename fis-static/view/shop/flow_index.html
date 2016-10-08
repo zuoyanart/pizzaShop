@@ -6,19 +6,49 @@
     <link rel="import" href="/widget/meta/meta.html?__inline">
     <link rel="import" href="/widget/shopMeta/meta.html?__inline">
     <link rel="stylesheet" href="/site/shop/list/list.css">
-    <link rel="stylesheet" href="/site/shop/goods/goods.css">
+    <link rel="stylesheet" href="/site/shop/flow/flow.less">
 </head>
 
 <body>
     <link rel="import" href="/widget/shopHeader/header.html?__inline">
     <link rel="import" href="/widget/shopNav/nav.html?__inline">
     <div class="main">
+      <table>
+        <thead>
+          <td style="width:500px;">商品名称</td>
+          <td style="width:120px;">属性</td>
+          <td>市场价</td>
+          <td>本店价</td>
+          <td style="width:100px;">购买数量</td>
+          <td>小计</td>
+          <td>操作</td>
+        </thead>
+        <%for(var i=0;i<data.length;i++){%>
+          <% var goods = data[i].msg %>
+          <tr>
+            <td><img src="http://o8tdqcp0r.bkt.clouddn.com<%= goods.goods_img%>!v1" alt=""><p><%= goods.goods_name%></p></td>
+            <td></td>
+            <td>￥<%=goods.shop_price%>元</td>
+            <td>￥<%=goods.market_price%>元</td>
+            <td><input type="number" value="<%= cart[i].no%>"/></td>
+            <td>￥<%= goods.shop_price * 1%></td>
+            <td><a class="goodsdel">删除</a></td>
+          </tr>
+        <%}%>
+        <tfoot>
+          <td colspan="7">总计：￥54545.00</td>
+        </tfoot>
+      </table>
+      <div class="oper">
+        <a href="javascript:history.back();" class="btn btn-info">继续购物</a>
+        <a href="/user/buy" class="btn btn-danger">去结算</a>
+      </div>
 
     </div>
     <link rel="import" href="/widget/shopFooter/footer.html?__inline">
     <script type="text/javascript">
-        var goods = require("shop/flow/flow");
-
+        var flow = require("shop/flow/flow");
+        // flow.bind();
     </script>
 </body>
 

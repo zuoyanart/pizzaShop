@@ -99,9 +99,9 @@
                     </ul>
                     <ul>
                         <li style="width:100%;margin-bottom:20pz;height:40px;">购买数量：
-                            <input type="number" style="width:100px;" value="0" /> 商品总价：<em>100元</em></li>
+                            <input type="number" style="width:100px;" value="0" id="goodsno"/> 商品总价：<em>100元</em></li>
                         <li style="width:100%;height:40px;">
-                            <a href="javascript:void(0)" class="cart"><img src="/site/shop/img/goumai2.gif" alt=""></a>
+                            <a href="javascript:void(0)" class="cart addcart"><img src="/site/shop/img/goumai2.gif" alt=""></a>
                         </li>
                           <div style="clear:both;"></div>
                     </ul>
@@ -154,6 +154,10 @@
     <script type="text/javascript">
         var goods = require("shop/goods/goods");
         goods.init();
+
+        var flow = require("shop/flow/flow");
+        flow.init(".addcart");
+
         $(".tab").pizzaTab({
             activeCla: "active", //默认标题选中样式
             itemCla: 'item', //默认正文区样式

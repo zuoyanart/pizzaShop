@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/user/buy/buy.less">
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain buy">
+     <h2>确认收货地址</h2>
+    <div class="addr addr-active"><span>寄送至：</span><input type="radio" name="addr" checked="checked" id="addr1"/><label for="addr1">河南省 郑州市 金水区 未来路街道 未来路商城路首座国际(丰源官邸)6号楼2单元12楼西户（乔祝垒 收）15537172119</label></div>
+    <div class="addr"><span></span><input type="radio" />河南省郑州市金水区</div>
+    <div class="addr"><span></span><input type="radio" />河南省郑州市金水区</div>
+    <div class="addr"><span></span><input type="radio" />河南省郑州市金水区</div>
+    <h2>确认订单</h2>
+    <table class="orderlist">
+      <thead>
+        <td style="width:455px;">宝贝名称</td>
+        <td style="width:180px;">商品属性</td>
+        <td style="width:120px;">单价</td>
+        <td style="width:120px;">数量</td>
+        <td>小计</td>
+      </thead>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input type="number" value="1"></td>
+        <td>￥<em>100</em></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><input type="number" value="1"></td>
+        <td>￥<em>100</em></td>
+      </tr>
+      <tfoot>
+        <td colspan="5">给卖家留言：<input type="text" style="width:656px;"/>&nbsp;&nbsp;&nbsp;&nbsp;
+        配送方式：<select name="" id="" style="width:200px;">
+          <option value="">快递</option>
+          <option value="">EMS</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;合计：￥<em>10000.00</em></td>
+      </tfoot>
+    </table>
+    <h2>实付</h2>
+    <div class="result">
+      <p><b>实付价：</b>￥<em>4980.00</em></p>
+      <p><b>寄送至：</b>河南省 郑州市 金水区 未来路街道 未来路商城路首座国际(丰源官邸)6号楼2单元12楼西</p>
+      <p><b>收货人：</b>乔祝垒 15537172119</p>
+    </div>
+    <div><input type="button" value="提交订单" class="btn btn-danger btn-lg"></div>
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script type="text/javascript">
+    var addr = require("user/addr/addr");
+    addr.init();
+  </script>
+</body>
+
+</html>
+]

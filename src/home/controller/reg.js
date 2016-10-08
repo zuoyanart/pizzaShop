@@ -17,7 +17,7 @@ export default class extends Base {
     async regAction() {
       let userM =  this.model("user");
       let user = xss(this.post());
-      let ischeck = await userM.checkUser(user.username);
+      let ischeck = await userM.checkUserIsReg(user.username);
       if(ischeck.state == true && ischeck.msg.username == user.username) {
         return this.json({
           state: false,
@@ -38,7 +38,7 @@ export default class extends Base {
     async checkAction() {
       let userM =  this.model("user");
       let user = xss(this.post());
-      let ischeck = await userM.checkUser(user.username);
+      let ischeck = await userM.checkUserIsReg(user.username);
       console.log(ischeck.state);
       console.log(ischeck.msg.id);
       if(ischeck.state == true && ischeck.msg.username == user.username) {

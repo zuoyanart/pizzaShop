@@ -9,10 +9,9 @@ let goods = (function() {
     require('pizzaui');
 
     self.init = (cartobj = '.cart') => {
-
-            $(cartobj).click(function() {
-                self.addCart(cartobj);
-            });
+            // $(cartobj).click(function() {
+            //     self.addCart(cartobj);
+            // });
         }
         /**
          * 图片放大镜效果

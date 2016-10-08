@@ -9,7 +9,21 @@ export default class extends Base { //购物车相关
      * @return {Promise} []
      */
     async indexAction() {
+            let goodsM = this.model("goods");
+            let cart = JSON.parse(this.cookie("user_cart")).cart;
+            console.log(cart);
+            let request = [];
 
+            for (let i =0;i<cart.length;i++) {
+                request.push(goodsM.get(cart[i].id));
+            }
+
+            let result = await Promise.all(request);
+
+            this.assign({
+              data: result,
+              cart: cart
+            });
             return this.display();
         }
         /**

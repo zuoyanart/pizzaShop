@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/user/money/money.less">
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain">
+    <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
+    <div class="userinfo usermoney">
+        <div class="money">账户余额：￥<b>10000.15</b>元 <a href="#">充值</a>&nbsp;&nbsp;<a href="">提现</a></div>
+        <table>
+          <thead>
+            <td style="width:150px;">时间</td>
+            <td style="width:150px;">支付编号</td>
+            <td>支付渠道</td>
+            <td>金额</td>
+            <td style="width:200px;">余额</td>
+          </thead>
+          <tr>
+            <td>2016-10-05 13:40:00</td>
+            <td>4as54a4s55assd41</td>
+            <td>支付宝</td>
+            <td>100</td>
+            <td>1000.12</td>
+          </tr>
+        </table>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script type="text/javascript">
+    var addr = require("user/addr/addr");
+    addr.init();
+  </script>
+</body>
+
+</html>
+]

@@ -17,9 +17,9 @@
     <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
     <div class="userinfo useraddr">
       <div class="form" style="width:500px;">
-        <div><label for="">原密码</label><input type="password"></div>
-        <div><label for="">新密码</label><input type="password"></div>
-        <div><label for="">重复密码</label><input type="password"></div>
+        <div><label for="">原密码</label><input type="password" id="oldpassword" name="oldpassword"></div>
+        <div><label for="">新密码</label><input type="password" id="password" name="password"></div>
+        <div><label for="">重复密码</label><input type="password" id="password1" name="password1"></div>
         <div><input type="submit" value="更新" class="btn btn-info"></div>
       </div>
     </div>
@@ -27,8 +27,8 @@
   </div>
   <link rel="import" href="/widget/shopFooter/footer.html?__inline">
   <script type="text/javascript">
-    var addr = require("user/addr/addr");
-    addr.init();
+    var pwd = require("user/pwd/pwd");
+    pwd.init();
   </script>
 </body>
 

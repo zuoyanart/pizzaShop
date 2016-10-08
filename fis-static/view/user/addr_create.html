@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/user/addr/addr.less">
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain">
+    <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
+    <div class="userinfo useraddr">
+      <div class="form">
+        <div><label for="">所在地区</label><select name="province" id="province" style="width:150px;">
+          <option value="">请选择省份</option>
+          <% for(var i=0;i<province.length;i++){%>
+            <option value="<%= province[i].name%>" data="<%= province[i].area_id%>"><%= province[i].name%></option>
+          <%}%>
+        </select>&nbsp;&nbsp;<select name="city" id="city"  style="width:150px;">
+          <option value="">请选择市</option>
+        </select>&nbsp;&nbsp;<select name="district" id="district"  style="width:150px;">
+          <option value="">请选择区县</option>
+        </select></div>
+        <div><label for="">街道地址</label><textarea rows="2" cols="40" id="address" name="address"></textarea></div>
+        <div><label for="">邮编</label><input type="text" id="zipcode" name="zipcode"></div>
+        <div><label for="">手机号</label><input type="text" id="tel" name="tel"></div>
+        <div><label for="">收货人</label><input type="text" id="consignee" name="consignee"></div>
+        <div><label for="">设为默认</label><input type="checkbox"></div>
+        <div><input type="submit" value="保存收货地址" class="btn btn-info"></div>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script type="text/javascript">
+    var addr = require("user/addr/addr");
+    addr.init("get");
+  </script>
+</body>
+
+</html>
