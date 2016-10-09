@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>魅力商城</title>
+  <link rel="import" href="/widget/meta/meta.html?__inline">
+  <link rel="import" href="/widget/shopMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/shop/index/index.css">
+  <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
+  <link rel="stylesheet" href="/site/user/addr/addr.less">
+
+</head>
+
+<body>
+  <link rel="import" href="/widget/shopHeader/header.html?__inline">
+  <link rel="import" href="/widget/shopNav/nav.html?__inline">
+  <div class="usermain">
+    <h2>支付信息</h2>
+    <div>订单编号：as65d76a8sd</div>
+    <div>支付金额：￥1200</div>
+    <div>
+      支付方式：
+      <span><img src="/site/user/pay/img/alipay.png" alt=""></span>
+      <span><img src="/site/user/pay/img/wx.png" alt=""></span>
+      <span><img src="/site/user/pay/img/alipay.png" alt=""></span>
+      <span><img src="/site/user/pay/img/upacp.png" alt=""></span>
+    </div>
+    <input type="button" class="btn btn-danger" value="支付" id="pay">
+    <div style="clear:both;"></div>
+  </div>
+  <link rel="import" href="/widget/shopFooter/footer.html?__inline">
+  <script src="/lib/pingpp.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    var pay = require("user/pay/pay");
+    pay.init();
+  </script>
+</body>
+
+</html>
