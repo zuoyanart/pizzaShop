@@ -1,37 +1,24 @@
 'use strict';
+
 /**
  * model
  */
 export default class extends think.model.base {
     init(...args) {
-        super.init(...args);
-        this.pk = 'address_id';
-        this.tableName = "user_address";
-    }
-
-    async page(uid, cp, mp) {
-            let data = await this.where({
-                    user_id: uid
-                })
-                .limit((cp - 1) * mp, mp)
-                .select();
-            return {
-                state: true,
-                msg: data
-            }
+            super.init(...args);
+            this.pk = "rec_id";
+            this.tableName = "order_goods";
         }
         /**
-         * 获取文章by id
+         * 获取订单by id
          * @method get
          * @param  {[type]} nodeid [description]
          * @return {[type]}        [description]
          */
-    async get(id, uid) {
+    async get(id) {
             let row = await this.where({
-                    address_id: id,
-                    user_id: uid
-                })
-                .find();
+                order_id: id
+            }).find();
             return {
                 state: true,
                 msg: row
@@ -43,8 +30,8 @@ export default class extends think.model.base {
          * @param  {[type]} node [description]
          * @return {[type]}      [description]
          */
-    async edit(address) {
-            let row = await this.update(address);
+    async edit(json) {
+            let row = await this.update(json);
             return {
                 state: true
             }
@@ -55,22 +42,39 @@ export default class extends think.model.base {
          * @param  {[type]} node [description]
          * @return {[type]}      [description]
          */
-    async create(address) {
-            let id = await this.add(address);
+    async create(json) {
+            let id = await this.add(json);
             return {
                 state: true,
                 msg: id
             }
         }
         /**
-         * 删除文章
+         * 更新审核状态
+         * @method pass
+         * @param  {[type]} id     [description]
+         * @param  {[type]} ispass [description]
+         * @return {[type]}        [description]
+         */
+    async updateGoodsType(id, goodstype) {
+            let row = await this.where({
+                goods_id: id
+            }).update({
+                goods_type: goodstype
+            });
+            return {
+                state: true
+            }
+        }
+        /**
+         * 删除订单
          * @method del
          * @param  {[type]} id [description]
          * @return {[type]}    [description]
          */
     async del(id) {
         let row = await this.where({
-            address_id: id
+            id: ["IN", id.split(',')]
         }).delete();
         return {
             state: true

@@ -9,22 +9,50 @@ export default class extends Base { //购物车相关
      * @return {Promise} []
      */
     async indexAction() {
-            let goodsM = this.model("goods");
-            let cart = JSON.parse(this.cookie("user_cart")).cart;
-            console.log(cart);
-            let request = [];
+            let userid = parseInt(this.cookie("user_id"));
+            if (userid > 0) { //已经登录
+                let cartM = this.model("cart");
+                let goodsM = this.model("goods");
+                let carts = await cartM.page(userid, 1, 50);
+                let request = [];
+                let data = carts.msg;
+                let cartsNum = {}; //goosid:no
+                for (let i = 0, ll = data.length; i < ll; i++) {
+                    request.push(goodsM.get(data[i].goods_id));
+                    cartsNum["goods" + data[i].goods_id] = data[i].goods_number;
+                }
+                let result = await Promise.all(request);
+                for (let i = 0, ll = data.length; i < ll; i++) { //更新购买数量
+                    result[i].msg.no = cartsNum["goods" + result[i].msg.goods_id];
+                }
+                this.assign({
+                    data: result
+                });
+                return this.display();
+            } else {
+                let goodsM = this.model("goods");
+                let cart = this.cookie("user_cart");
+                if (typeof(cart) == "object") {
+                    cart = JSON.parse(this.cookie("user_cart")).cart;
+                } else {
+                    cart = [];
+                }
+                let request = [];
+                let cartsNum = {}; //goosid:no
+                for (let i = 0; i < cart.length; i++) {
+                    request.push(goodsM.get(cart[i].id));
+                    cartsNum["goods" + cart[i].id] = cart[i].no;
+                }
 
-            for (let i =0;i<cart.length;i++) {
-                request.push(goodsM.get(cart[i].id));
+                let result = await Promise.all(request);
+                for (let i = 0; i < cart.length; i++) {//更新购买数量
+                    result[i].msg.no = cartsNum["goods" + result[i].msg.goods_id];
+                }
+                this.assign({
+                    data: result
+                });
+                return this.display();
             }
-
-            let result = await Promise.all(request);
-
-            this.assign({
-              data: result,
-              cart: cart
-            });
-            return this.display();
         }
         /**
          * 创建或者更新购物车表

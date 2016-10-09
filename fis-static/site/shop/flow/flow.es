@@ -13,33 +13,59 @@ let flow = (function() {
     require('pizzaui');
 
     self.init = (cartobj = '.addcart') => {
-      $(cartobj).click(function() {
-          addCart();
-      });
+            $(cartobj).click(function() {
+                addCart();
+            });
         }
         /**
          * 添加到购物车
          * @method
          * @return {[type]} [description]
          */
-    let addCart = () =>{
-            let cart = tools.getCookie("user_cart");
-            let item = [];
-            if (cart == "0") {
-                cart = {};
-            } else {
-              cart = JSON.parse(cart);
-              item = cart.cart;
+    let addCart = () => {
+            let goodsid = tools.getPara("id");
+            let no = parseInt($("#goodsno").val());
+            if (!(no > 0)) {
+                no = 1;
             }
-            console.log(cart);
-            console.log(item);
-            item.push({
-              "id": tools.getPara("id"),
-              "no": parseInt($("#goodsno").val())
-            });
-            cart["cart"] = item;
-            tools.setCookie("user_cart",  JSON.stringify(cart));
-            document.location.href = '/shop/flow';
+
+            let userid = tools.getCookie("user_id");
+            if (userid != "0") { //已经登录
+                $.ajax({
+                    type: "post",
+                    url: "/user/cart/add",
+                    data: "goodsid=" + goodsid + "&no=" + no,
+                    success: (msg) => {
+                        document.location.href = "/shop/flow";
+                    }
+                });
+            } else {
+                let cart = tools.getCookie("user_cart");
+                let item = [];
+                if (cart == "0") {
+                    cart = {};
+                } else {
+                    cart = JSON.parse(cart);
+                    item = cart.cart;
+                }
+                let isexit = false;
+                for (let i = 0, ll = item.length; i < ll; i++) {
+                    if (item[i].id == goodsid) {
+                        isexit = true;
+                        item[i].no = parseInt(item[i].no) + 1;
+                        break;
+                    }
+                }
+                if (isexit) {//购物车不存在，则添加
+                    item.push({
+                        "id": goodsid,
+                        "no": no
+                    });
+                }
+                cart["cart"] = item;
+                tools.setCookie("user_cart", JSON.stringify(cart));
+                document.location.href = '/shop/flow';
+            }
         }
         /**
          * 删除商品

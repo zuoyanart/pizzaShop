@@ -236,7 +236,7 @@ var tools = new function() {
   _self.setCookie = function(c, s, d) {
       var v = c + '=' + s;
       v += d ? '; max-age=' + (d * 24 * 60 * 60) : '';
-      document.cookie = v;
+      document.cookie = v + ";path=/;";
     }
     /**
      * 书架csrf参数
