@@ -156,7 +156,9 @@
         goods.init();
 
         var flow = require("shop/flow/flow");
-        flow.init(".addcart");
+        $(".addcart").click(function() {
+            flow.addCart();
+        });
 
         $(".tab").pizzaTab({
             activeCla: "active", //默认标题选中样式

@@ -26,7 +26,7 @@
         </thead>
         <%for(var i=0;i<data.length;i++){%>
           <% var goods = data[i].msg %>
-          <tr>
+          <tr id="<%= goods.goods_id%>">
             <td><img src="http://o8tdqcp0r.bkt.clouddn.com<%= goods.goods_img%>!v1" alt=""><p><%= goods.goods_name%></p></td>
             <td></td>
             <td>￥<%=goods.market_price%>元</td>
@@ -52,7 +52,7 @@
     <link rel="import" href="/widget/shopFooter/footer.html?__inline">
     <script type="text/javascript">
         var flow = require("shop/flow/flow");
-        // flow.bind();
+        flow.init();
     </script>
 </body>
 

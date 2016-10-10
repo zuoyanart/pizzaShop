@@ -13,8 +13,8 @@ let flow = (function() {
     require('pizzaui');
 
     self.init = (cartobj = '.addcart') => {
-            $(cartobj).click(function() {
-                addCart();
+            $(".goodsdel").on("click", function() {
+                del($(this));
             });
         }
         /**
@@ -22,7 +22,7 @@ let flow = (function() {
          * @method
          * @return {[type]} [description]
          */
-    let addCart = () => {
+    self.addCart = () => {
             let goodsid = tools.getPara("id");
             let no = parseInt($("#goodsno").val());
             if (!(no > 0)) {
@@ -56,7 +56,7 @@ let flow = (function() {
                         break;
                     }
                 }
-                if (!isexit) {//购物车不存在，则添加
+                if (!isexit) { //购物车不存在，则添加
                     item.push({
                         "id": goodsid,
                         "no": no
@@ -73,11 +73,48 @@ let flow = (function() {
          * @param  {[type]} goodsnum [description]
          * @return {[type]}          [description]
          */
-    self.del = (goodsnum) => {
-            let item = store.get("pz_cart");
-            delete item[goodsnum];
-            stote.set("pz_cart", item);
-            addCartToServer();
+    let del = (obj) => {
+            let o = $(obj);
+            let op = o.parent().parent();
+            let goodsid = op.attr("id");
+            let no = parseInt(op.find("input").val());
+            if (!(no > 0)) {
+                no = 1;
+            }
+
+            let userid = tools.getCookie("user_id");
+            if (userid != "0") { //已经登录
+                $.ajax({
+                    type: "post",
+                    url: "/user/cart/del",
+                    data: "goodsid=" + goodsid,
+                    success: (msg) => {
+                        $("#" + goodsid).remove();
+                    }
+                });
+            } else {
+                let cart = tools.getCookie("user_cart");
+                let item = [];
+                if (cart == "0") {
+                    cart = {};
+                } else {
+                    cart = JSON.parse(cart);
+                    item = cart.cart;
+                }
+                if (item.length == 1) {
+                    item = [];
+                } else {
+                    for (let i = 0, ll = item.length; i < ll; i++) {
+                        if (item[i].id == goodsid) {
+                            delete item[i];
+                            break;
+                        }
+                    }
+                }
+                cart["cart"] = item;
+                tools.setCookie("user_cart", JSON.stringify(cart));
+                $("#" + goodsid).remove();
+            }
         }
         /**
          * 更新商品数量
