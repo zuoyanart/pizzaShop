@@ -13,6 +13,7 @@
     <link rel="import" href="/widget/shopHeader/header.html?__inline">
     <link rel="import" href="/widget/shopNav/nav.html?__inline">
     <div class="main">
+      <% if(data.length > 0) {%>
       <table>
         <thead>
           <td style="width:500px;">商品名称</td>
@@ -28,17 +29,20 @@
           <tr>
             <td><img src="http://o8tdqcp0r.bkt.clouddn.com<%= goods.goods_img%>!v1" alt=""><p><%= goods.goods_name%></p></td>
             <td></td>
-            <td>￥<%=goods.shop_price%>元</td>
             <td>￥<%=goods.market_price%>元</td>
+            <td>￥<%=goods.shop_price%>元</td>
             <td><input type="number" value="<%= goods.no%>"/></td>
-            <td>￥<%= goods.shop_price * 1%></td>
+            <td>￥<%= goods.shop_price * goods.no%></td>
             <td><a class="goodsdel">删除</a></td>
           </tr>
         <%}%>
-        <tfoot>
+        <!-- <tfoot>
           <td colspan="7">总计：￥54545.00</td>
-        </tfoot>
+        </tfoot> -->
       </table>
+      <%} else {%>
+          暂无商品
+      <%}%>
       <div class="oper">
         <a href="javascript:history.back();" class="btn btn-info">继续购物</a>
         <a href="/user/buy" class="btn btn-danger">去结算</a>

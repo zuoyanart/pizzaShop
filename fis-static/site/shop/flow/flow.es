@@ -56,7 +56,7 @@ let flow = (function() {
                         break;
                     }
                 }
-                if (isexit) {//购物车不存在，则添加
+                if (!isexit) {//购物车不存在，则添加
                     item.push({
                         "id": goodsid,
                         "no": no

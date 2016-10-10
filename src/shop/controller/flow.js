@@ -32,11 +32,13 @@ export default class extends Base { //购物车相关
             } else {
                 let goodsM = this.model("goods");
                 let cart = this.cookie("user_cart");
-                if (typeof(cart) == "object") {
+
+                if (cart != "") {
                     cart = JSON.parse(this.cookie("user_cart")).cart;
                 } else {
                     cart = [];
                 }
+                console.log(cart);
                 let request = [];
                 let cartsNum = {}; //goosid:no
                 for (let i = 0; i < cart.length; i++) {

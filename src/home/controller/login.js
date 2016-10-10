@@ -56,4 +56,17 @@ export default class extends Base {
             });
         }
     }
+/**
+ * 退出登录
+ * @method loginoutAction
+ * @return {[type]}       [description]
+ */
+    async loginoutAction() {
+      this.cookie("user_id", null);
+      this.cookie("user_username", null);
+      this.cookie("user_key", null);
+      return this.json({
+        state: true
+      });
+    }
 }
