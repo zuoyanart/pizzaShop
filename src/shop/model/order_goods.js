@@ -10,6 +10,25 @@ export default class extends think.model.base {
             this.tableName = "order_goods";
         }
         /**
+         *  获取所有订单列表
+         * @method checkUserLogin
+         * @param  {[type]}       username [description]
+         * @param  {[type]}       password [description]
+         * @return {[type]}                [description]
+         */
+    async page(orderid,cp, mp) {
+            let rows = await this
+                .where({
+                    "order_id": orderid
+                })
+                .limit((cp - 1) * mp, mp)
+                .order("order_id desc").select();
+            return {
+                state: true,
+                msg: rows
+            }
+        }
+        /**
          * 获取订单by id
          * @method get
          * @param  {[type]} nodeid [description]

@@ -16,8 +16,12 @@ export default class extends think.model.base {
          * @param  {[type]}       password [description]
          * @return {[type]}                [description]
          */
-    async page(query, option) {
-            let rows = await this.field("order_id, order_sn, order_status,shipping_status,pay_status")
+    async page(userid, cp, mp) {
+            let rows = await this.field("order_id, order_sn, goods_amount,order_status,shipping_status,pay_status, add_time")
+                .where({
+                    "user_id": userid
+                })
+                .limit((cp - 1) * mp, mp)
                 .order("order_id desc").select();
             return {
                 state: true,
@@ -30,9 +34,10 @@ export default class extends think.model.base {
          * @param  {[type]} nodeid [description]
          * @return {[type]}        [description]
          */
-    async get(id) {
+    async get(id, userid) {
             let row = await this.where({
-                order_id: id
+                order_id: id,
+                user_id: userid
             }).find();
             return {
                 state: true,
@@ -58,7 +63,7 @@ export default class extends think.model.base {
          * @return {[type]}      [description]
          */
     async create(json) {
-            json.order_sn = getUnixTime() + randomChar(3).toLowerCase();
+            json.order_sn = getUnixTime() + randomChar(5, "number");
             let id = await this.add(json);
             return {
                 state: true,
@@ -72,12 +77,11 @@ export default class extends think.model.base {
          * @param  {[type]} ispass [description]
          * @return {[type]}        [description]
          */
-    async updateGoodsType(id, goodstype) {
+    async editByid(id, uid, json) {
             let row = await this.where({
-                goods_id: id
-            }).update({
-                goods_type: goodstype
-            });
+                order_id: id,
+                user_id: uid
+            }).update(json);
             return {
                 state: true
             }

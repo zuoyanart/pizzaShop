@@ -7,7 +7,7 @@
   <link rel="import" href="/widget/shopMeta/meta.html?__inline">
   <link rel="stylesheet" href="/site/shop/index/index.css">
   <link rel="import" href="/widget/shopUserMeta/meta.html?__inline">
-  <link rel="stylesheet" href="/site/user/money/money.less">
+  <link rel="stylesheet" href="/site/user/order/order.less">
 </head>
 
 <body>
@@ -15,33 +15,50 @@
   <link rel="import" href="/widget/shopNav/nav.html?__inline">
   <div class="usermain">
     <link rel="import" href="/widget/shopUserMenu/menu.html?__inline">
-    <div class="userinfo usermoney">
-        <div class="money">账户余额：￥<b>10000.15</b>元 <a href="#">充值</a>&nbsp;&nbsp;<a href="">提现</a></div>
+    <div class="userinfo userorder">
+      <div class="orderlist">
         <table>
           <thead>
-            <td style="width:150px;">时间</td>
-            <td style="width:150px;">支付编号</td>
-            <td>支付渠道</td>
-            <td>金额</td>
-            <td style="width:200px;">余额</td>
+              <td style="width:600px;">宝贝</td>
+              <td>单价</td>
+              <td>数量</td>
+              <td>实付款</td>
           </thead>
-          <tr>
-            <td>2016-10-05 13:40:00</td>
-            <td>4as54a4s55assd41</td>
-            <td>支付宝</td>
-            <td>100</td>
-            <td>1000.12</td>
-          </tr>
         </table>
+        <div style="height:50px;">
+
+        </div>
+        <%for(var i=0;i<order.length;i++) {%>
+        <div>
+          <table>
+            <thead>
+              <td colspan="4"><b><%= formatTime(order[i].add_time)%></b>&nbsp;&nbsp;订单号：<%=order[i].order_sn%>&nbsp;&nbsp;总金额：￥<b><%= order[i].goods_amount%></b>&nbsp;&nbsp;状态：已支付&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">订单详情</a></td>
+            </thead>
+            <tbody>
+              <%for(var j=0;j<order[i].goods.length;j++) {%>
+                <tr>
+                  <td style="width:600px;"><img src="http://o8tdqcp0r.bkt.clouddn.com<%= order[i].goods[j].goods_img%>!list" alt=""><%= order[i].goods[j].goods_name%></td>
+                  <td>￥<%= order[i].goods[j].shop_price%></td>
+                  <td><%= order[i].goods[j].goods_number%></td>
+                  <td>￥<%= order[i].goods[j].goods_number * order[i].goods[j].shop_price%></td>
+                </tr>
+              <%}%>
+            </tbody>
+            <tfoot>
+              <td colspan="4">订单状态：已发货&nbsp;&nbsp;<a href="">确认订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">发货</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">查看物流</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">订单详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">删除</a></td>
+            </tfoot>
+          </table>
+        </div>
+        <%}%>
+      </div>
     </div>
     <div style="clear:both;"></div>
   </div>
   <link rel="import" href="/widget/shopFooter/footer.html?__inline">
   <script type="text/javascript">
-    var addr = require("user/addr/addr");
-    addr.init();
+    var pwd = require("user/pwd/pwd");
+    pwd.init();
   </script>
 </body>
 
 </html>
-]

@@ -19,20 +19,14 @@
     <div class="gap">订单编号：<%= order_sn%></div>
     <div class="gap pay">支付金额：￥<%= goods_amount%></div>
     <div class="gap channel">
-      支付方式：
-      <span class="action" data="alipay_pc_direct"><img src="/site/user/pay/img/alipay.png" alt="">支付宝支付</span>
-      <span data="wx_pub_qr"><img src="/site/user/pay/img/wx.png" alt="">微信扫码支付</span>
-      <span data="alipay_qr"><img src="/site/user/pay/img/alipay.png" alt="">支付宝扫码支付</span>
-      <span data="upacp_pc"><img src="/site/user/pay/img/upacp.png" alt="">银联支付</span>
+      支付失败
     </div>
-    <input type="button" class="btn btn-danger" value="支付" id="pay">
     <div style="clear:both;"></div>
   </div>
   <link rel="import" href="/widget/shopFooter/footer.html?__inline">
   <script src="/lib/pingpp.js" charset="utf-8"></script>
   <script type="text/javascript">
-    var pay = require("user/pay/pay");
-    pay.init();
+
   </script>
 </body>
 

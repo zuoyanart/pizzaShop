@@ -172,11 +172,20 @@ global.htmlDecode = (str) => {
      * @return {[type]}   [description]
      */
 global.randomChar = (len, charType) => {
-        let en = "0123456789qwertyioplkjhgfsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
+        let number = "0123456789";
+        let lower = "qwertyioplkjhgfsazxcvbnm";
+        let tower = "QWERTYUIOPLKJHGFDSAZXCVBNM";
         let special = '~!@#$%^&*()_+{}[]:<>,.?';
-        let x = en;
-        if (charType) {
-            x = en + special;
+
+        let x = number + lower + tower;
+        switch (charType) {
+            case "number":
+                x = number
+                break;
+            case "sp":
+                x = x + special;
+            default:
+
         }
         let tmp = "";
         for (var i = 0; i < len; i++) {
@@ -269,5 +278,5 @@ global.getInt = (value, def = 0) => {
      * @return {[type]}     [description]
      */
 global.removeHtml = (str = "") => {
-    return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/g, "");
+    return str.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, "");
 }
