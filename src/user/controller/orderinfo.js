@@ -57,6 +57,7 @@ export default class extends Base { //订单相关
                     goods_amount: money, //总金额
                     add_time: getUnixTime(),
                 };
+                
                 let orderInfoR = await orderInfoM.create(orderinfo); //创建订单
 
                 let requestOrderGoods = [];
@@ -66,7 +67,9 @@ export default class extends Base { //订单相关
                     goods.order_id = orderInfoR.msg;
                     requestOrderGoods.push(orderGoodsM.create(goods));
                 }
+                requestOrderGoods.push(cartM.delByUid(uid)); //清空购物车
                 await Promise.all(requestOrderGoods);
+
                 return {
                     state: true,
                     msg: {

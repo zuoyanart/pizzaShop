@@ -50,10 +50,10 @@ export default class extends think.model.base {
          */
     async editNumber(goodsid, userid, number) {
             let row = await this.where({
-              goods_id: goodsid,
-              user_id: userid
+                goods_id: goodsid,
+                user_id: userid
             }).update({
-              goods_number: number
+                goods_number: number
             });
             return {
                 state: true
@@ -67,17 +67,19 @@ export default class extends think.model.base {
          */
     async create(json) {
             let result = await this.get(json.goods_id, json.user_id);
-            if(result.msg.goods_id == json.goods_id) {//数据已经存在, 则更新数量
-              await this.where({rec_id: result.msg.rec_id}).increment("goods_number", json.goods_number);
-              return {
-                state: true
-              }
-            } else {//不存在则添加
-              let id = await this.add(json);
-              return {
-                  state: true,
-                  msg: id
-              }
+            if (result.msg.goods_id == json.goods_id) { //数据已经存在, 则更新数量
+                await this.where({
+                    rec_id: result.msg.rec_id
+                }).increment("goods_number", json.goods_number);
+                return {
+                    state: true
+                }
+            } else { //不存在则添加
+                let id = await this.add(json);
+                return {
+                    state: true,
+                    msg: id
+                }
             }
         }
         /**
@@ -103,9 +105,24 @@ export default class extends think.model.base {
          * @param  {[type]} id [description]
          * @return {[type]}    [description]
          */
-    async del(id) {
+    async del(userid, goodsid) {
+            let row = await this.where({
+                "user_id": userid,
+                "goods_id": goodsid
+            }).delete();
+            return {
+                state: true
+            }
+        }
+        /**
+         * 根据uid清空购物车
+         * @method delByUid
+         * @param  {[type]} userid [description]
+         * @return {[type]}        [description]
+         */
+    async delByUid(userid) {
         let row = await this.where({
-            id: ["IN", id.split(',')]
+            "user_id": userid
         }).delete();
         return {
             state: true

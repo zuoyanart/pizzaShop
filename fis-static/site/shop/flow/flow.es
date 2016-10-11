@@ -93,6 +93,7 @@ let flow = (function() {
                     data: "goodsid=" + goodsid,
                     success: (msg) => {
                         $("#" + goodsid).remove();
+                        formatMoney();
                     }
                 });
             } else {
@@ -118,6 +119,7 @@ let flow = (function() {
                 cart["cart"] = item;
                 tools.setCookie("user_cart", JSON.stringify(cart));
                 $("#" + goodsid).remove();
+                formatMoney();
             }
         }
         /**
@@ -184,26 +186,7 @@ let flow = (function() {
         }
         $(".money").html(money);
     }
-
-    /**
-     * 提交购物车数据到服务器
-     * @method
-     * @return {[type]} [description]
-     */
-    self.addCartToServer = (data = {}, callback = function() {}) => {
-        // if (tools.getCookie("userid") == '') { //未登录状态不提交到服务器
-        //     return;
-        // }
-        $.ajax({
-            url: '/shop/flow/create',
-            data: data,
-            success: function(msg) {
-                callback(msg);
-                //TODO:
-            }
-        });
-    }
-
+    
     return self;
 }());
 

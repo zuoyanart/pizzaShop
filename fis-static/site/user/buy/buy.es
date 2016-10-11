@@ -91,7 +91,7 @@ let buy = (() => {
             data: "addrid=" + addrid + "&postscript=" + postscript,
             success: function(msg) {
                 if (msg.state == true) {
-                    // document.location.href = "/user/pay?orderid=" + msg.msg.orderid;
+                    document.location.href = "/user/pay?id=" + msg.msg.orderid;
                 }
             }
         })
