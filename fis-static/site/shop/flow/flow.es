@@ -16,6 +16,9 @@ let flow = (function() {
             $(".goodsdel").on("click", function() {
                 del($(this));
             });
+            $(".number").on("change", function() {
+                updateNumber($(this));
+            })
         }
         /**
          * 添加到购物车
@@ -103,6 +106,7 @@ let flow = (function() {
                 }
                 if (item.length == 1) {
                     item = [];
+                    $(".btn-danger").remove();
                 } else {
                     for (let i = 0, ll = item.length; i < ll; i++) {
                         if (item[i].id == goodsid) {
@@ -122,8 +126,63 @@ let flow = (function() {
          * @param  {[type]} goodsnum [description]
          * @return {[type]}          [description]
          */
-    self.updateNumber = (goodsnum) => {
-        addCartToServer();
+    let updateNumber = (obj) => {
+            let o = $(obj);
+            let op = o.parent().parent();
+            let goodsid = op.attr("id"); //获取商品的id
+            let number = parseInt($.trim(o.val()));
+            if (!(number > 0)) { //数量必须大于0
+                number = 1;
+                o.val(1);
+            }
+            let userid = tools.getCookie("user_id");
+            if (userid == "0") { //用户未登录
+                let cart = tools.getCookie("user_cart");
+                let item = [];
+                if (cart == "0") {
+                    cart = {};
+                } else {
+                    cart = JSON.parse(cart);
+                    item = cart.cart;
+                }
+                for (let i = 0, ll = item.length; i < ll; i++) {
+                    if (item[i].id == goodsid) {
+                        item[i].no = number;
+                        break;
+                    }
+                }
+                cart["cart"] = item;
+                tools.setCookie("user_cart", JSON.stringify(cart));
+                formatMoney();
+            } else {
+                $.ajax({
+                    url: "/user/buy/number",
+                    data: "goodsid=" + goodsid + "&count=" + number,
+                    success: function(msg) {
+                        if (msg.state == true) {
+                            formatMoney();
+                        }
+                    }
+                })
+            }
+
+
+        }
+        /**
+         * 更新小计和总计
+         * @method
+         * @return {[type]} [description]
+         */
+    let formatMoney = () => {
+        let money = 0;
+        let trs = $(".tr");
+        for (let i = 0, ll = trs.length; i < ll; i++) {
+            let tds = $(trs[i]).find("td");
+            let my = parseFloat($(tds[3]).find("em").html()) * parseInt($(tds[4]).find("input").val());
+            money += my;
+            $(tds[5]).find("em").html(my);
+        }
+        $(".money").html(money);
     }
 
     /**

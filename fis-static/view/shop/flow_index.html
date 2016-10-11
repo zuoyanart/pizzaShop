@@ -26,19 +26,19 @@
         </thead>
         <%for(var i=0;i<data.length;i++){%>
           <% var goods = data[i].msg %>
-          <tr id="<%= goods.goods_id%>">
+          <tr id="<%= goods.goods_id%>" class="tr">
             <td><img src="http://o8tdqcp0r.bkt.clouddn.com<%= goods.goods_img%>!v1" alt=""><p><%= goods.goods_name%></p></td>
             <td></td>
             <td>￥<%=goods.market_price%>元</td>
-            <td>￥<%=goods.shop_price%>元</td>
-            <td><input type="number" value="<%= goods.no%>"/></td>
-            <td>￥<%= goods.shop_price * goods.no%></td>
+            <td>￥<em><%=goods.shop_price%></em>元</td>
+            <td><input type="number" value="<%= goods.no%>" class="number"/></td>
+            <td>￥<em><%= goods.shop_price * goods.no%></em></td>
             <td><a class="goodsdel">删除</a></td>
           </tr>
         <%}%>
-        <!-- <tfoot>
-          <td colspan="7">总计：￥54545.00</td>
-        </tfoot> -->
+        <tfoot>
+          <td colspan="7">总计：￥<em class="money"><%= money%></em></td>
+        </tfoot>
       </table>
       <%} else {%>
           暂无商品

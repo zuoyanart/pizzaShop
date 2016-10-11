@@ -22,11 +22,14 @@ export default class extends Base { //购物车相关
                     cartsNum["goods" + data[i].goods_id] = data[i].goods_number;
                 }
                 let result = await Promise.all(request);
+                let money = 0;
                 for (let i = 0, ll = data.length; i < ll; i++) { //更新购买数量
                     result[i].msg.no = cartsNum["goods" + result[i].msg.goods_id];
+                      money += result[i].msg.shop_price * result[i].msg.no;
                 }
                 this.assign({
-                    data: result
+                    data: result,
+                    money: money
                 });
                 return this.display();
             } else {
@@ -38,7 +41,6 @@ export default class extends Base { //购物车相关
                 } else {
                     cart = [];
                 }
-                console.log(cart);
                 let request = [];
                 let cartsNum = {}; //goosid:no
                 for (let i = 0; i < cart.length; i++) {
@@ -47,11 +49,14 @@ export default class extends Base { //购物车相关
                 }
 
                 let result = await Promise.all(request);
-                for (let i = 0; i < cart.length; i++) {//更新购买数量
+                let money = 0;
+                for (let i = 0; i < cart.length; i++) { //更新购买数量
                     result[i].msg.no = cartsNum["goods" + result[i].msg.goods_id];
+                    money += result[i].msg.shop_price * result[i].msg.no;
                 }
                 this.assign({
-                    data: result
+                    data: result,
+                    money: 0
                 });
                 return this.display();
             }
